@@ -31,7 +31,7 @@ module.exports = function (config) {
       "src/**/*.ts": ["coverage"],
     },
     coverageReporter: {
-      dir: "/coverage",
+      dir: require("path").join(__dirname, "coverage/"),
       subdir: ".",
       reporters: [{ type: "html" }, { type: "text-summary" }, { type: "lcov" }],
     },
