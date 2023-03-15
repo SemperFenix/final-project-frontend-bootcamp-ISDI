@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProtoAikidoUser } from 'src/types/aikido.user';
+import { AikidoUsersService } from '../services/aikido.users.service';
 
 @Component({
   selector: 'app-register',
@@ -9,8 +10,12 @@ import { ProtoAikidoUser } from 'src/types/aikido.user';
 })
 export class RegisterComponent {
   newRegisterForm: FormGroup;
+
   @Output() itAdd: EventEmitter<ProtoAikidoUser>;
-  constructor(public formBuilder: FormBuilder) {
+  constructor(
+    public aikidoUsersService: AikidoUsersService,
+    public formBuilder: FormBuilder
+  ) {
     this.itAdd = new EventEmitter();
     this.newRegisterForm = formBuilder.group({
       name: ['Nombre', [Validators.required]],
@@ -33,6 +38,7 @@ export class RegisterComponent {
       grade: '6º kyu',
     };
     this.itAdd.next(newAikidoUser);
+    this.aikidoUsersService.register(newAikidoUser).subscribe();
     this.newRegisterForm.reset();
   }
 }
