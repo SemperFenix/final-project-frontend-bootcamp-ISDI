@@ -24,8 +24,14 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true, // removes the duplicated traces
     },
+    preprocessors: {
+      // source files, that you wanna generate coverage for
+      // do not include tests or libraries
+      // (these files will be instrumented by Istanbul)
+      "src/**/*.ts": ["coverage"],
+    },
     coverageReporter: {
-      dir: require("path").join(__dirname, "coverage/"),
+      dir: "/coverage",
       subdir: ".",
       reporters: [{ type: "html" }, { type: "text-summary" }, { type: "lcov" }],
     },
