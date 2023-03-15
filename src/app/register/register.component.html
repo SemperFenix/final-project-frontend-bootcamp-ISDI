@@ -1,0 +1,37 @@
+<h3>
+  <button>
+    <ng-container> Regístrate </ng-container>
+  </button>
+</h3>
+
+<form [formGroup]="newRegisterForm" (submit)="handleSubmit()">
+  <div class="form-group">
+    <label for=""
+      >Nombres
+      <input type="text" formControlName="name" required />
+    </label>
+    <label for=""
+      >Apellidos
+      <input type="text" formControlName="lastName" required />
+    </label>
+    <label for=""
+      >Edad
+      <input type="text" formControlName="age" required />
+    </label>
+    <label for=""
+      >Tiempo practicando
+      <input type="text" formControlName="timePracticing" required />
+    </label>
+    <label for=""
+      >E-mail
+      <input type="text" formControlName="email" required />
+    </label>
+    <label for=""
+      >Contraseña
+      <input type="text" formControlName="password" required />
+    </label>
+  </div>
+  <button type="submit" [disabled]="newRegisterForm.invalid">Añadir</button>
+</form>
+
+{{ newRegisterForm.value | json }}
