@@ -1,0 +1,7 @@
+<nav>
+  <ul>
+    <li *ngFor="let item of items">
+      <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
+    </li>
+  </ul>
+</nav>

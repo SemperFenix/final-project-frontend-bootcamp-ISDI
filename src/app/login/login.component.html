@@ -1,0 +1,19 @@
+<h3>
+  <button>
+    <ng-container> Login </ng-container>
+  </button>
+</h3>
+
+<form [formGroup]="newLoginForm" (submit)="handleSubmit()">
+  <div class="form-group">
+    <label for=""
+      >E-mail
+      <input type="text" formControlName="email" required />
+    </label>
+    <label for=""
+      >Contraseña
+      <input type="text" formControlName="password" required />
+    </label>
+  </div>
+  <button type="submit" [disabled]="newLoginForm.invalid">Añadir</button>
+</form>
