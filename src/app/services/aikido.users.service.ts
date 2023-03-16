@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AikidoUser, ProtoAikidoUser } from 'src/types/aikido.user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Login } from 'src/types/login';
-import { ServerLoginResponse } from 'src/types/server.response';
+import { ServerLoginResponse } from 'src/types/server.responses';
 
 @Injectable({
   providedIn: 'root',
