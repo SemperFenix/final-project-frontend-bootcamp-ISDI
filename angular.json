@@ -78,7 +78,7 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "codeCoverageExclude": ["/**/*routing.module.ts"],
+            "codeCoverageExclude": ["/**/*routing.module.ts", "/**/mocks/*.ts"],
             "inlineStyleLanguage": "sass",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.sass"],
