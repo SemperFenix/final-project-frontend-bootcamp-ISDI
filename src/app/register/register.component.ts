@@ -15,7 +15,7 @@ export class RegisterComponent {
   fetching: boolean;
 
   constructor(
-    public aikidoUsersService: AikidoUsersService,
+    private aikidoUsersService: AikidoUsersService,
     public formBuilder: FormBuilder
   ) {
     this.fetching = false;
@@ -40,7 +40,6 @@ export class RegisterComponent {
       grade: '6º kyu',
     };
     this.aikidoUsersService.register(newAikidoUser).pipe(first()).subscribe();
-    this.aikidoUsersService.fetching.next(false);
     this.newRegisterForm.reset();
   }
 }

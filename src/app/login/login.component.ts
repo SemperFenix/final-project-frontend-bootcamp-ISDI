@@ -14,7 +14,7 @@ export class LoginComponent implements OnDestroy {
   token: string;
   token$: Subscription;
   constructor(
-    public aikidoUsersService: AikidoUsersService,
+    private aikidoUsersService: AikidoUsersService,
     public formBuilder: FormBuilder
   ) {
     this.token = '';
