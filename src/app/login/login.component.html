@@ -8,14 +8,14 @@
   <div class="form-group">
     <label for=""
       >E-mail
-      <input type="text" formControlName="title" required />
+      <input type="text" formControlName="email" required />
     </label>
     <label for=""
       >Contraseña
-      <input type="text" formControlName="owner" required />
+      <input type="text" formControlName="password" required />
     </label>
   </div>
   <button type="submit" [disabled]="newLoginForm.invalid">Añadir</button>
 </form>
 
-{{ newLoginForm.value | json }}
+{{ this.aikidoUsersService.token$ | async }}
