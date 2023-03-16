@@ -37,7 +37,7 @@ describe('AikidoUsersService', () => {
   });
 
   describe('When the register method is called', () => {
-    it('should return the complete registered user', () => {
+    it('should return the complete registered user', async () => {
       const mockResp: ServerRegisterResponse = {
         results: [
           {
@@ -51,10 +51,16 @@ describe('AikidoUsersService', () => {
         ],
       };
       service.register(newAikidoUser).subscribe((resp) => {
+        console.log(resp);
         expect(resp).not.toBeNull();
         expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
       });
       expect(httpTestingController).toBeTruthy();
+      const req = httpTestingController.expectOne(
+        'http://localhost:4500/aikido-users/register'
+      );
+      expect(req.request.method).toEqual('POST');
+      req.flush(mockResp);
     });
   });
 
@@ -69,9 +75,15 @@ describe('AikidoUsersService', () => {
       };
 
       service.login(mockLogin).subscribe((data) => {
+        console.log(data);
         expect(data).not.toBeNull();
         expect(JSON.stringify(data)).toBe(JSON.stringify(mockResp));
       });
+      const req = httpTestingController.expectOne(
+        'http://localhost:4500/aikido-users/login'
+      );
+      expect(req.request.method).toEqual('POST');
+      req.flush(mockResp);
     });
   });
 });
