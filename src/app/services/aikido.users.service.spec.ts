@@ -3,7 +3,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ProtoAikidoUser } from 'src/types/aikido.user';
+import { mockAikidoUser, mockProtoAikidoUser } from 'src/app/mocks/test.mocks';
 import { Login } from 'src/types/login';
 import {
   ServerLoginResponse,
@@ -15,14 +15,6 @@ import { AikidoUsersService } from './aikido.users.service';
 describe('AikidoUsersService', () => {
   let service: AikidoUsersService;
   let httpTestingController: HttpTestingController;
-
-  const newAikidoUser: ProtoAikidoUser = {
-    name: 'TestName',
-    lastName: 'TestLast',
-    email: 'TestMail',
-    grade: '6º kyu',
-    password: 'TestPass',
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -39,18 +31,9 @@ describe('AikidoUsersService', () => {
   describe('When the register method is called', () => {
     it('should return the complete registered user', async () => {
       const mockResp: ServerRegisterResponse = {
-        results: [
-          {
-            ...newAikidoUser,
-            techsLearnt: [],
-            techsInProgress: [],
-            role: 'user',
-            id: '1',
-            techToReview: '',
-          },
-        ],
+        results: [mockAikidoUser],
       };
-      service.register(newAikidoUser).subscribe((resp) => {
+      service.register(mockProtoAikidoUser).subscribe((resp) => {
         console.log(resp);
         expect(resp).not.toBeNull();
         expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
