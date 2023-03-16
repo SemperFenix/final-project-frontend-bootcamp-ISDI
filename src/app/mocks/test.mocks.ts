@@ -2,12 +2,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AikidoUser, ProtoAikidoUser } from 'src/types/aikido.user';
 import { ServerLoginResponse } from 'src/types/server.responses';
 
+const count = 'TestPass';
+
 export const mockProtoAikidoUser: ProtoAikidoUser = {
   name: 'TestName',
   lastName: 'TestLast',
   email: 'TestMail',
   grade: '6º kyu',
-  password: 'TestPass',
+  password: count,
 };
 
 export const mockAikidoUser: AikidoUser = {
