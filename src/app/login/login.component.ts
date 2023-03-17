@@ -39,6 +39,7 @@ export class LoginComponent implements OnDestroy {
     this.token$ = this.aikidoUsersService.login(loginUser).subscribe((data) => {
       this.aikidoUsersService.token$.next(data.results[0].token);
       this.token = data.results[0].token;
+      localStorage.setItem('Token', this.token);
     });
   }
 

@@ -3,7 +3,10 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { mockAikidoUser, mockProtoAikidoUser } from 'src/app/mocks/test.mocks';
+import {
+  mockAikidoUser,
+  mockProtoAikidoUser,
+} from 'src/app/utils/mocks/test.mocks';
 import { Login } from 'src/types/login';
 import {
   ServerLoginResponse,
