@@ -6,7 +6,7 @@ import { AikidoUsersService } from '../services/aikido.users.service';
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
-import { mockAikidoUsersService } from 'src/app/mocks/test.mocks';
+import { mockAikidoUsersService } from 'src/app/utils/mocks/test.mocks';
 
 const serverResp = {
   results: [

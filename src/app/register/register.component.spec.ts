@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import {
   mockAikidoUser,
   mockAikidoUsersService,
-} from 'src/app/mocks/test.mocks';
+} from 'src/app/utils/mocks/test.mocks';
 import { AikidoUsersService } from '../services/aikido.users.service';
 import { RegisterComponent } from './register.component';
 
