@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { ProtoAikidoUser } from 'src/types/aikido.user';
 
 import { AikidoUsersService } from '../services/aikido.users.service';
+import { ModalHandlerService } from '../services/modal-handler.service';
 
 @Component({
   selector: 'app-register',
@@ -13,11 +14,20 @@ import { AikidoUsersService } from '../services/aikido.users.service';
 export class RegisterComponent {
   newRegisterForm: FormGroup;
   fetching: boolean;
+  registerModal: boolean;
+  subscription: Subscription;
 
   constructor(
     private aikidoUsersService: AikidoUsersService,
+    private handleModalService: ModalHandlerService,
     public formBuilder: FormBuilder
   ) {
+    this.subscription = this.handleModalService
+      .getRegisterModal()
+      .subscribe((value) => {
+        this.registerModal = value;
+      });
+    this.registerModal = false;
     this.fetching = false;
     this.newRegisterForm = formBuilder.group({
       name: ['Nombre', [Validators.required]],
@@ -40,6 +50,7 @@ export class RegisterComponent {
       grade: '6º kyu',
     };
     this.aikidoUsersService.register(newAikidoUser).pipe(first()).subscribe();
+    this.handleModalService.registerModal(true);
     this.newRegisterForm.reset();
   }
 }

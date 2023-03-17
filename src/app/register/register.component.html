@@ -1,8 +1,6 @@
-<h3>
-  <button>
-    <ng-container> Regístrate </ng-container>
-  </button>
-</h3>
+<h3>Regístrate</h3>
+
+<app-register-modal *ngIf="registerModal"> </app-register-modal>
 
 <form [formGroup]="newRegisterForm" (submit)="handleSubmit()">
   <div class="form-group">
