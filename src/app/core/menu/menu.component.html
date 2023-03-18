@@ -16,7 +16,12 @@
   </ul>
   <ul *ngIf="loggedUser.role === 'sensei'">
     <li *ngFor="let item of itemsAdmin">
-      <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
+      <div *ngIf="item.path !== 'logout'">
+        <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
+      </div>
+      <div *ngIf="item.path === 'logout'">
+        <a (click)="handleLogout()">{{ item.label }}</a>
+      </div>
     </li>
   </ul>
 </nav>
