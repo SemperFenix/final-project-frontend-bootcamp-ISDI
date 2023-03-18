@@ -7,11 +7,13 @@ import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
 import { mockAikidoUsersService } from 'src/app/utils/mocks/test.mocks';
+import { ServerLoginResponse } from 'src/types/server.responses';
 
 const serverResp = {
   results: [
     {
-      token: '',
+      token:
+        'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6IiIsImVtYWlsIjoiIiwicm9sZSI6IiIsImlhdCI6MTY3OTA0ODgwNH0.U8s8UMTJddjfXH_qbxiJJ5GuJeEhryxFmv8d8DBMsycVTt-k1sdAFEq9yRUXbawo',
     },
   ],
 };
@@ -47,7 +49,7 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
   describe('Given the handleSubmit method', () => {
-    describe('When called', () => {
+    describe('When called with correct data', () => {
       it('Should call the aikidoUsers login service and next', () => {
         component.newLoginForm.value['email'] = 'TestMail';
         component.newLoginForm.value['password'] = 'TestPass';
@@ -59,6 +61,20 @@ describe('LoginComponent', () => {
         component.handleSubmit();
 
         expect(spyLogin).toHaveBeenCalled();
+      });
+    });
+
+    describe('When called with incorrect data', () => {
+      it('Should call the aikidoUsers login service and return', () => {
+        const spyLogin = spyOn(service, 'login').and.returnValue(
+          of(undefined as unknown as ServerLoginResponse)
+        );
+        const spyLocal = spyOn(localStorage, 'setItem');
+
+        component.handleSubmit();
+
+        expect(spyLogin).toHaveBeenCalled();
+        expect(spyLocal).not.toHaveBeenCalled();
       });
     });
   });
