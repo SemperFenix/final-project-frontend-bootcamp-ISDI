@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
+import { LoggedUser } from 'src/types/login';
 import { MenuItems } from 'src/types/menu.items';
 
 @Component({
@@ -6,14 +8,14 @@ import { MenuItems } from 'src/types/menu.items';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.sass'],
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
   items: MenuItems[];
-  constructor() {
+  itemsLogged: MenuItems[];
+  itemsAdmin: MenuItems[];
+  loggedUser: LoggedUser;
+  constructor(private loginService: LoginService) {
+    this.loggedUser = { email: '', id: '', role: 'logout' };
     this.items = [
-      {
-        path: 'home', // Esta es la etiqueta que hayamos puesto en el routing
-        label: 'Inicio', // Nombre a mostrar
-      },
       {
         path: 'register',
         label: 'Register',
@@ -23,5 +25,63 @@ export class MenuComponent {
         label: 'Login',
       },
     ];
+    this.itemsLogged = [
+      {
+        path: 'techs', // Esta es la etiqueta que hayamos puesto en el routing
+        label: 'Técnicas', // Nombre a mostrar
+      },
+      {
+        path: 'users',
+        label: 'Usuarios',
+      },
+      {
+        path: 'profile',
+        label: 'Mi perfil',
+      },
+      {
+        path: 'progress',
+        label: 'Mi progreso',
+      },
+      {
+        path: 'logout',
+        label: 'Cerrar sesión',
+      },
+    ];
+    this.itemsAdmin = [
+      {
+        path: 'techs', // Esta es la etiqueta que hayamos puesto en el routing
+        label: 'Técnicas', // Nombre a mostrar
+      },
+      {
+        path: 'users',
+        label: 'Usuarios',
+      },
+      {
+        path: 'profile',
+        label: 'Mi perfil',
+      },
+      {
+        path: 'add-tech',
+        label: 'Añadir',
+      },
+      {
+        path: 'progress',
+        label: 'Mi progreso',
+      },
+      {
+        path: 'logout',
+        label: 'Cerrar sesión',
+      },
+    ];
+  }
+
+  ngOnInit(): void {
+    this.loginService
+      .getLoggedUser$()
+      .subscribe((user) => (this.loggedUser = user));
+  }
+
+  handleLogout(): void {
+    this.loginService.loggedUser({ email: '', id: '', role: 'logout' });
   }
 }
