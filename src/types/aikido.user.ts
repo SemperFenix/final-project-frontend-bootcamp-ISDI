@@ -41,3 +41,17 @@ export interface AikidoUser extends ProtoAikidoUser {
   principalSensei?: AikidoUser;
   mainUke?: AikidoUser;
 }
+
+export type ProtoUsersList = {
+  users: AikidoUser[];
+  number: number;
+};
+
+export type UsersList = {
+  senseis: ProtoUsersList;
+  students: ProtoUsersList;
+};
+
+export type UsersServerResponse = {
+  results: [UsersList];
+};
