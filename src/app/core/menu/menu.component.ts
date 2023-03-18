@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { LoggedUser } from 'src/types/login';
 import { MenuItems } from 'src/types/menu.items';
 
 @Component({
@@ -11,9 +12,9 @@ export class MenuComponent implements OnInit {
   items: MenuItems[];
   itemsLogged: MenuItems[];
   itemsAdmin: MenuItems[];
-  login: string;
+  loggedUser: LoggedUser;
   constructor(private loginService: LoginService) {
-    this.login = 'logout';
+    this.loggedUser = { email: '', id: '', role: 'logout' };
     this.items = [
       {
         path: 'register',
@@ -75,12 +76,12 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginService.getLogin$().subscribe((login) => {
-      this.login = login;
-    });
+    this.loginService
+      .getLoggedUser$()
+      .subscribe((user) => (this.loggedUser = user));
   }
 
   handleLogout(): void {
-    this.loginService.changeLogin('logout');
+    this.loginService.loggedUser({ email: '', id: '', role: 'logout' });
   }
 }

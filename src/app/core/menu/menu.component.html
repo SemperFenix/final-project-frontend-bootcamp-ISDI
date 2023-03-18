@@ -1,10 +1,10 @@
 <nav>
-  <ul *ngIf="login === 'logout'">
+  <ul *ngIf="loggedUser.role === 'logout'">
     <li *ngFor="let item of items">
       <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
     </li>
   </ul>
-  <ul *ngIf="login === 'logged'">
+  <ul *ngIf="loggedUser.role === 'user'">
     <li *ngFor="let item of itemsLogged">
       <div *ngIf="item.path !== 'logout'">
         <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
@@ -14,7 +14,7 @@
       </div>
     </li>
   </ul>
-  <ul *ngIf="login === 'admin'">
+  <ul *ngIf="loggedUser.role === 'sensei'">
     <li *ngFor="let item of itemsAdmin">
       <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
     </li>
