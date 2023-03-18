@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage",
     "test:prod": "ng test --code-coverage --watch=false --browsers=ChromeHeadless",
-    "config": "ts-node src/environments/set-env.js",
+    "config": "ts-node src/environments/set-env.ts",
     "lint": "ng lint"
   },
   "private": true,
