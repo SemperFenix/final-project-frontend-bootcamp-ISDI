@@ -26,12 +26,8 @@ export class LoginComponent implements OnDestroy {
     this.token$ = new Subscription();
 
     this.newLoginForm = formBuilder.group({
-      name: ['Nombre', [Validators.required]],
-      lastName: ['Apellidos', [Validators.required]],
-      age: 'Edad',
-      timePracticing: 'Tiempo practicando',
-      email: ['E-mail', [Validators.required]],
-      password: ['Contraseña', [Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -48,6 +44,7 @@ export class LoginComponent implements OnDestroy {
       localStorage.setItem('Token', this.token);
 
       const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
+      this.newLoginForm.reset();
 
       this.loginService.loggedUser(userInfo);
     });
