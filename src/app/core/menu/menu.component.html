@@ -1,27 +1,35 @@
 <nav>
-  <ul *ngIf="loggedUser.role === 'logout'">
-    <li *ngFor="let item of items">
-      <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
-    </li>
-  </ul>
-  <ul *ngIf="loggedUser.role === 'user'">
-    <li *ngFor="let item of itemsLogged">
-      <div *ngIf="item.path !== 'logout'">
+  <fa-icon
+    *ngIf="this.burger"
+    [icon]="['fas', 'bars']"
+    size="3x"
+    (click)="burgerToggle()"
+  ></fa-icon>
+  <div class="full-menu" *ngIf="!this.burger">
+    <ul *ngIf="loggedUser.role === 'logout'">
+      <li *ngFor="let item of items" (click)="this.burger = !this.burger">
         <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
-      </div>
-      <div *ngIf="item.path === 'logout'">
-        <a (click)="handleLogout()">{{ item.label }}</a>
-      </div>
-    </li>
-  </ul>
-  <ul *ngIf="loggedUser.role === 'sensei'">
-    <li *ngFor="let item of itemsAdmin">
-      <div *ngIf="item.path !== 'logout'">
-        <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
-      </div>
-      <div *ngIf="item.path === 'logout'">
-        <a (click)="handleLogout()">{{ item.label }}</a>
-      </div>
-    </li>
-  </ul>
+      </li>
+    </ul>
+    <ul *ngIf="loggedUser.role === 'user'">
+      <li *ngFor="let item of itemsLogged">
+        <div *ngIf="item.path !== 'logout'">
+          <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
+        </div>
+        <div *ngIf="item.path === 'logout'">
+          <a (click)="handleLogout()">{{ item.label }}</a>
+        </div>
+      </li>
+    </ul>
+    <ul *ngIf="loggedUser.role === 'sensei'">
+      <li *ngFor="let item of itemsAdmin">
+        <div *ngIf="item.path !== 'logout'">
+          <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
+        </div>
+        <div *ngIf="item.path === 'logout'">
+          <a (click)="handleLogout()">{{ item.label }}</a>
+        </div>
+      </li>
+    </ul>
+  </div>
 </nav>

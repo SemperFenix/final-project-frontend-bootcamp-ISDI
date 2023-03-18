@@ -7,7 +7,7 @@ import * as jose from 'jose';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.sass'],
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
   items: MenuItems[];
@@ -15,7 +15,9 @@ export class MenuComponent implements OnInit {
   itemsAdmin: MenuItems[];
   loggedUser: LoggedUser;
   token: string | null;
+  burger: boolean;
   constructor(private loginService: LoginService) {
+    this.burger = true;
     this.token = '';
     this.loggedUser = { email: '', id: '', role: 'logout' };
     this.items = [
@@ -88,6 +90,10 @@ export class MenuComponent implements OnInit {
     const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
 
     this.loginService.loggedUser(userInfo);
+  }
+
+  burgerToggle(): void {
+    this.burger = !this.burger;
   }
 
   handleLogout(): void {

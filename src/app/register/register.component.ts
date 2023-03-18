@@ -9,7 +9,7 @@ import { ModalHandlerService } from '../services/modal-handler.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.sass'],
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   newRegisterForm: FormGroup;
@@ -30,12 +30,12 @@ export class RegisterComponent {
     this.registerModal = false;
     this.fetching = false;
     this.newRegisterForm = formBuilder.group({
-      name: ['Nombre', [Validators.required]],
-      lastName: ['Apellidos', [Validators.required]],
-      age: 'Edad',
-      timePracticing: 'Tiempo practicando',
-      email: ['E-mail', [Validators.required]],
-      password: ['Contraseña', [Validators.required]],
+      name: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      age: '',
+      timePracticing: '',
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 

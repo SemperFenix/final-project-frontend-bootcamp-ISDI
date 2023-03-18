@@ -6,6 +6,7 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 import {
+  faBars,
   faChevronLeft,
   faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
@@ -28,6 +29,6 @@ import { CoreModule } from './core/core.module';
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faChevronRight, faChevronLeft);
+    library.addIcons(faChevronRight, faChevronLeft, faBars);
   }
 }
