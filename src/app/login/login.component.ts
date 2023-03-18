@@ -1,9 +1,10 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Login } from 'src/types/login';
+import { LoggedUser, Login } from 'src/types/login';
 import { AikidoUsersService } from '../services/aikido.users.service';
 import { LoginService } from '../services/login.service';
+import * as jose from 'jose';
 
 @Component({
   selector: 'app-login',
@@ -44,8 +45,11 @@ export class LoginComponent implements OnDestroy {
       if (!data) return;
       this.aikidoUsersService.token$.next(data.results[0].token);
       this.token = data.results[0].token;
-
       localStorage.setItem('Token', this.token);
+
+      const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
+
+      this.loginService.loggedUser(userInfo);
     });
   }
 
