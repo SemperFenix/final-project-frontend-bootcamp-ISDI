@@ -82,6 +82,7 @@ export class MenuComponent implements OnInit {
   }
 
   handleLogout(): void {
+    localStorage.clear();
     this.loginService.loggedUser({ email: '', id: '', role: 'logout' });
   }
 }
