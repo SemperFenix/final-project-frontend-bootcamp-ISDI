@@ -13,7 +13,7 @@ export class LoginService {
     this.userLogged$ = new Subject<LoggedUser>();
   }
 
-  loggedUser(pUserLogged: LoggedUser) {
+  loggedUser(pUserLogged: LoggedUser): void {
     this.userLogged = pUserLogged;
     this.userLogged$.next(this.userLogged);
   }
