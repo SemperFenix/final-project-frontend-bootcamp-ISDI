@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { LoggedUser } from 'src/types/login';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  private login: string;
-  private login$: Subject<string>;
+  private userLogged: LoggedUser;
+  private userLogged$: Subject<LoggedUser>;
   constructor() {
-    this.login = '';
-    this.login$ = new Subject<string>();
+    this.userLogged = { email: '', id: '', role: 'logout' };
+    this.userLogged$ = new Subject<LoggedUser>();
   }
 
-  changeLogin(pLogin: string) {
-    this.login = pLogin;
-    this.login$.next(this.login);
+  loggedUser(pUserLogged: LoggedUser) {
+    this.userLogged = pUserLogged;
+    this.userLogged$.next(this.userLogged);
   }
 
-  getLogin$(): Observable<string> {
-    return this.login$.asObservable();
+  getLoggedUser$(): Observable<LoggedUser> {
+    return this.userLogged$.asObservable();
   }
 }
