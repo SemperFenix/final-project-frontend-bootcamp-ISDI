@@ -1,6 +1,21 @@
 <nav>
-  <ul>
+  <ul *ngIf="login === 'logout'">
     <li *ngFor="let item of items">
+      <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
+    </li>
+  </ul>
+  <ul *ngIf="login === 'logged'">
+    <li *ngFor="let item of itemsLogged">
+      <div *ngIf="item.path !== 'logout'">
+        <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
+      </div>
+      <div *ngIf="item.path === 'logout'">
+        <a (click)="handleLogout()">{{ item.label }}</a>
+      </div>
+    </li>
+  </ul>
+  <ul *ngIf="login === 'admin'">
+    <li *ngFor="let item of itemsAdmin">
       <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
     </li>
   </ul>
