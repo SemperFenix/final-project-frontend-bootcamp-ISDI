@@ -6,14 +6,16 @@ import { AikidoUsersService } from '../services/aikido.users.service';
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
-import { mockAikidoUsersService } from 'src/app/utils/mocks/test.mocks';
+import {
+  mockAikidoUsersService,
+  mockToken,
+} from 'src/app/utils/mocks/test.mocks';
 import { ServerLoginResponse } from 'src/types/server.responses';
 
 const serverResp = {
   results: [
     {
-      token:
-        'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6IiIsImVtYWlsIjoiIiwicm9sZSI6IiIsImlhdCI6MTY3OTA0ODgwNH0.U8s8UMTJddjfXH_qbxiJJ5GuJeEhryxFmv8d8DBMsycVTt-k1sdAFEq9yRUXbawo',
+      token: mockToken,
     },
   ],
 };
