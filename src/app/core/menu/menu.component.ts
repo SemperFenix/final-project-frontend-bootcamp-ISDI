@@ -85,6 +85,7 @@ export class MenuComponent implements OnInit {
     this.token = localStorage.getItem('Token');
 
     if (!this.token) return;
+
     const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
 
     this.loginService.loggedUser(userInfo);

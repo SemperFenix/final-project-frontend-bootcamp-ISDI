@@ -2,7 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
-import { mockLoginService, mockUser } from 'src/app/utils/mocks/test.mocks';
+import {
+  mockLoginService,
+  mockToken,
+  mockUser,
+} from 'src/app/utils/mocks/test.mocks';
 import { LoggedUser } from 'src/types/login';
 
 import { MenuComponent } from './menu.component';
@@ -36,6 +40,7 @@ describe('MenuComponent', () => {
 
   describe('When onInit', () => {
     it('Then it should call getLoggedUser$ service', () => {
+      component.token = mockToken;
       const spyLogin = spyOn(service, 'getLoggedUser$').and.returnValue(
         of(mockUser)
       );

@@ -30,14 +30,14 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .getSenseiUsers(String(this.senseisPage))
       .subscribe((users) => {
         this.senseis = users.results[0];
-        this.aikidoUsersService.senseisUsers(this.senseis);
+        this.aikidoUsersService.senseiUsers(this.senseis);
       });
 
     this.students$ = this.aikidoUsersService
       .getStudentUsers(String(this.studentsPage))
       .subscribe((users) => {
         this.students = users.results[0];
-        this.aikidoUsersService.studentsUsers(this.students);
+        this.aikidoUsersService.studentUsers(this.students);
       });
   }
 
@@ -47,7 +47,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .getSenseiUsers(String(this.senseisPage))
       .subscribe((users) => {
         this.senseis = users.results[0];
-        this.aikidoUsersService.senseisUsers(this.senseis);
+        this.aikidoUsersService.senseiUsers(this.senseis);
       });
   };
   handleSenseisNext = () => {
@@ -57,7 +57,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .getSenseiUsers(String(this.senseisPage))
       .subscribe((users) => {
         this.senseis = users.results[0];
-        this.aikidoUsersService.senseisUsers(this.senseis);
+        this.aikidoUsersService.senseiUsers(this.senseis);
       });
   };
 
@@ -67,7 +67,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .getStudentUsers(String(this.studentsPage))
       .subscribe((users) => {
         this.students = users.results[0];
-        this.aikidoUsersService.studentsUsers(this.students);
+        this.aikidoUsersService.studentUsers(this.students);
       });
   };
 
@@ -78,7 +78,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .getStudentUsers(String(this.studentsPage))
       .subscribe((users) => {
         this.students = users.results[0];
-        this.aikidoUsersService.studentsUsers(this.students);
+        this.aikidoUsersService.studentUsers(this.students);
       });
   };
 
