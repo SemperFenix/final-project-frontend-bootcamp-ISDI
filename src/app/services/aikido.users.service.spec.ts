@@ -81,6 +81,7 @@ describe('AikidoUsersService', () => {
   describe('When the getSenseiUsers method is called', () => {
     describe('And there is no token$', () => {
       it('should return the senseis list from API', async () => {
+        service.token$ = new BehaviorSubject('');
         const spyLocal = spyOn(localStorage, 'getItem').and.returnValue('a');
         const mockResp: ServerUsersResponse = {
           results: [mockSenseisList],
@@ -179,6 +180,7 @@ describe('AikidoUsersService', () => {
 
     describe('And there is no token$', () => {
       it('should return the students list from API', async () => {
+        service.token$ = new BehaviorSubject('');
         const spyLocal = spyOn(localStorage, 'getItem').and.returnValue('a');
         const mockResp: ServerUsersResponse = {
           results: [mockUsersList],
