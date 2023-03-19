@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {
-  AikidoUser,
-  ProtoAikidoUser,
-  UsersList,
-  UsersServerResponse,
-} from 'src/types/aikido.user';
+import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { Login } from 'src/types/login';
-import { ServerLoginResponse } from 'src/types/server.responses';
+import {
+  ServerLoginResponse,
+  ServerUsersResponse,
+} from 'src/types/server.responses';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +16,10 @@ export class AikidoUsersService {
   apiBaseUrl: string;
   token: string | null;
   token$: BehaviorSubject<string>;
-  private senseis: UsersList;
-  private senseis$: Subject<UsersList>;
-  private students: UsersList;
-  private students$: Subject<UsersList>;
+  senseis: UsersList;
+  senseis$: Subject<UsersList>;
+  students: UsersList;
+  students$: Subject<UsersList>;
 
   constructor(public http: HttpClient) {
     this.senseis = { users: [], number: 0 };
@@ -48,7 +46,7 @@ export class AikidoUsersService {
     ) as Observable<ServerLoginResponse>;
   }
 
-  getSenseiUsers(pPage: string): Observable<UsersServerResponse> {
+  getSenseiUsers(pPage: string): Observable<ServerUsersResponse> {
     // eslint-disable-next-line no-debugger
     // debugger;
     this.token$.value
@@ -58,14 +56,15 @@ export class AikidoUsersService {
       headers: { ['Authorization']: `Bearer ${this.token}` },
       params: new HttpParams().set('page', pPage),
       responseType: 'json',
-    }) as Observable<UsersServerResponse>;
+    }) as Observable<ServerUsersResponse>;
   }
-  senseisUsers(pSenseis: UsersList): void {
+
+  senseiUsers(pSenseis: UsersList): void {
     this.senseis = pSenseis;
     this.senseis$.next(this.senseis);
   }
 
-  getStudentUsers(pPage: string): Observable<UsersServerResponse> {
+  getStudentUsers(pPage: string): Observable<ServerUsersResponse> {
     this.token$.value
       ? (this.token = this.token$.value)
       : (this.token = localStorage.getItem('Token'));
@@ -73,10 +72,10 @@ export class AikidoUsersService {
       headers: { ['Authorization']: `Bearer ${this.token}` },
       params: new HttpParams().set('page', pPage),
       responseType: 'json',
-    }) as Observable<UsersServerResponse>;
+    }) as Observable<ServerUsersResponse>;
   }
 
-  studentsUsers(pStudents: UsersList): void {
+  studentUsers(pStudents: UsersList): void {
     this.students = pStudents;
     this.students$.next(this.students);
   }
