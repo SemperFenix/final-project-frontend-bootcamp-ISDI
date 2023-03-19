@@ -62,6 +62,8 @@ describe('MenuComponent', () => {
   describe('When onInit', () => {
     describe('And call getLoggedUsers$ with no token', () => {
       it('Then it should return', () => {
+        component.token = '';
+        spyOn(localStorage, 'getItem').and.returnValue(null);
         const spyLogin = spyOn(service, 'getLoggedUser$').and.returnValue(
           of(false as unknown as LoggedUser)
         );
