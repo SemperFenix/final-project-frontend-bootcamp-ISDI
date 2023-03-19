@@ -2,7 +2,7 @@
 
 header {
   position: sticky;
-  margin: 0px;
+  margin: 0 0 0 0px;
   top: 0;
   padding: 2rem;
   background-color: #e2ddcb;
@@ -10,14 +10,12 @@ header {
     rgba(0, 0, 0, 0.22) 0px 0px 10px;
 
   height: 98px;
-  width: 100vw;
   max-height: 98px;
   max-width: 500px;
-  min-width: 390px;
+  min-width: 420px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
+
 .title {
   width: 90px;
 }
@@ -28,6 +26,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 500px;
-  min-width: 390px;
+  width: 70vw;
+  max-width: 420px;
+  min-width: 300px;
 }
