@@ -47,11 +47,8 @@ export class AikidoUsersService {
   }
 
   getSenseiUsers(pPage: string): Observable<ServerUsersResponse> {
-    // eslint-disable-next-line no-debugger
-    // debugger;
-    this.token$.value
-      ? (this.token = this.token$.value)
-      : (this.token = localStorage.getItem('Token'));
+    this.token = this.token$.value;
+    if (this.token === null) this.token = localStorage.getItem('Token');
     return this.http.get(this.apiBaseUrl + '/users/senseis', {
       headers: { ['Authorization']: `Bearer ${this.token}` },
       params: new HttpParams().set('page', pPage),
@@ -65,9 +62,9 @@ export class AikidoUsersService {
   }
 
   getStudentUsers(pPage: string): Observable<ServerUsersResponse> {
-    this.token$.value
-      ? (this.token = this.token$.value)
-      : (this.token = localStorage.getItem('Token'));
+    this.token = this.token$.value;
+    if (this.token === null) this.token = localStorage.getItem('Token');
+
     return this.http.get(this.apiBaseUrl + '/users/students', {
       headers: { ['Authorization']: `Bearer ${this.token}` },
       params: new HttpParams().set('page', pPage),
