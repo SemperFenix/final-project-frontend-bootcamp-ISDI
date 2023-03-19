@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  // {
-  //   path: 'home',
-  //   loadChildren: () => import('./').then((m) => m.HomeModule),
-  // },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+  },
   {
     path: 'register',
     loadChildren: () =>
@@ -21,6 +21,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./users-list/users-list.module').then((m) => m.UsersListModule),
   },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '**', redirectTo: 'home' },
 ];
 
 @NgModule({
