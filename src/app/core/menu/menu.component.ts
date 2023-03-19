@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { LoggedUser } from 'src/types/login';
 import { MenuItems } from 'src/types/menu.items';
@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit {
   itemsAdmin: MenuItems[];
   loggedUser: LoggedUser;
   token: string | null;
+  @Output() burger = new EventEmitter<boolean>(true);
   constructor(private loginService: LoginService) {
     this.token = '';
     this.loggedUser = { email: '', id: '', role: 'logout' };
@@ -94,5 +95,9 @@ export class MenuComponent implements OnInit {
   handleLogout(): void {
     localStorage.clear();
     this.loginService.loggedUser({ email: '', id: '', role: 'logout' });
+  }
+
+  sendToParent() {
+    this.burger.next(!this.burger);
   }
 }

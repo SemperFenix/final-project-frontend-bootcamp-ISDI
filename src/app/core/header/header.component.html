@@ -9,7 +9,7 @@
     <fa-icon
       [icon]="['fas', 'bars']"
       size="3x"
-      (click)="this.burger = !this.burger"
+      (click)="sendToParent()"
     ></fa-icon>
   </div>
   <ng-content *ngIf="!this.burger"></ng-content>

@@ -1,12 +1,12 @@
 <nav>
   <div class="full-menu">
     <ul *ngIf="loggedUser.role === 'logout'">
-      <li *ngFor="let item of items">
+      <li *ngFor="let item of items" (click)="sendToParent()">
         <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
       </li>
     </ul>
     <ul *ngIf="loggedUser.role === 'user'">
-      <li *ngFor="let item of itemsLogged">
+      <li *ngFor="let item of itemsLogged" (click)="sendToParent()">
         <div *ngIf="item.path !== 'logout'">
           <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
         </div>
@@ -16,7 +16,7 @@
       </li>
     </ul>
     <ul *ngIf="loggedUser.role === 'sensei'">
-      <li *ngFor="let item of itemsAdmin">
+      <li *ngFor="let item of itemsAdmin" (click)="sendToParent()">
         <div *ngIf="item.path !== 'logout'">
           <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
         </div>
