@@ -2,18 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { LoggedUser } from 'src/types/login';
 import { MenuItems } from 'src/types/menu.items';
+import * as jose from 'jose';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.sass'],
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
   items: MenuItems[];
   itemsLogged: MenuItems[];
   itemsAdmin: MenuItems[];
   loggedUser: LoggedUser;
+  token: string | null;
   constructor(private loginService: LoginService) {
+    this.token = '';
     this.loggedUser = { email: '', id: '', role: 'logout' };
     this.items = [
       {
@@ -79,9 +82,17 @@ export class MenuComponent implements OnInit {
     this.loginService
       .getLoggedUser$()
       .subscribe((user) => (this.loggedUser = user));
+    this.token = localStorage.getItem('Token');
+
+    if (!this.token) return;
+
+    const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
+
+    this.loginService.loggedUser(userInfo);
   }
 
   handleLogout(): void {
+    localStorage.clear();
     this.loginService.loggedUser({ email: '', id: '', role: 'logout' });
   }
 }

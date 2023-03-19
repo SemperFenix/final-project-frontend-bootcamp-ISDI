@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
+import { FontawesomeIconsModule } from 'src/app/fontawesome/fontawesome.icons.module';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { MenuComponent } from '../menu/menu.component';
@@ -19,7 +20,7 @@ describe('LayoutComponent', () => {
         MenuComponent,
         FooterComponent,
       ],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, FontawesomeIconsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LayoutComponent);

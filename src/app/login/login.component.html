@@ -4,11 +4,21 @@
   <div class="form-group">
     <label for=""
       >E-mail
-      <input type="text" formControlName="email" required />
+      <input
+        type="text"
+        formControlName="email"
+        placeholder="E-mail"
+        required
+      />
     </label>
     <label for=""
       >Contraseña
-      <input type="text" formControlName="password" required />
+      <input
+        type="text"
+        formControlName="password"
+        placeholder="Contraseña"
+        required
+      />
     </label>
   </div>
   <button type="submit" [disabled]="newLoginForm.invalid">Añadir</button>

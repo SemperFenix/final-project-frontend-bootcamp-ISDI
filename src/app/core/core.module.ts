@@ -6,6 +6,8 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 import { LayoutComponent } from './layout/layout.component';
 
+import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -14,6 +16,6 @@ import { LayoutComponent } from './layout/layout.component';
     LayoutComponent,
   ],
   exports: [LayoutComponent],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FontawesomeIconsModule],
 })
 export class CoreModule {}

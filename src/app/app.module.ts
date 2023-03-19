@@ -5,10 +5,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { FontawesomeIconsModule } from './fontawesome/fontawesome.icons.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [HttpClientModule, BrowserModule, AppRoutingModule, CoreModule],
+  imports: [
+    HttpClientModule,
+    BrowserModule,
+    AppRoutingModule,
+    CoreModule,
+
+    FontawesomeIconsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

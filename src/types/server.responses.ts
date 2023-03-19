@@ -1,4 +1,4 @@
-import { AikidoUser } from './aikido.user';
+import { AikidoUser, UsersList } from './aikido.user';
 
 export type ServerLoginResponse = {
   results: { token: string }[];
@@ -6,4 +6,8 @@ export type ServerLoginResponse = {
 
 export type ServerRegisterResponse = {
   results: AikidoUser[];
+};
+
+export type ServerUsersResponse = {
+  results: [UsersList];
 };

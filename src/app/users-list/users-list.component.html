@@ -1,0 +1,38 @@
+<h2>Maestros</h2>
+
+<div>
+  <ul>
+    <li *ngFor="let item of senseis.users">
+      <p>{{ item.name }} {{ item.lastName }} - {{ item.grade }}</p>
+    </li>
+  </ul>
+  <div class="pages">
+    <fa-icon
+      [icon]="['fas', 'chevron-left']"
+      (click)="handleSenseisPrev()"
+    ></fa-icon>
+    <fa-icon
+      [icon]="['fas', 'chevron-right']"
+      (click)="handleSenseisNext()"
+    ></fa-icon>
+  </div>
+</div>
+
+<div>
+  <h2>Alumnos</h2>
+  <ul>
+    <li *ngFor="let item of students.users">
+      <p>{{ item.name }} {{ item.lastName }} - {{ item.grade }}</p>
+    </li>
+  </ul>
+  <div class="pages">
+    <fa-icon
+      [icon]="['fas', 'chevron-left']"
+      (click)="handleStudentsPrev()"
+    ></fa-icon>
+    <fa-icon
+      [icon]="['fas', 'chevron-right']"
+      (click)="handleStudentsNext()"
+    ></fa-icon>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
+
+footer {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  font-family: "Comfortaa", cursive;
+
+  background-color: #e2ddcb;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px -10px 25px,
+    rgba(0, 0, 0, 0.22) 0px 0px 10px;
+
+  height: 98px;
+  width: 100vw;
+  max-height: 98px;
+  max-width: 500px;
+  min-width: 390px;
+}

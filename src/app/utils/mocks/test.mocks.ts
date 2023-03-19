@@ -1,7 +1,10 @@
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { AikidoUser, ProtoAikidoUser } from 'src/types/aikido.user';
+import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { LoggedUser } from 'src/types/login';
-import { ServerLoginResponse } from 'src/types/server.responses';
+import {
+  ServerLoginResponse,
+  ServerUsersResponse,
+} from 'src/types/server.responses';
 
 const count = 'TestPass';
 
@@ -22,6 +25,34 @@ export const mockAikidoUser: AikidoUser = {
   techToReview: '',
 };
 
+export const mockAikidoSensei: AikidoUser = {
+  ...mockProtoAikidoUser,
+  techsLearnt: [],
+  techsInProgress: [],
+  role: 'sensei',
+  id: '1',
+  techToReview: '',
+};
+
+export const mockUser: LoggedUser = {
+  email: 'TestMail',
+  id: 'TestId',
+  role: 'user',
+};
+
+export const mockUsersList: UsersList = {
+  users: [mockAikidoUser],
+  number: 1,
+};
+
+export const mockSenseisList: UsersList = {
+  users: [mockAikidoSensei],
+  number: 1,
+};
+
+export const mockToken =
+  'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6IiIsImVtYWlsIjoiIiwicm9sZSI6IiIsImlhdCI6MTY3OTA0ODgwNH0.U8s8UMTJddjfXH_qbxiJJ5GuJeEhryxFmv8d8DBMsycVTt-k1sdAFEq9yRUXbawo';
+
 export const mockAikidoUsersService = {
   login: () => {
     return new Observable<ServerLoginResponse>();
@@ -29,7 +60,24 @@ export const mockAikidoUsersService = {
   register: () => {
     return new Observable<AikidoUser>();
   },
+  getSenseiUsers: () => {
+    return new Observable<ServerUsersResponse>();
+  },
+  getStudentUsers: () => {
+    return new Observable<ServerUsersResponse>();
+  },
+  senseiUsers: () => {
+    return;
+  },
+  studentUsers: () => {
+    return;
+  },
+  token: mockToken,
   token$: new BehaviorSubject<string>(''),
+  senseis: mockSenseisList,
+  senseis$: new Subject<UsersList>(),
+  students: mockUsersList,
+  students$: new Subject<UsersList>(),
 };
 
 export const mockLoginService = {
@@ -41,10 +89,4 @@ export const mockLoginService = {
   },
   userLogged$: new Subject<LoggedUser>(),
   userLogged: { email: '', id: '', role: 'logout' },
-};
-
-export const mockUser: LoggedUser = {
-  email: 'TestMail',
-  id: 'TestId',
-  role: 'user',
 };

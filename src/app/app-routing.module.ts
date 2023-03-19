@@ -16,6 +16,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
   },
+  {
+    path: 'users',
+    loadChildren: () =>
+      import('./users-list/users-list.module').then((m) => m.UsersListModule),
+  },
 ];
 
 @NgModule({
