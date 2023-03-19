@@ -3,6 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { LoginService } from 'src/app/services/login.service';
 import { mockLoginService, mockUser } from 'src/app/utils/mocks/test.mocks';
+import { LoggedUser } from 'src/types/login';
 
 import { MenuComponent } from './menu.component';
 
@@ -50,6 +51,21 @@ describe('MenuComponent', () => {
       component.handleLogout();
 
       expect(spyLogout).toHaveBeenCalled();
+    });
+  });
+
+  describe('When onInit', () => {
+    describe('And call getLoggedUsers$ with no token', () => {
+      it('Then it should return', () => {
+        const spyLogin = spyOn(service, 'getLoggedUser$').and.returnValue(
+          of(false as unknown as LoggedUser)
+        );
+        const spyLogged = spyOn(service, 'loggedUser').and.callThrough();
+        component.ngOnInit();
+
+        expect(spyLogin).toHaveBeenCalled();
+        expect(spyLogged).not.toHaveBeenCalled();
+      });
     });
   });
 });
