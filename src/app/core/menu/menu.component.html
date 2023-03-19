@@ -1,13 +1,7 @@
 <nav>
-  <fa-icon
-    *ngIf="this.burger"
-    [icon]="['fas', 'bars']"
-    size="3x"
-    (click)="burgerToggle()"
-  ></fa-icon>
-  <div class="full-menu" *ngIf="!this.burger">
+  <div class="full-menu">
     <ul *ngIf="loggedUser.role === 'logout'">
-      <li *ngFor="let item of items" (click)="this.burger = !this.burger">
+      <li *ngFor="let item of items">
         <a [routerLink]="item.path" [title]="item.label">{{ item.label }}</a>
       </li>
     </ul>
