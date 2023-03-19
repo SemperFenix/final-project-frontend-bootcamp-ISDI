@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersListComponent } from './users-list.component';
 import { UsersListRoutingModule } from './users-list-routing.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 
 @NgModule({
   declarations: [UsersListComponent],
-  imports: [CommonModule, UsersListRoutingModule, FontAwesomeModule],
+  imports: [CommonModule, UsersListRoutingModule, FontawesomeIconsModule],
 })
 export class UsersListModule {}
