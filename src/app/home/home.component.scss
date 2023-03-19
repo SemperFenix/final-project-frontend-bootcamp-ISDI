@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Caudex&family=El+Messiri&display=swap");
+
+.home {
+  padding: 1rem;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+h2 {
+  margin-top: 1rem;
+  display: flex;
+  color: #c71a18;
+  font-family: "Caudex", serif;
+  justify-content: center;
+}
+
+.line {
+  width: 249px;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #c71a18;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+
+.aikido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.content {
+  font-size: 1.25rem;
+  font-family: "El Messiri", sans-serif;
+}
