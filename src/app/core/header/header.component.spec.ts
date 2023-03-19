@@ -21,4 +21,12 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('When call the sendToParentMethod', () => {
+    it('Then it should call the menu.next', () => {
+      const spyNext = spyOn(component.menu, 'next');
+      component.sendToParent();
+      expect(spyNext).toHaveBeenCalled();
+    });
+  });
 });

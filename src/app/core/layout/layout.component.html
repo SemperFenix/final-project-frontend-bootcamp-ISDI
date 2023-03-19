@@ -1,6 +1,7 @@
-<app-header>
-  <app-menu></app-menu>
+<app-header [burger]="this.burger" (menu)="menu()">
+  <app-menu (burger)="burgerOption()"></app-menu>
 </app-header>
+
 <main>
   <ng-content></ng-content>
 </main>
