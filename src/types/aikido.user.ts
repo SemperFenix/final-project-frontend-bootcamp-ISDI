@@ -46,7 +46,3 @@ export type UsersList = {
   users: AikidoUser[];
   number: number;
 };
-
-export type UsersServerResponse = {
-  results: [UsersList];
-};
