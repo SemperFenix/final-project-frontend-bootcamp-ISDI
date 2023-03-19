@@ -44,7 +44,7 @@ describe('LayoutComponent', () => {
     it('Then it should change its value', () => {
       component.menu();
 
-      expect(component.menu).toBe(false);
+      expect(component.burger).toBe(false);
     });
   });
 });
