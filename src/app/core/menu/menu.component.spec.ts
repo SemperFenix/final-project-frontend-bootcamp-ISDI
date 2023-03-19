@@ -39,27 +39,18 @@ describe('MenuComponent', () => {
   });
 
   describe('When onInit', () => {
-    it('Then it should call getLoggedUser$ service', () => {
-      component.token = mockToken;
-      const spyLogin = spyOn(service, 'getLoggedUser$').and.returnValue(
-        of(mockUser)
-      );
-      component.ngOnInit();
+    describe('And there is a token', () => {
+      it('Then it should call getLoggedUser$ service', () => {
+        component.token = mockToken;
+        const spyLogin = spyOn(service, 'getLoggedUser$').and.returnValue(
+          of(mockUser)
+        );
+        component.ngOnInit();
 
-      expect(spyLogin).toHaveBeenCalled();
+        expect(spyLogin).toHaveBeenCalled();
+      });
     });
-  });
 
-  describe('When called the handleLogout method', () => {
-    it('Then it should call loggedUser service', () => {
-      const spyLogout = spyOn(service, 'loggedUser').and.callThrough();
-      component.handleLogout();
-
-      expect(spyLogout).toHaveBeenCalled();
-    });
-  });
-
-  describe('When onInit', () => {
     describe('And call getLoggedUsers$ with no token', () => {
       it('Then it should return', () => {
         component.token = '';
@@ -73,6 +64,23 @@ describe('MenuComponent', () => {
         expect(spyLogin).toHaveBeenCalled();
         expect(spyLogged).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('When called the handleLogout method', () => {
+    it('Then it should call loggedUser service', () => {
+      const spyLogout = spyOn(service, 'loggedUser').and.callThrough();
+      component.handleLogout();
+
+      expect(spyLogout).toHaveBeenCalled();
+    });
+  });
+
+  describe('When called the sendToParent Method', () => {
+    it('Then it should send the value with next', () => {
+      const spyNext = spyOn(component.burger, 'next');
+      component.sendToParent();
+      expect(spyNext).toHaveBeenCalled();
     });
   });
 });

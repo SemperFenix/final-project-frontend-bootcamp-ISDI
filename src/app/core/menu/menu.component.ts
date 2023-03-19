@@ -15,8 +15,10 @@ export class MenuComponent implements OnInit {
   itemsAdmin: MenuItems[];
   loggedUser: LoggedUser;
   token: string | null;
-  @Output() burger = new EventEmitter<boolean>(true);
+
+  @Output() burger: EventEmitter<boolean>;
   constructor(private loginService: LoginService) {
+    this.burger = new EventEmitter(true);
     this.token = '';
     this.loggedUser = { email: '', id: '', role: 'logout' };
     this.items = [
