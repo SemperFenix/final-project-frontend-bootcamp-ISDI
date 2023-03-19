@@ -31,4 +31,20 @@ describe('LayoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('When call burger method', () => {
+    it('Then it should change its value', () => {
+      component.burgerOption();
+
+      expect(component.burger).toBe(false);
+    });
+  });
+
+  describe('When call menu method', () => {
+    it('Then it should change its value', () => {
+      component.menu();
+
+      expect(component.menu).toBe(false);
+    });
+  });
 });
