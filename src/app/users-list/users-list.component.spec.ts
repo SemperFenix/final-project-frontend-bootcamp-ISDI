@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 
 import { UsersListComponent } from './users-list.component';
 
@@ -8,9 +10,9 @@ describe('UsersListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UsersListComponent ]
-    })
-    .compileComponents();
+      declarations: [UsersListComponent],
+      imports: [HttpClientTestingModule, FontawesomeIconsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UsersListComponent);
     component = fixture.componentInstance;
