@@ -11,7 +11,7 @@ import { LoggedUser } from 'src/types/login';
 
 import { MenuComponent } from './menu.component';
 
-fdescribe('MenuComponent', () => {
+describe('MenuComponent', () => {
   let component: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let service: LoginService;

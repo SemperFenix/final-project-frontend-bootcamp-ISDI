@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit {
         label: 'Usuarios',
       },
       {
-        path: 'profile',
+        path: 'my-profile',
         label: 'Mi perfil',
       },
       {
@@ -63,7 +63,7 @@ export class MenuComponent implements OnInit {
         label: 'Usuarios',
       },
       {
-        path: 'profile',
+        path: 'my-profile',
         label: 'Mi perfil',
       },
       {
