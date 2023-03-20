@@ -51,7 +51,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       });
   };
   handleSenseisNext = () => {
-    const maxPage = Math.floor(this.senseis.number / 3);
+    const maxPage = Math.ceil(this.senseis.number / 3);
     if (this.senseisPage < maxPage) this.senseisPage++;
     this.aikidoUsersService
       .getSenseiUsers(String(this.senseisPage))
@@ -72,7 +72,8 @@ export class UsersListComponent implements OnInit, OnDestroy {
   };
 
   handleStudentsNext = () => {
-    const maxPage = Math.floor(this.students.number / 3);
+    const maxPage = Math.ceil(this.students.number / 3);
+    console.log(maxPage);
     if (this.studentsPage < maxPage) this.studentsPage++;
     this.aikidoUsersService
       .getStudentUsers(String(this.studentsPage))
