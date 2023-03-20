@@ -4,7 +4,7 @@ export type ServerLoginResponse = {
   results: { token: string }[];
 };
 
-export type ServerRegisterResponse = {
+export type ServerCompleteUserResponse = {
   results: AikidoUser[];
 };
 
