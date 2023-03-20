@@ -21,6 +21,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./users-list/users-list.module').then((m) => m.UsersListModule),
   },
+  {
+    path: 'my-profile',
+    loadChildren: () =>
+      import('./user-profile/user-profile.module').then(
+        (m) => m.UserProfileModule
+      ),
+  },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', redirectTo: 'home' },
 ];

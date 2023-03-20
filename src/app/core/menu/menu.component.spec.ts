@@ -1,13 +1,9 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
+import { LoginComponent } from 'src/app/login/login.component';
 import { LoginService } from 'src/app/services/login.service';
-import {
-  mockLoginService,
-  mockToken,
-  mockUser,
-} from 'src/app/utils/mocks/test.mocks';
-import { LoggedUser } from 'src/types/login';
+import { mockLoginService, mockToken } from 'src/app/utils/mocks/test.mocks';
 
 import { MenuComponent } from './menu.component';
 
@@ -19,7 +15,12 @@ describe('MenuComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MenuComponent],
-      imports: [RouterTestingModule],
+      imports: [
+        RouterTestingModule.withRoutes([
+          { path: 'login', component: LoginComponent },
+        ]),
+        HttpClientTestingModule,
+      ],
       providers: [
         {
           provide: LoginService,
@@ -41,10 +42,9 @@ describe('MenuComponent', () => {
   describe('When onInit', () => {
     describe('And there is a token', () => {
       it('Then it should call getLoggedUser$ service', () => {
-        component.token = mockToken;
-        const spyLogin = spyOn(service, 'getLoggedUser$').and.returnValue(
-          of(mockUser)
-        );
+        spyOn(localStorage, 'getItem').and.returnValue(mockToken);
+        const spyLogin = spyOn(service, 'loggedUser$').and.callThrough();
+
         component.ngOnInit();
 
         expect(spyLogin).toHaveBeenCalled();
@@ -55,13 +55,13 @@ describe('MenuComponent', () => {
       it('Then it should return', () => {
         component.token = '';
         spyOn(localStorage, 'getItem').and.returnValue(null);
-        const spyLogin = spyOn(service, 'getLoggedUser$').and.returnValue(
-          of(false as unknown as LoggedUser)
-        );
-        const spyLogged = spyOn(service, 'loggedUser').and.callThrough();
+        // const spyLogin = spyOn(service, 'loggedUser$').and.returnValue(
+        //   of(false as unknown as LoggedUser)
+        // );
+        const spyLogged = spyOn(service, 'loggedUser$').and.callThrough();
         component.ngOnInit();
 
-        expect(spyLogin).toHaveBeenCalled();
+        // expect(spyLogin).toHaveBeenCalled();
         expect(spyLogged).not.toHaveBeenCalled();
       });
     });
@@ -69,7 +69,7 @@ describe('MenuComponent', () => {
 
   describe('When called the handleLogout method', () => {
     it('Then it should call loggedUser service', () => {
-      const spyLogout = spyOn(service, 'loggedUser').and.callThrough();
+      const spyLogout = spyOn(service, 'loggedUser$').and.callThrough();
       component.handleLogout();
 
       expect(spyLogout).toHaveBeenCalled();

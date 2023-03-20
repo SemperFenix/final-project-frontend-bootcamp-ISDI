@@ -1,0 +1,52 @@
+<h2>Mi perfil</h2>
+<div class="line"></div>
+<div class="user-info" *ngIf="this.currentUser$ | async as user">
+  <div class="image">
+    <img
+      [src]="user.avatar ? user.avatar : '../../assets/img/no.avatar.png'"
+      [alt]="user.name"
+      width="60"
+    />
+  </div>
+
+  <div class="text-info">
+    <form action="" class="edit-profile">
+      <div class="form-field">
+        <label for="name" class="form-field__label">Nombre</label
+        ><input type="text" id="name" [placeholder]="user.name" />
+      </div>
+
+      <div class="form-field">
+        <label for="lastName" class="form-field__label">Apellidos</label
+        ><input type="text" id="lastName" [placeholder]="user.lastName" />
+      </div>
+
+      <div class="form-field">
+        <label for="email" class="form-field__label">E-mail</label
+        ><input type="text" id="email" [placeholder]="user.email" />
+      </div>
+
+      <div class="form-field">
+        <label for="age" class="form-field__label">Edad</label
+        ><input type="text" id="age" [placeholder]="user.age" />
+      </div>
+
+      <div class="form-field">
+        <label for="avatar" class="form-field__label">Avatar</label
+        ><input type="text" id="avatar" [placeholder]="user.avatar" />
+      </div>
+
+      <div class="form-field">
+        <label for="timePracticing" class="form-field__label"
+          >Tiempo practicando</label
+        ><input
+          type="text"
+          id="timePracticing"
+          [placeholder]="user.timePracticing"
+        />
+      </div>
+      <button type="submit">Actualizar Perfil</button>
+    </form>
+    <button>Borrar Perfil</button>
+  </div>
+</div>

@@ -42,12 +42,12 @@ export const mockUser: LoggedUser = {
 
 export const mockUsersList: UsersList = {
   users: [mockAikidoUser],
-  number: 1,
+  number: 9,
 };
 
 export const mockSenseisList: UsersList = {
   users: [mockAikidoSensei],
-  number: 1,
+  number: 9,
 };
 
 export const mockToken =
@@ -74,17 +74,15 @@ export const mockAikidoUsersService = {
   },
   token: mockToken,
   token$: new BehaviorSubject<string>(''),
-  senseis: mockSenseisList,
-  senseis$: new Subject<UsersList>(),
-  students: mockUsersList,
-  students$: new Subject<UsersList>(),
+  senseis$: new BehaviorSubject<UsersList>(mockSenseisList),
+  students$: new BehaviorSubject<UsersList>(mockUsersList),
 };
 
 export const mockLoginService = {
-  loggedUser: () => {
+  loggedUser$: () => {
     return;
   },
-  getLoggedUser$: () => {
+  getLoggedUser: () => {
     return new Observable<LoggedUser>();
   },
   userLogged$: new Subject<LoggedUser>(),

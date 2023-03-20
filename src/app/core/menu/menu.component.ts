@@ -1,8 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { LoggedUser } from 'src/types/login';
 import { MenuItems } from 'src/types/menu.items';
 import * as jose from 'jose';
+import { AikidoUsersService } from 'src/app/services/aikido.users.service';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -13,14 +16,19 @@ export class MenuComponent implements OnInit {
   items: MenuItems[];
   itemsLogged: MenuItems[];
   itemsAdmin: MenuItems[];
-  loggedUser: LoggedUser;
+  loggedUser$: Observable<LoggedUser>;
   token: string | null;
 
   @Output() burger: EventEmitter<boolean>;
-  constructor(private loginService: LoginService) {
+  constructor(
+    private loginService: LoginService,
+    private aikidoUsersService: AikidoUsersService,
+    private router: Router,
+    private zone: NgZone
+  ) {
     this.burger = new EventEmitter(true);
     this.token = '';
-    this.loggedUser = { email: '', id: '', role: 'logout' };
+    this.loggedUser$ = this.loginService.getLoggedUser();
     this.items = [
       {
         path: 'register',
@@ -41,7 +49,7 @@ export class MenuComponent implements OnInit {
         label: 'Usuarios',
       },
       {
-        path: 'profile',
+        path: 'my-profile',
         label: 'Mi perfil',
       },
       {
@@ -63,7 +71,7 @@ export class MenuComponent implements OnInit {
         label: 'Usuarios',
       },
       {
-        path: 'profile',
+        path: 'my-profile',
         label: 'Mi perfil',
       },
       {
@@ -82,21 +90,24 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginService
-      .getLoggedUser$()
-      .subscribe((user) => (this.loggedUser = user));
     this.token = localStorage.getItem('Token');
 
     if (!this.token) return;
 
     const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
 
-    this.loginService.loggedUser(userInfo);
+    this.loginService.loggedUser$(userInfo);
   }
 
   handleLogout(): void {
     localStorage.clear();
-    this.loginService.loggedUser({ email: '', id: '', role: 'logout' });
+
+    this.loginService.loggedUser$({ email: '', id: '', role: 'logout' });
+    this.burger.next(!this.burger);
+
+    this.zone.run(() => {
+      this.router.navigateByUrl('/login');
+    });
   }
 
   sendToParent() {

@@ -37,29 +37,11 @@ describe('Given the UsersListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('When onInit', () => {
-    it('Then it should call the getSensei and getStudent Users methods', () => {
-      const spySenseis = spyOn(service, 'getSenseiUsers').and.returnValue(
-        of({ results: [mockSenseisList] })
-      );
-
-      const spyStudents = spyOn(service, 'getStudentUsers').and.returnValue(
-        of({
-          results: [mockUsersList],
-        })
-      );
-      component.ngOnInit();
-
-      expect(spySenseis).toHaveBeenCalled();
-      expect(spyStudents).toHaveBeenCalled();
-    });
-  });
-
   describe('When call the handleSenseisPrev', () => {
     describe('And the actual page is bigger than 1', () => {
       it('Then it should call the getSenseiUsers with inferior page', () => {
         const spySenseis = spyOn(service, 'getSenseiUsers').and.returnValue(
-          of({ results: [mockSenseisList] })
+          of(mockSenseisList)
         );
         component.senseisPage = 3;
         component.handleSenseisPrev();
@@ -71,7 +53,7 @@ describe('Given the UsersListComponent', () => {
     describe('And the actual page is 1', () => {
       it('Then it should call the getSenseiUsers with page 1', () => {
         const spySenseis = spyOn(service, 'getSenseiUsers').and.returnValue(
-          of({ results: [mockSenseisList] })
+          of(mockSenseisList)
         );
         component.senseisPage = 1;
         component.handleSenseisPrev();
@@ -85,10 +67,10 @@ describe('Given the UsersListComponent', () => {
     describe('And the actual page is equal to max page', () => {
       it('Then it should call the getSenseiUsers with same page', () => {
         const spySenseis = spyOn(service, 'getSenseiUsers').and.returnValue(
-          of({ results: [mockSenseisList] })
+          of(mockSenseisList)
         );
         component.senseisPage = 3;
-        component.senseis.number = 9;
+        service.senseis$.value.number = 9;
         component.handleSenseisNext();
 
         expect(spySenseis).toHaveBeenCalledWith('3');
@@ -98,10 +80,10 @@ describe('Given the UsersListComponent', () => {
     describe('And the actual page is lesser to the max Page', () => {
       it('Then it should call the getSenseiUsers with page 1', () => {
         const spySenseis = spyOn(service, 'getSenseiUsers').and.returnValue(
-          of({ results: [mockSenseisList] })
+          of(mockSenseisList)
         );
         component.senseisPage = 1;
-        component.senseis.number = 9;
+        service.senseis$.value.number = 9;
         component.handleSenseisNext();
 
         expect(spySenseis).toHaveBeenCalledWith('2');
@@ -113,7 +95,7 @@ describe('Given the UsersListComponent', () => {
     describe('And the actual page is bigger than 1', () => {
       it('Then it should call the getStudentUsers with inferior page', () => {
         const spyStudents = spyOn(service, 'getStudentUsers').and.returnValue(
-          of({ results: [mockUsersList] })
+          of(mockUsersList)
         );
         component.studentsPage = 3;
         component.handleStudentsPrev();
@@ -125,7 +107,7 @@ describe('Given the UsersListComponent', () => {
     describe('And the actual page is 1', () => {
       it('Then it should call the getStudentUsers with page 1', () => {
         const spyStudents = spyOn(service, 'getStudentUsers').and.returnValue(
-          of({ results: [mockUsersList] })
+          of(mockUsersList)
         );
         component.studentsPage = 1;
         component.handleStudentsPrev();
@@ -139,10 +121,10 @@ describe('Given the UsersListComponent', () => {
     describe('And the actual page is equal to max page', () => {
       it('Then it should call the getStudentUsers with same page', () => {
         const spyStudents = spyOn(service, 'getStudentUsers').and.returnValue(
-          of({ results: [mockUsersList] })
+          of(mockUsersList)
         );
         component.studentsPage = 3;
-        component.students.number = 9;
+        service.students$.value.number = 9;
         component.handleStudentsNext();
 
         expect(spyStudents).toHaveBeenCalledWith('3');
@@ -152,10 +134,10 @@ describe('Given the UsersListComponent', () => {
     describe('And the actual page is lesser to the max Page', () => {
       it('Then it should call the getStudentUsers with page 2', () => {
         const spyStudents = spyOn(service, 'getStudentUsers').and.returnValue(
-          of({ results: [mockUsersList] })
+          of(mockUsersList)
         );
+
         component.studentsPage = 1;
-        component.students.number = 9;
         component.handleStudentsNext();
 
         expect(spyStudents).toHaveBeenCalledWith('2');

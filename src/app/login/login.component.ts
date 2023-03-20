@@ -1,10 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, NgZone, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LoggedUser, Login } from 'src/types/login';
 import { AikidoUsersService } from '../services/aikido.users.service';
 import { LoginService } from '../services/login.service';
 import * as jose from 'jose';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,9 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private aikidoUsersService: AikidoUsersService,
     private loginService: LoginService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private router: Router,
+    private zone: NgZone
   ) {
     this.login = 'logout';
     this.token = '';
@@ -39,14 +42,17 @@ export class LoginComponent implements OnDestroy {
 
     this.token$ = this.aikidoUsersService.login(loginUser).subscribe((data) => {
       if (!data) return;
-      this.aikidoUsersService.token$.next(data.results[0].token);
-      this.token = data.results[0].token;
+      this.aikidoUsersService.token$.next(data);
+      this.token = data;
       localStorage.setItem('Token', this.token);
-
       const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
-      this.newLoginForm.reset();
 
-      this.loginService.loggedUser(userInfo);
+      this.newLoginForm.reset();
+      this.loginService.loggedUser$(userInfo);
+
+      this.zone.run(() => {
+        this.router.navigateByUrl('/my-profile');
+      });
     });
   }
 
