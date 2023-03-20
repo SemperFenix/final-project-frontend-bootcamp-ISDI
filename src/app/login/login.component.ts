@@ -41,13 +41,14 @@ export class LoginComponent implements OnDestroy {
 
     this.token$ = this.aikidoUsersService.login(loginUser).subscribe((data) => {
       if (!data) return;
-      this.aikidoUsersService.token$.next(data.results[0].token);
-      this.token = data.results[0].token;
+      this.aikidoUsersService.token$.next(data);
+      this.token = data;
       localStorage.setItem('Token', this.token);
       const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
 
       this.newLoginForm.reset();
       this.loginService.loggedUser(userInfo);
+
       this.router.navigateByUrl('/my-profile');
     });
   }

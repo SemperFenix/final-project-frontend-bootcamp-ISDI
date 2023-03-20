@@ -14,7 +14,7 @@ import {
 import { Login } from 'src/types/login';
 import {
   ServerLoginResponse,
-  ServerRegisterResponse,
+  ServerCompleteUserResponse,
   ServerUsersResponse,
 } from 'src/types/server.responses';
 
@@ -38,7 +38,7 @@ describe('AikidoUsersService', () => {
 
   describe('When the register method is called', () => {
     it('should return the complete registered user', async () => {
-      const mockResp: ServerRegisterResponse = {
+      const mockResp: ServerCompleteUserResponse = {
         results: [mockAikidoUser],
       };
       service.register(mockProtoAikidoUser).subscribe((resp) => {

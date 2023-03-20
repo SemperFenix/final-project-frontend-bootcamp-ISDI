@@ -1,7 +1,7 @@
 <h2>Maestros</h2>
 
 <div>
-  <ul>
+  <ul *ngIf="senseis$ | async as senseis">
     <li *ngFor="let item of senseis.users">
       <p>{{ item.name }} {{ item.lastName }} - {{ item.grade }}</p>
     </li>
@@ -18,9 +18,10 @@
   </div>
 </div>
 
+<h2>Alumnos</h2>
+
 <div>
-  <h2>Alumnos</h2>
-  <ul>
+  <ul *ngIf="students$ | async as students">
     <li *ngFor="let item of students.users">
       <p>{{ item.name }} {{ item.lastName }} - {{ item.grade }}</p>
     </li>
