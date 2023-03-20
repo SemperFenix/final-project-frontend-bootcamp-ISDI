@@ -19,7 +19,7 @@ export class LoginService {
     return this.userLogged$;
   }
 
-  loggedUser(pUserLogged: LoggedUser): void {
+  loggedUser$(pUserLogged: LoggedUser): void {
     this.userLogged$.next(pUserLogged);
   }
 }

@@ -56,7 +56,6 @@ export class UsersListComponent {
     const maxPage = Math.ceil(
       this.aikidoUsersService.students$.value.number / 3
     );
-    console.log(maxPage);
     if (this.studentsPage < maxPage) this.studentsPage++;
     this.students$ = this.aikidoUsersService.getStudentUsers(
       String(this.studentsPage)

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
 import { LoggedUser } from 'src/types/login';
 import { MenuItems } from 'src/types/menu.items';
@@ -23,7 +23,8 @@ export class MenuComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private aikidoUsersService: AikidoUsersService,
-    private router: Router
+    private router: Router,
+    private zone: NgZone
   ) {
     this.burger = new EventEmitter(true);
     this.token = '';
@@ -95,16 +96,18 @@ export class MenuComponent implements OnInit {
 
     const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
 
-    this.loginService.loggedUser(userInfo);
+    this.loginService.loggedUser$(userInfo);
   }
 
   handleLogout(): void {
     localStorage.clear();
 
-    this.loginService.loggedUser({ email: '', id: '', role: 'logout' });
+    this.loginService.loggedUser$({ email: '', id: '', role: 'logout' });
     this.burger.next(!this.burger);
 
-    this.router.navigateByUrl('/login');
+    this.zone.run(() => {
+      this.router.navigateByUrl('/login');
+    });
   }
 
   sendToParent() {

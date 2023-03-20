@@ -10,28 +10,23 @@ import {
   mockAikidoUsersService,
   mockToken,
 } from 'src/app/utils/mocks/test.mocks';
-import { ServerLoginResponse } from 'src/types/server.responses';
-
-const serverResp = {
-  results: [
-    {
-      token: mockToken,
-    },
-  ],
-};
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let service: AikidoUsersService;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
       imports: [
-        RouterTestingModule,
         HttpClientTestingModule,
         ReactiveFormsModule,
         FormsModule,
+        RouterTestingModule.withRoutes([
+          { path: 'my-profile', component: UserProfileComponent },
+        ]),
       ],
       providers: [
         {
@@ -40,7 +35,6 @@ describe('LoginComponent', () => {
         },
       ],
     }).compileComponents();
-
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(AikidoUsersService);
@@ -55,11 +49,7 @@ describe('LoginComponent', () => {
       it('Should call the aikidoUsers login service and next', () => {
         component.newLoginForm.value['email'] = 'TestMail';
         component.newLoginForm.value['password'] = 'TestPass';
-
-        const spyLogin = spyOn(service, 'login').and.returnValue(
-          of(serverResp)
-        );
-
+        const spyLogin = spyOn(service, 'login').and.returnValue(of(mockToken));
         component.handleSubmit();
 
         expect(spyLogin).toHaveBeenCalled();
@@ -69,7 +59,7 @@ describe('LoginComponent', () => {
     describe('When called with incorrect data', () => {
       it('Should call the aikidoUsers login service and return', () => {
         const spyLogin = spyOn(service, 'login').and.returnValue(
-          of(undefined as unknown as ServerLoginResponse)
+          of(undefined as unknown as string)
         );
         const spyLocal = spyOn(localStorage, 'setItem');
 

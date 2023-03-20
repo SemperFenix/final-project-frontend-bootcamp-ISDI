@@ -42,7 +42,6 @@ describe('AikidoUsersService', () => {
         results: [mockAikidoUser],
       };
       service.register(mockProtoAikidoUser).subscribe((resp) => {
-        console.log(resp);
         expect(resp).not.toBeNull();
         expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
       });
@@ -66,9 +65,8 @@ describe('AikidoUsersService', () => {
       };
 
       service.login(mockLogin).subscribe((data) => {
-        console.log(data);
         expect(data).not.toBeNull();
-        expect(JSON.stringify(data)).toBe(JSON.stringify(mockResp));
+        expect(data).toBe('TestToken');
       });
       const req = httpTestingController.expectOne(
         'http://localhost:4500/aikido-users/login'
@@ -90,9 +88,8 @@ describe('AikidoUsersService', () => {
           ['Authorization']: `Bearer ${service.token}`,
         });
         service.getSenseiUsers('1').subscribe((resp) => {
-          console.log(resp);
           expect(resp).not.toBeNull();
-          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
+          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockSenseisList));
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
@@ -119,9 +116,8 @@ describe('AikidoUsersService', () => {
           ['Authorization']: `Bearer ${service.token}`,
         });
         service.getSenseiUsers('1').subscribe((resp) => {
-          console.log(resp);
           expect(resp).not.toBeNull();
-          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
+          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockSenseisList));
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
@@ -144,7 +140,7 @@ describe('AikidoUsersService', () => {
 
       expect(httpTestingController).toBeTruthy();
 
-      expect(service.senseis).toEqual(mockSenseisList);
+      expect(service.senseis$.value).toEqual(mockSenseisList);
     });
   });
 
@@ -160,9 +156,8 @@ describe('AikidoUsersService', () => {
           ['Authorization']: `Bearer ${service.token}`,
         });
         service.getStudentUsers('1').subscribe((resp) => {
-          console.log(resp);
           expect(resp).not.toBeNull();
-          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
+          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockUsersList));
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
@@ -189,9 +184,8 @@ describe('AikidoUsersService', () => {
           ['Authorization']: `Bearer ${service.token}`,
         });
         service.getStudentUsers('1').subscribe((resp) => {
-          console.log(resp);
           expect(resp).not.toBeNull();
-          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
+          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockUsersList));
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
@@ -214,7 +208,65 @@ describe('AikidoUsersService', () => {
 
       expect(httpTestingController).toBeTruthy();
 
-      expect(service.students).toEqual(mockUsersList);
+      expect(service.students$.value).toEqual(mockUsersList);
+    });
+  });
+
+  describe('When the getCurrentUser method is called', () => {
+    describe('And there is no token$', () => {
+      it('should return the user from API', async () => {
+        service.token$ = new BehaviorSubject('');
+        const spyLocal = spyOn(localStorage, 'getItem').and.returnValue('a');
+        const mockResp: ServerCompleteUserResponse = {
+          results: [mockAikidoUser],
+        };
+        const header = new HttpHeaders({
+          ['Authorization']: `Bearer ${service.token}`,
+        });
+        service.getCurrentUser('12345').subscribe((resp) => {
+          expect(resp).not.toBeNull();
+          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockAikidoUser));
+        });
+        expect(httpTestingController).toBeTruthy();
+        const req = httpTestingController.expectOne(
+          'http://localhost:4500/aikido-users/users/12345'
+        );
+        req.flush(mockResp);
+
+        expect(spyLocal).toHaveBeenCalled();
+        expect(req.request.method).toEqual('GET');
+        expect(JSON.stringify(req.request.headers)).toBe(
+          JSON.stringify(header)
+        );
+      });
+    });
+
+    describe('And there is a token$', () => {
+      it('should return the user from API', async () => {
+        service.token$ = new BehaviorSubject('a');
+        const spyLocal = spyOn(localStorage, 'getItem').and.callThrough();
+        const mockResp: ServerCompleteUserResponse = {
+          results: [mockAikidoUser],
+        };
+        const header = new HttpHeaders({
+          ['Authorization']: `Bearer ${service.token}`,
+        });
+        service.getCurrentUser('12345').subscribe((resp) => {
+          expect(resp).not.toBeNull();
+          expect(JSON.stringify(resp)).toBe(JSON.stringify(mockAikidoUser));
+        });
+        expect(httpTestingController).toBeTruthy();
+        const req = httpTestingController.expectOne(
+          'http://localhost:4500/aikido-users/users/12345'
+        );
+        req.flush(mockResp);
+
+        expect(spyLocal).not.toHaveBeenCalled();
+        expect(req.request.method).toEqual('GET');
+        expect(JSON.stringify(req.request.headers)).toBe(
+          JSON.stringify(header)
+        );
+      });
     });
   });
 });

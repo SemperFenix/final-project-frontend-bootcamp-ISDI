@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, NgZone, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { LoggedUser, Login } from 'src/types/login';
@@ -21,7 +21,8 @@ export class LoginComponent implements OnDestroy {
     private aikidoUsersService: AikidoUsersService,
     private loginService: LoginService,
     public formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private zone: NgZone
   ) {
     this.login = 'logout';
     this.token = '';
@@ -47,9 +48,11 @@ export class LoginComponent implements OnDestroy {
       const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
 
       this.newLoginForm.reset();
-      this.loginService.loggedUser(userInfo);
+      this.loginService.loggedUser$(userInfo);
 
-      this.router.navigateByUrl('/my-profile');
+      this.zone.run(() => {
+        this.router.navigateByUrl('/my-profile');
+      });
     });
   }
 
