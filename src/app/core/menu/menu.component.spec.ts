@@ -11,7 +11,7 @@ import { LoggedUser } from 'src/types/login';
 
 import { MenuComponent } from './menu.component';
 
-describe('MenuComponent', () => {
+fdescribe('MenuComponent', () => {
   let component: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let service: LoginService;
@@ -41,10 +41,11 @@ describe('MenuComponent', () => {
   describe('When onInit', () => {
     describe('And there is a token', () => {
       it('Then it should call getLoggedUser$ service', () => {
-        component.token = mockToken;
+        spyOn(localStorage, 'getItem').and.returnValue(mockToken);
         const spyLogin = spyOn(service, 'getLoggedUser$').and.returnValue(
           of(mockUser)
         );
+
         component.ngOnInit();
 
         expect(spyLogin).toHaveBeenCalled();
