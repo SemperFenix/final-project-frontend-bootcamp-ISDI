@@ -5,6 +5,7 @@ import { LoggedUser, Login } from 'src/types/login';
 import { AikidoUsersService } from '../services/aikido.users.service';
 import { LoginService } from '../services/login.service';
 import * as jose from 'jose';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent implements OnDestroy {
   constructor(
     private aikidoUsersService: AikidoUsersService,
     private loginService: LoginService,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.login = 'logout';
     this.token = '';
@@ -42,11 +44,11 @@ export class LoginComponent implements OnDestroy {
       this.aikidoUsersService.token$.next(data.results[0].token);
       this.token = data.results[0].token;
       localStorage.setItem('Token', this.token);
-
       const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
-      this.newLoginForm.reset();
 
+      this.newLoginForm.reset();
       this.loginService.loggedUser(userInfo);
+      this.router.navigateByUrl('/my-profile');
     });
   }
 
