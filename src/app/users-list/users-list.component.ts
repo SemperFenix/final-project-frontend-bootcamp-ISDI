@@ -9,8 +9,6 @@ import { AikidoUsersService } from '../services/aikido.users.service';
   styleUrls: ['./users-list.component.scss'],
 })
 export class UsersListComponent {
-  // students: UsersList;
-  // senseis: UsersList;
   senseis$: Observable<UsersList>;
   students$: Observable<UsersList>;
   senseisPage: number;

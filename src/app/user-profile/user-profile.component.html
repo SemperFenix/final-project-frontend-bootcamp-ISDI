@@ -1,7 +1,13 @@
 <h2>Mi perfil</h2>
 <div class="line"></div>
 <div class="user-info" *ngIf="this.currentUser$ | async as user">
-  <div class="image"><img [src]="user.avatar" /></div>
+  <div class="image">
+    <img
+      [src]="user.avatar ? user.avatar : '../../assets/img/no.avatar.png'"
+      [alt]="user.name"
+      width="60"
+    />
+  </div>
 
   <div class="text-info">
     <form action="" class="edit-profile">
