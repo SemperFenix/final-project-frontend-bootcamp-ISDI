@@ -93,7 +93,7 @@ describe('AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/senseis?page=1'
+          'http://localhost:4500/aikido-users/users/list/:sensei?page=1'
         );
         req.flush(mockResp);
 
@@ -121,7 +121,7 @@ describe('AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/senseis?page=1'
+          'http://localhost:4500/aikido-users/users/:sensei?page=1'
         );
         req.flush(mockResp);
 
@@ -161,7 +161,7 @@ describe('AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/students?page=1'
+          'http://localhost:4500/aikido-users/users/list/:user?page=1'
         );
         req.flush(mockResp);
         expect(spyLocal).not.toHaveBeenCalled();
@@ -189,7 +189,7 @@ describe('AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/students?page=1'
+          'http://localhost:4500/aikido-users/users/list/:user?page=1'
         );
         req.flush(mockResp);
 

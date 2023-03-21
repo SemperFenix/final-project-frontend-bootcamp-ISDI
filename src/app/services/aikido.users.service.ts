@@ -51,7 +51,7 @@ export class AikidoUsersService {
     this.token = this.token$.value;
     if (this.token === '') this.token = localStorage.getItem('Token');
     return (
-      this.http.get(this.apiBaseUrl + '/users/senseis', {
+      this.http.get(this.apiBaseUrl + '/users/list/:sensei', {
         headers: { ['Authorization']: `Bearer ${this.token}` },
         params: new HttpParams().set('page', pPage),
         responseType: 'json',
@@ -73,7 +73,7 @@ export class AikidoUsersService {
     if (this.token === '') this.token = localStorage.getItem('Token');
 
     const observ = (
-      this.http.get(this.apiBaseUrl + '/users/students', {
+      this.http.get(this.apiBaseUrl + '/users/list/:user', {
         headers: { ['Authorization']: `Bearer ${this.token}` },
         params: new HttpParams().set('page', pPage),
         responseType: 'json',
