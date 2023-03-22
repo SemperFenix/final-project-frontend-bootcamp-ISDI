@@ -3,28 +3,76 @@
 
 import { AikidoUser, Grades } from './aikido.user';
 
-export class ProtoTech {
-  constructor(
-    public attack: string,
-    public tech: string,
-    public stand: string,
-    public grade: Grades,
-    public video?: string
-  ) {}
+export type Attack =
+  | 'Katate-dori'
+  | 'Ai hanmi katate-dori'
+  | 'Ryote-dori'
+  | 'Morote-dori'
+  | 'Mune-dori'
+  | 'Ryomune-dori'
+  | 'Kata-dori'
+  | 'Ryo kata-dori'
+  | 'Kao-tsuki'
+  | 'Jodan-tsuki'
+  | 'Chudan-tsuki'
+  | 'Mawasi-tsuki'
+  | 'Men-Uchi'
+  | 'Shomen-uchi'
+  | 'Yokomen-uchi'
+  | 'Ushiro tekubi-dori'
+  | 'Ushiro kubishime'
+  | 'Ushiro ryokata-dori'
+  | 'Mae-geri'
+  | 'Yoko-geri'
+  | 'Mawashi-geri'
+  | 'Katate ryote-dori'
+  | 'Muna-dori'
+  | 'Kata-dori menuchi'
+  | 'Eridori';
+
+export type Technique =
+  | 'Ikkyo'
+  | 'Nikkyo'
+  | 'Sankyo'
+  | 'Gokyo'
+  | 'Yonkyo'
+  | 'Rokkyo'
+  | 'Irimi-nage'
+  | 'Juji-nage'
+  | 'Kaiten-nage'
+  | 'Kokyu-nage'
+  | 'Koshi-nage'
+  | 'Shiho-nage'
+  | 'Tenchi-nage'
+  | 'Ude kime-nage'
+  | 'Kote-hineri'
+  | 'Kote-gaeshi'
+  | 'Hiji-garami'
+  | 'Sumi-otoshi'
+  | 'Uchi kaiten-nage'
+  | 'Uchi kaiten-sankyo'
+  | 'Hiji kime-osae'
+  | 'Kokyu-ho'
+  | 'Soto kaiten-nage'
+  | 'Jiyu-waza'
+  | 'Ushiro kiri-otoshi';
+
+export type Stand =
+  | 'Tachi-waza'
+  | 'Suwari-waza'
+  | 'Hanmi handachi-waza'
+  | 'Ushiro-waza';
+export interface ProtoTech {
+  attack: Attack;
+  tech: Technique;
+  stand: Stand;
+  grade: Grades;
+  video?: string;
 }
 
-export class Tech extends ProtoTech {
-  constructor(
-    public id: string,
-    public override attack: string,
-    public override tech: string,
-    public override stand: string,
-    public override grade: Grades,
-    public usersLearnt: AikidoUser[],
-    public usersInProgress: AikidoUser[],
-    public usersToLearn: AikidoUser[],
-    public override video?: string
-  ) {
-    super(attack, tech, stand, grade, video);
-  }
+export interface Tech extends ProtoTech {
+  id: string;
+  usersLearnt: AikidoUser[];
+  usersInProgress: AikidoUser[];
+  usersToLearn: AikidoUser[];
 }
