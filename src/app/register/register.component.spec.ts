@@ -60,29 +60,28 @@ describe('Given the RegisterComponent', () => {
         component.newRegisterForm.value['email'] = 'TestMail';
         component.newRegisterForm.value['password'] = 'TestPass';
 
-        // const spyUpload = spyOn(component, 'uploadImage').and.resolveTo();
-        // const spyGetImage = spyOn(component, 'getImage').and.resolveTo('mock');
+        const spyRegister = spyOn(service, 'register').and.returnValue(
+          of(mockAikidoUser)
+        );
 
-        // const mockEvent = {
-        //   target: {
-        //     files: [
-        //       {
-        //         name: 'test',
-        //         size: 0,
-        //         type: 'image/png',
-        //       },
-        //     ],
-        //   },
-        // };
-        // component.saveImage(mockEvent);
+        component.handleSubmit();
+
+        expect(spyRegister).toHaveBeenCalled();
+      });
+    });
+
+    describe('And there is no age nor time practicing', () => {
+      it('Then it should call service.register', () => {
+        component.newRegisterForm.value['name'] = 'TestName';
+        component.newRegisterForm.value['lastName'] = 'TestLast';
+        component.newRegisterForm.value['email'] = 'TestMail';
+        component.newRegisterForm.value['password'] = 'TestPass';
 
         const spyRegister = spyOn(service, 'register').and.returnValue(
           of(mockAikidoUser)
         );
 
         component.handleSubmit();
-        // expect(spyUpload).toHaveBeenCalled();
-        // expect(spyGetImage).toHaveBeenCalled();
 
         expect(spyRegister).toHaveBeenCalled();
       });
