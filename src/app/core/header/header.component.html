@@ -1,10 +1,16 @@
 <header>
   <div class="main-header">
     <div class="title">
-      <h1>AIKIDO JOURNEY</h1>
+      <h1 (click)="sendToParent()" [routerLink]="'home'">AIKIDO JOURNEY</h1>
     </div>
     <div class="logo">
-      <img src="../../../assets/img/ai.jo.logo.webp" height="58" alt="" />
+      <img
+        src="../../../assets/img/ai.jo.logo.webp"
+        height="58"
+        alt=""
+        (click)="sendToParent()"
+        [routerLink]="'home'"
+      />
     </div>
     <fa-icon
       [icon]="['fas', 'bars']"
