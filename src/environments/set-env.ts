@@ -13,7 +13,7 @@ const setEnv = () => {
   secret: '${require('process').env?.['SECRET']}',
   production: true,
     firebase: {
-    apiKey: 'AIzaSyBud_VvniIjfuOz5_MyJsfmqDJde__LN5o',
+    apiKey: '${require('process').env?.['API_KEY']}',
     authDomain: 'aikido-journey.firebaseapp.com',
     projectId: 'aikido-journey',
     storageBucket: 'aikido-journey.appspot.com',

@@ -17,7 +17,7 @@ jobs:
         run: npm ci
       - name: Testing in production with coverage
 
-        run: npm run test:prod #Ejecuta los tests que hayamos hecho desde el servidor.
+        run: npm run config && npm run test:prod #Ejecuta los tests que hayamos hecho desde el servidor.
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
