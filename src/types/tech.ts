@@ -30,7 +30,7 @@ export type Attack =
   | 'Kata-dori menuchi'
   | 'Eridori';
 
-export type Technique =
+export type Techniques =
   | 'Ikkyo'
   | 'Nikkyo'
   | 'Sankyo'
@@ -64,7 +64,7 @@ export type Stand =
   | 'Ushiro-waza';
 export interface ProtoTech {
   attack: Attack;
-  tech: Technique;
+  tech: Techniques;
   stand: Stand;
   grade: Grades;
   video?: string;
@@ -76,3 +76,48 @@ export interface Tech extends ProtoTech {
   usersInProgress: AikidoUser[];
   usersToLearn: AikidoUser[];
 }
+
+export type TechsList = {
+  techs: Tech[];
+  number: number;
+};
+
+export type MyTechsList = {
+  [Property in Techniques]: {
+    techs: Tech[];
+    number: number;
+  };
+};
+export type MyTechsPage = {
+  [Property in Techniques]: Array<{
+    page: number;
+  }>;
+};
+
+export const techsListed: Techniques[] = [
+  'Ikkyo',
+  'Nikkyo',
+  'Sankyo',
+  'Gokyo',
+  'Yonkyo',
+  'Rokkyo',
+  'Irimi-nage',
+  'Juji-nage',
+  'Kaiten-nage',
+  'Kokyu-nage',
+  'Koshi-nage',
+  'Shiho-nage',
+  'Tenchi-nage',
+  'Ude kime-nage',
+  'Kote-hineri',
+  'Kote-gaeshi',
+  'Hiji-garami',
+  'Sumi-otoshi',
+  'Uchi kaiten-nage',
+  'Uchi kaiten-sankyo',
+  'Hiji kime-osae',
+  'Kokyu-ho',
+  'Soto kaiten-nage',
+  'Jiyu-waza',
+  'Ushiro kiri-otoshi',
+];
