@@ -1,1 +1,13 @@
-<p>techs-list works!</p>
+<h1>Ikkyo</h1>
+{{ techs$ | async | json }}
+<ul *ngIf="techs$ | async as show">
+  <li *ngFor="let item of show.Ikkyo.techs">
+    <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
+  </li>
+</ul>
+
+<ul *ngIf="(techs$ | async)!.Nikkyo as show">
+  <li *ngFor="let item of show.techs">
+    <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
+  </li>
+</ul>
