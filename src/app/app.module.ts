@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { FontawesomeIconsModule } from './fontawesome/fontawesome.icons.module';
+import { AikidoUsersService } from './services/aikido.users.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,7 @@ import { FontawesomeIconsModule } from './fontawesome/fontawesome.icons.module';
     CoreModule,
     FontawesomeIconsModule,
   ],
-  providers: [],
+  providers: [AikidoUsersService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
