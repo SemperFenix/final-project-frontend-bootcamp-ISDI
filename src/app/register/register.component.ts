@@ -24,12 +24,14 @@ export class RegisterComponent {
   registerModal: boolean;
   subscription: Subscription;
   private storage: Storage;
+  private avatarImg: File | undefined;
 
   constructor(
     private aikidoUsersService: AikidoUsersService,
     private handleModalService: ModalHandlerService,
     public formBuilder: FormBuilder
   ) {
+    this.avatarImg = undefined;
     this.storage = inject(Storage);
     this.subscription = this.handleModalService
       .getRegisterModal()
@@ -49,23 +51,22 @@ export class RegisterComponent {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async uploadImage(event: any) {
-    const file: File = event.target.files[0];
-    const imgRef = ref(
-      this.storage,
-      `avatars/${this.newRegisterForm.value.email}`
-    );
-
-    await uploadBytes(imgRef, file);
+  uploadImage(event: any) {
+    this.avatarImg = event.target.files[0];
   }
 
   async handleSubmit() {
-    const avatarRef = ref(
-      this.storage,
-      `avatars/${this.newRegisterForm.value.email}`
-    );
+    let avatar = '';
 
-    const avatar = await getDownloadURL(avatarRef);
+    if (this.avatarImg) {
+      const avatarRef = ref(
+        this.storage,
+        `avatars/${this.newRegisterForm.value.email}`
+      );
+      await uploadBytes(avatarRef, this.avatarImg);
+
+      avatar = await getDownloadURL(avatarRef);
+    }
 
     const newAikidoUser: ProtoAikidoUser = {
       name: this.newRegisterForm.value.name,
