@@ -35,6 +35,7 @@
           placeholder="Tiempo Practicando"
         />
       </label>
+
       <label for=""
         >E-mail *
         <input
@@ -51,6 +52,15 @@
           formControlName="password"
           placeholder="Contraseña"
           required
+        />
+      </label>
+      <label for=""
+        >Imagen de perfil
+        <input
+          type="file"
+          (change)="saveImage($event)"
+          placeholder="Imagen de perfil"
+          autocomplete="off"
         />
       </label>
     </div>

@@ -14,7 +14,6 @@ import { FontawesomeIconsModule } from './fontawesome/fontawesome.icons.module';
     BrowserModule,
     AppRoutingModule,
     CoreModule,
-
     FontawesomeIconsModule,
   ],
   providers: [],

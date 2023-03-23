@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { FontawesomeIconsModule } from 'src/app/fontawesome/fontawesome.icons.module';
 
 import { HeaderComponent } from './header.component';
@@ -10,7 +11,7 @@ describe('HeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HeaderComponent],
-      imports: [FontawesomeIconsModule],
+      imports: [FontawesomeIconsModule, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);

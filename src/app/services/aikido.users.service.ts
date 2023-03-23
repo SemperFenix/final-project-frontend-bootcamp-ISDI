@@ -32,18 +32,16 @@ export class AikidoUsersService {
   }
 
   register(user: ProtoAikidoUser): Observable<AikidoUser> {
-    return this.http.post(
-      this.apiBaseUrl + '/register',
-      user
-    ) as Observable<AikidoUser>;
+    return this.http.post(this.apiBaseUrl + '/register', {
+      user: user,
+    }) as Observable<AikidoUser>;
   }
 
   login(login: Login): Observable<string> {
     return (
-      this.http.post(
-        this.apiBaseUrl + '/login',
-        login
-      ) as Observable<ServerLoginResponse>
+      this.http.post(this.apiBaseUrl + '/login', {
+        user: login,
+      }) as Observable<ServerLoginResponse>
     ).pipe(map((data) => data.results[0].token));
   }
 
@@ -51,7 +49,7 @@ export class AikidoUsersService {
     this.token = this.token$.value;
     if (this.token === '') this.token = localStorage.getItem('Token');
     return (
-      this.http.get(this.apiBaseUrl + '/users/senseis', {
+      this.http.get(this.apiBaseUrl + '/users/list/:sensei', {
         headers: { ['Authorization']: `Bearer ${this.token}` },
         params: new HttpParams().set('page', pPage),
         responseType: 'json',
@@ -73,7 +71,7 @@ export class AikidoUsersService {
     if (this.token === '') this.token = localStorage.getItem('Token');
 
     const observ = (
-      this.http.get(this.apiBaseUrl + '/users/students', {
+      this.http.get(this.apiBaseUrl + '/users/list/:user', {
         headers: { ['Authorization']: `Bearer ${this.token}` },
         params: new HttpParams().set('page', pPage),
         responseType: 'json',
