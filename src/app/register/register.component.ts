@@ -11,6 +11,7 @@ import {
   ref,
   uploadBytes,
   getDownloadURL,
+  StorageReference,
 } from '@angular/fire/storage';
 
 @Component({
@@ -24,14 +25,14 @@ export class RegisterComponent {
   registerModal: boolean;
   subscription: Subscription;
   private storage: Storage;
-  private avatarImg: File | undefined;
+  private avatarImg: File;
 
   constructor(
     private aikidoUsersService: AikidoUsersService,
     private handleModalService: ModalHandlerService,
     public formBuilder: FormBuilder
   ) {
-    this.avatarImg = undefined;
+    this.avatarImg = new File([], '');
     this.storage = inject(Storage);
     this.subscription = this.handleModalService
       .getRegisterModal()
@@ -51,21 +52,33 @@ export class RegisterComponent {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  uploadImage(event: any) {
+  saveImage(event: any) {
     this.avatarImg = event.target.files[0];
   }
 
-  async handleSubmit() {
+  async uploadImage(storage: StorageReference, avatar: File): Promise<void> {
+    await uploadBytes(storage, avatar);
+  }
+
+  async getImage(storage: StorageReference): Promise<string> {
+    const avatar = await getDownloadURL(storage);
+    return avatar;
+  }
+
+  async handleSubmit(): Promise<void> {
     let avatar = '';
 
-    if (this.avatarImg) {
+    if (this.avatarImg.name) {
       const avatarRef = ref(
         this.storage,
         `avatars/${this.newRegisterForm.value.email}`
       );
-      await uploadBytes(avatarRef, this.avatarImg);
 
-      avatar = await getDownloadURL(avatarRef);
+      await this.uploadImage(avatarRef, this.avatarImg);
+
+      // this.getImage(avatarRef);
+
+      avatar = await this.getImage(avatarRef);
     }
 
     const newAikidoUser: ProtoAikidoUser = {
