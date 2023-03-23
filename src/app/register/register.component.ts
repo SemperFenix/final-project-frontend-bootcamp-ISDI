@@ -76,8 +76,6 @@ export class RegisterComponent {
 
       await this.uploadImage(avatarRef, this.avatarImg);
 
-      // this.getImage(avatarRef);
-
       avatar = await this.getImage(avatarRef);
     }
 
