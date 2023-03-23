@@ -121,7 +121,7 @@ describe('AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/:sensei?page=1'
+          'http://localhost:4500/aikido-users/users/list/:sensei?page=1'
         );
         req.flush(mockResp);
 
