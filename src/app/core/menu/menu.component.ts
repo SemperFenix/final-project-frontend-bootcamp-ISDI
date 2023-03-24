@@ -101,6 +101,7 @@ export class MenuComponent implements OnInit {
 
   handleLogout(): void {
     localStorage.clear();
+    this.loginService.token$.next('');
 
     this.loginService.userLogged$.next({ email: '', id: '', role: 'logout' });
     this.burger.next(!this.burger);
