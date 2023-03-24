@@ -128,5 +128,8 @@ export type TechPage = {
 };
 
 export type TechPages = {
-  [Name in Techniques]: number;
+  [Name in Techniques]: {
+    page: number;
+    exits: boolean;
+  };
 };
