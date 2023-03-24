@@ -45,7 +45,7 @@ export class AikidoUsersService {
   }
 
   getStudentUsers(pPage: string): Observable<UsersList> {
-    const observ = (
+    return (
       this.http.get(this.apiBaseUrl + '/users/list/:user', {
         headers: {
           ['Authorization']: `Bearer ${this.loginService.token$.value}`,
@@ -59,7 +59,5 @@ export class AikidoUsersService {
         return data.results[0];
       })
     );
-
-    return observ;
   }
 }
