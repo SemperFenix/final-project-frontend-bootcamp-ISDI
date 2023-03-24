@@ -104,6 +104,8 @@ export const mockTechsService = {
     return new Observable<MyTechsList>();
   },
   token: '',
-  techs$: new BehaviorSubject<MyTechsList>({} as MyTechsList),
+  techs$: new BehaviorSubject<MyTechsList>({
+    Ikkyo: { techs: [], number: 5 },
+  } as unknown as MyTechsList),
   currentTech$: new BehaviorSubject<Tech>({} as Tech),
 };
