@@ -1,13 +1,21 @@
-<h1>Ikkyo</h1>
-{{ techs$ | async | json }}
-<ul *ngIf="techs$ | async as show">
-  <li *ngFor="let item of show.Ikkyo.techs">
-    <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
-  </li>
-</ul>
+<div *ngFor="let name of techsToSearch">
+  <h2>{{ name }}</h2>
 
-<ul *ngIf="(techs$ | async)!.Nikkyo as show">
-  <li *ngFor="let item of show.techs">
-    <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
-  </li>
-</ul>
+  <ng-container *ngIf="techs[name] as tech">
+    <ul>
+      <li *ngFor="let item of tech.techs">
+        <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
+      </li>
+    </ul>
+    <div class="pages">
+      <fa-icon
+        [icon]="['fas', 'chevron-left']"
+        (click)="handlePrev(name)"
+      ></fa-icon>
+      <fa-icon
+        [icon]="['fas', 'chevron-right']"
+        (click)="handleNext(name)"
+      ></fa-icon>
+    </div>
+  </ng-container>
+</div>

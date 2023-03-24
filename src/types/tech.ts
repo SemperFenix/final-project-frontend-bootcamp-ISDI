@@ -89,7 +89,7 @@ export type MyTechsList = {
   };
 };
 export type MyTechsPage = {
-  [Property in Techniques]: Array<{
+  [Name in Techniques]: Array<{
     page: number;
   }>;
 };
@@ -121,3 +121,12 @@ export const techsListed: Techniques[] = [
   'Jiyu-waza',
   'Ushiro kiri-otoshi',
 ];
+
+export type TechPage = {
+  tech: Techniques;
+  page: number;
+};
+
+export type TechPages = {
+  [Name in Techniques]: number;
+};

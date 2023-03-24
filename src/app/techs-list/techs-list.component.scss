@@ -1,0 +1,13 @@
+.pages {
+  max-width: 250px;
+  display: flex;
+  justify-content: space-between;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+li {
+  list-style: none;
+}
