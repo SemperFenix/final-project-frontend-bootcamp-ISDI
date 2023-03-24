@@ -1,8 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { inject } from '@angular/core';
+
 import {
   getStorage,
   provideStorage,
+  ref,
   StorageReference,
 } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -53,12 +57,14 @@ describe('Given the RegisterComponent', () => {
   describe('When the handleSubmit method is called', () => {
     describe('And there is no avatarImg.name', () => {
       it('Then it should call service.register', () => {
-        component.newRegisterForm.value['name'] = 'TestName';
-        component.newRegisterForm.value['lastName'] = 'TestLast';
-        component.newRegisterForm.value['age'] = 'TestAge';
-        component.newRegisterForm.value['timePracticing'] = 'TestTime';
-        component.newRegisterForm.value['email'] = 'TestMail';
-        component.newRegisterForm.value['password'] = 'TestPass';
+        component.newRegisterForm.setValue({
+          name: 'TestName',
+          lastName: 'TestLast',
+          age: 'TestAge',
+          timePracticing: 'TestTime',
+          email: 'TestMail',
+          password: 'TestPass',
+        });
 
         const spyRegister = spyOn(service, 'register').and.returnValue(
           of(mockAikidoUser)
@@ -129,17 +135,29 @@ describe('Given the RegisterComponent', () => {
   describe('When the getImage method is called', () => {
     it('then it should return the string', () => {
       const mockStorage = {} as StorageReference;
-      const spyGet = spyOn(component, 'getImage').and.callFake(
-        (storage: StorageReference) => {
-          return new Promise((resolve, reject) => {
-            return '';
-          });
-        }
-      );
+      const spyGet = spyOn(component, 'getImage').and.callFake(() => {
+        return new Promise((_resolve, _reject) => {
+          return '';
+        });
+      });
       component.getImage(mockStorage);
       expect(spyGet).toHaveBeenCalled();
+    });
+  });
 
-      // Faltan l'ineas por pasar que son propias de firebase
+  describe('When the uploadImage method is called', () => {
+    it('Then it should uploadBytes', async () => {
+      const testRef = ref(component['storage'], 'testing');
+      const file = new File(['test'], 'test.png', { type: 'image/png' });
+
+      spyOn(component, 'uploadImage').and.callThrough();
+
+      await component.uploadImage(testRef, file);
+
+      const downloadUrl = await component.getImage(testRef);
+
+      expect(component.uploadImage).toHaveBeenCalled();
+      expect(downloadUrl).toBeTruthy();
     });
   });
 });
