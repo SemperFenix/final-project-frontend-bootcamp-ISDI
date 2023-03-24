@@ -3,7 +3,6 @@ import { LoginService } from 'src/app/services/login.service';
 import { LoggedUser } from 'src/types/login';
 import { MenuItems } from 'src/types/menu.items';
 import * as jose from 'jose';
-import { AikidoUsersService } from 'src/app/services/aikido.users.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -22,7 +21,6 @@ export class MenuComponent implements OnInit {
   @Output() burger: EventEmitter<boolean>;
   constructor(
     private loginService: LoginService,
-    private aikidoUsersService: AikidoUsersService,
     private router: Router,
     private zone: NgZone
   ) {
@@ -90,12 +88,10 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('Token');
-
-    if (!this.token) return;
-
-    const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
-
+    const token = localStorage.getItem('Token');
+    if (!token) return;
+    this.loginService.token$.next(token);
+    const userInfo = jose.decodeJwt(token) as unknown as LoggedUser;
     this.loginService.userLogged$.next(userInfo);
   }
 
