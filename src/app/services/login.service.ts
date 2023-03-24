@@ -14,12 +14,4 @@ export class LoginService {
       role: 'logout',
     } as LoggedUser);
   }
-
-  getLoggedUser(): Observable<LoggedUser> {
-    return this.userLogged$;
-  }
-
-  loggedUser$(pUserLogged: LoggedUser): void {
-    this.userLogged$.next(pUserLogged);
-  }
 }

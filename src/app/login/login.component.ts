@@ -48,7 +48,7 @@ export class LoginComponent implements OnDestroy {
       const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
 
       this.newLoginForm.reset();
-      this.loginService.loggedUser$(userInfo);
+      this.loginService.userLogged$.next(userInfo);
 
       this.zone.run(() => {
         this.router.navigateByUrl('/my-profile');

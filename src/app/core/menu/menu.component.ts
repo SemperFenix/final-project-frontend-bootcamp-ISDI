@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
   ) {
     this.burger = new EventEmitter(true);
     this.token = '';
-    this.loggedUser$ = this.loginService.getLoggedUser();
+    this.loggedUser$ = this.loginService.userLogged$.asObservable();
     this.items = [
       {
         path: 'register',
@@ -96,13 +96,13 @@ export class MenuComponent implements OnInit {
 
     const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
 
-    this.loginService.loggedUser$(userInfo);
+    this.loginService.userLogged$.next(userInfo);
   }
 
   handleLogout(): void {
     localStorage.clear();
 
-    this.loginService.loggedUser$({ email: '', id: '', role: 'logout' });
+    this.loginService.userLogged$.next({ email: '', id: '', role: 'logout' });
     this.burger.next(!this.burger);
 
     this.zone.run(() => {
