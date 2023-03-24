@@ -1,8 +1,7 @@
-import { Component, NgZone, OnDestroy } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Login } from 'src/types/login';
-import { AikidoUsersService } from '../services/aikido.users.service';
+
 import { LoginService } from '../services/login.service';
 
 import { Router } from '@angular/router';
