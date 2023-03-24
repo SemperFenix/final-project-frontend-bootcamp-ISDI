@@ -16,7 +16,7 @@ export class UserProfileComponent {
     private aikidoUsersService: AikidoUsersService,
     private loginService: LoginService
   ) {
-    this.currentUser$ = this.aikidoUsersService.getCurrentUser(
+    this.currentUser$ = this.loginService.getCurrentUser(
       this.loginService.userLogged$.value.id
     );
   }
