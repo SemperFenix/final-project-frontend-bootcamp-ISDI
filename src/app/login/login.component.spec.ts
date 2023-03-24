@@ -1,21 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AikidoUsersService } from '../services/aikido.users.service';
-
 import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { of } from 'rxjs';
-import {
-  mockAikidoUsersService,
-  mockToken,
-} from 'src/app/utils/mocks/test.mocks';
+import { mockLoginService, mockToken } from 'src/app/utils/mocks/test.mocks';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { LoginService } from '../services/login.service';
 
-describe('LoginComponent', () => {
+describe('Given the LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let service: AikidoUsersService;
+  let service: LoginService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -30,14 +26,14 @@ describe('LoginComponent', () => {
       ],
       providers: [
         {
-          provide: AikidoUsersService,
-          useValue: mockAikidoUsersService,
+          provide: LoginService,
+          useValue: mockLoginService,
         },
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    service = TestBed.inject(AikidoUsersService);
+    service = TestBed.inject(LoginService);
     fixture.detectChanges();
   });
 
