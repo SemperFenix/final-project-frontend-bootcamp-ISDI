@@ -14,7 +14,6 @@ import { TechsService } from '../services/techs.service';
   styleUrls: ['./techs-list.component.scss'],
 })
 export class TechsListComponent {
-  techs$: Subscription;
   techs: MyTechsList;
   techPage: TechPages[];
   techPages: TechPages;
@@ -34,7 +33,7 @@ export class TechsListComponent {
           .subscribe((data) => this.checkExistence(data, item))
       ),
     ]);
-    this.techs$ = this.techsService.techs$
+    this.techsService.techs$
       .pipe()
       .subscribe((data) => (this.techs = { ...this.techs, ...data }));
   }
@@ -43,7 +42,7 @@ export class TechsListComponent {
     const maxPage = Math.ceil(this.techsService.techs$.value[pTech].number / 3);
     if (this.techPages[pTech].page >= maxPage) return;
     this.techPages[pTech].page++;
-    this.techs$ = this.techsService
+    this.techsService
       .getTechsCategorized(String(this.techPages[pTech].page), pTech)
       .pipe(first())
       .subscribe((data) => (this.techs = { ...this.techs, ...data }));
@@ -51,7 +50,7 @@ export class TechsListComponent {
   handlePrev = (pTech: Techniques) => {
     if (this.techPages[pTech].page <= 1) return;
     this.techPages[pTech].page--;
-    this.techs$ = this.techsService
+    this.techsService
       .getTechsCategorized('1', pTech)
       .pipe(first())
       .subscribe((data) => (this.techs = { ...this.techs, ...data }));
