@@ -2,8 +2,21 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { LoggedUser } from 'src/types/login';
 import { ServerUsersResponse } from 'src/types/server.responses';
+import { MyTechsList, Tech, TechsList } from 'src/types/tech';
 
 const count = 'TestPass';
+
+export const mockTech: Tech = {
+  attack: 'Chudan-tsuki',
+  tech: 'Gokyo',
+  stand: 'Hanmi handachi-waza',
+  id: 'TestId',
+  grade: '1º DAN',
+  usersInProgress: [],
+  usersLearnt: [],
+  usersToLearn: [],
+  video: '',
+};
 
 export const mockProtoAikidoUser: ProtoAikidoUser = {
   name: 'TestName',
@@ -65,6 +78,11 @@ export const mockAikidoUsersService = {
   students$: new BehaviorSubject<UsersList>(mockUsersList),
 };
 
+export const mockTechsList: TechsList = {
+  techs: [mockTech],
+  number: 1,
+};
+
 export const mockLoginService = {
   login: () => {
     return new BehaviorSubject<string>('TestToken');
@@ -79,4 +97,13 @@ export const mockLoginService = {
   userLogged$: new Subject<LoggedUser>(),
   token$: new BehaviorSubject<string>('TestToken'),
   currentUser$: new BehaviorSubject<AikidoUser>(mockAikidoUser),
+};
+
+export const mockTechsService = {
+  getTechsCategorized: () => {
+    return new Observable<MyTechsList>();
+  },
+  token: '',
+  techs$: new BehaviorSubject<MyTechsList>({} as MyTechsList),
+  currentTech$: new BehaviorSubject<Tech>({} as Tech),
 };
