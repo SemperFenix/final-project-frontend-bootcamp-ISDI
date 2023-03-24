@@ -1,21 +1,23 @@
-<div *ngFor="let name of techsToSearch">
-  <h2>{{ name }}</h2>
+<div class="technique" *ngFor="let name of techsToSearch">
+  <div *ngIf="this.techPages[name].exits">
+    <h2>{{ name }}</h2>
 
-  <ng-container *ngIf="techs[name] as tech">
-    <ul>
-      <li *ngFor="let item of tech.techs">
-        <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
-      </li>
-    </ul>
-    <div class="pages">
-      <fa-icon
-        [icon]="['fas', 'chevron-left']"
-        (click)="handlePrev(name)"
-      ></fa-icon>
-      <fa-icon
-        [icon]="['fas', 'chevron-right']"
-        (click)="handleNext(name)"
-      ></fa-icon>
-    </div>
-  </ng-container>
+    <ng-container *ngIf="techs[name] as tech">
+      <ul>
+        <li *ngFor="let item of tech.techs">
+          <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
+        </li>
+      </ul>
+      <div class="pages">
+        <fa-icon
+          [icon]="['fas', 'chevron-left']"
+          (click)="handlePrev(name)"
+        ></fa-icon>
+        <fa-icon
+          [icon]="['fas', 'chevron-right']"
+          (click)="handleNext(name)"
+        ></fa-icon>
+      </div>
+    </ng-container>
+  </div>
 </div>

@@ -1,10 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
-import { first, forkJoin, Observable, Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { first, forkJoin, Subscription } from 'rxjs';
 import {
   MyTechsList,
   Techniques,
   TechPages,
-  TechsList,
   techsListed,
 } from 'src/types/tech';
 import { TechsService } from '../services/techs.service';
@@ -17,47 +16,50 @@ import { TechsService } from '../services/techs.service';
 export class TechsListComponent {
   techs$: Subscription;
   techs: MyTechsList;
-  techPage: Partial<TechPages>[];
-  techPages: Partial<TechPages>;
-  techsToSearch: Techniques[] = techsListed;
+  techPage: TechPages[];
+  techPages: TechPages;
+  techsToSearch: Techniques[];
 
   constructor(private techsService: TechsService) {
-    this.techPage = techsListed.map((item) => ({ [item]: 1 }));
+    this.techsToSearch = techsListed;
+    this.techPage = techsListed.map((item) => ({
+      [item]: { page: 1, exists: false },
+    })) as unknown as TechPages[];
     this.techPages = this.techPage.reduce((obj, item) => ({ ...obj, ...item }));
     this.techs = {} as MyTechsList;
-    forkJoin([
+    forkJoin<[Subscription]>([
       techsListed.map((item) =>
-        this.techsService.getTechsCategorized('1', item).subscribe()
+        this.techsService
+          .getTechsCategorized('1', item)
+          .subscribe((data) => this.checkExistence(data, item))
       ),
     ]);
     this.techs$ = this.techsService.techs$
       .pipe()
       .subscribe((data) => (this.techs = { ...this.techs, ...data }));
-    // this.techs = this.techs$
   }
 
   handleNext = (pTech: Techniques) => {
     const maxPage = Math.ceil(this.techsService.techs$.value[pTech].number / 3);
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if (this.techPages[pTech]! >= maxPage) return;
-
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.techPages[pTech]!++;
-
+    if (this.techPages[pTech].page >= maxPage) return;
+    this.techPages[pTech].page++;
     this.techs$ = this.techsService
-      .getTechsCategorized(String(this.techPages[pTech]), pTech)
+      .getTechsCategorized(String(this.techPages[pTech].page), pTech)
       .pipe(first())
       .subscribe((data) => (this.techs = { ...this.techs, ...data }));
   };
   handlePrev = (pTech: Techniques) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    if (this.techPages[pTech]! <= 1) return;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.techPages[pTech]!--;
+    if (this.techPages[pTech].page <= 1) return;
+    this.techPages[pTech].page--;
     this.techs$ = this.techsService
       .getTechsCategorized('1', pTech)
       .pipe(first())
       .subscribe((data) => (this.techs = { ...this.techs, ...data }));
+  };
+
+  checkExistence = (array: MyTechsList, tech: Techniques): void => {
+    if (array[tech].techs.length === 0) return;
+    this.techPages[tech].exits = true;
+    return;
   };
 }
