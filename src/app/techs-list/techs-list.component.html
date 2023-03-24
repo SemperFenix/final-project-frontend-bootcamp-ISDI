@@ -9,14 +9,14 @@
         </li>
       </ul>
       <div class="pages">
-        <fa-icon
-          [icon]="['fas', 'chevron-left']"
-          (click)="handlePrev(name)"
-        ></fa-icon>
-        <fa-icon
-          [icon]="['fas', 'chevron-right']"
-          (click)="handleNext(name)"
-        ></fa-icon>
+        <div class="paginate" (click)="handlePrev(name)">
+          <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon
+          ><span>Anteriores</span>
+        </div>
+        <div class="paginate" (click)="handleNext(name)">
+          <span>Siguientes</span
+          ><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+        </div>
       </div>
     </ng-container>
   </div>

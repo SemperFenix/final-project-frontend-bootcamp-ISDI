@@ -1,4 +1,5 @@
 .pages {
+  margin: 1rem;
   max-width: 250px;
   display: flex;
   justify-content: space-between;
@@ -14,4 +15,13 @@ li {
 
 .technique {
   margin: 2rem;
+}
+
+.paginate {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.paginate:hover {
+  cursor: pointer;
 }
