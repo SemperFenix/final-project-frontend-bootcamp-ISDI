@@ -28,6 +28,7 @@ describe('LoginService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
   describe('When the login method is called', () => {
     it('Then it should return the token', () => {
       const mockResp: ServerLoginResponse = {
