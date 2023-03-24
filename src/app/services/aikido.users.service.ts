@@ -12,10 +12,8 @@ export class AikidoUsersService {
   apiBaseUrl: string;
   senseis$: BehaviorSubject<UsersList>;
   students$: BehaviorSubject<UsersList>;
-  currentUser$: BehaviorSubject<AikidoUser>;
 
   constructor(public http: HttpClient, private loginService: LoginService) {
-    this.currentUser$ = new BehaviorSubject<AikidoUser>({} as AikidoUser);
     this.senseis$ = new BehaviorSubject<UsersList>({ users: [], number: 0 });
     this.students$ = new BehaviorSubject<UsersList>({ users: [], number: 0 });
     this.apiBaseUrl = 'http://localhost:4500/aikido-users';
