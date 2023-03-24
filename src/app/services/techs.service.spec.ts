@@ -10,7 +10,7 @@ import { LoginService } from './login.service';
 
 import { TechsService } from './techs.service';
 
-fdescribe('Given the TechsService', () => {
+describe('Given the TechsService', () => {
   let service: TechsService;
   let loginService: LoginService;
   let httpTestingController: HttpTestingController;
