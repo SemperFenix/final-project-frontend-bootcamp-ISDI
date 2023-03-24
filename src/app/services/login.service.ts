@@ -37,6 +37,7 @@ export class LoginService {
     ).pipe(
       map((data) => {
         const token = data.results[0].token;
+        this.token$.next(token);
         localStorage.setItem('Token', token);
         const userInfo = jose.decodeJwt(token) as unknown as LoggedUser;
         this.userLogged$.next(userInfo);
