@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { first, forkJoin, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { forkJoin, Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import {
   MyTechsList,
+  Tech,
   Techniques,
   TechPages,
   techsListed,
@@ -13,52 +15,77 @@ import { TechsService } from '../services/techs.service';
   templateUrl: './techs-list.component.html',
   styleUrls: ['./techs-list.component.scss'],
 })
-export class TechsListComponent {
+export class TechsListComponent implements OnInit {
   techs: MyTechsList;
-  techPage: TechPages[];
   techPages: TechPages;
   techsToSearch: Techniques[];
 
   constructor(private techsService: TechsService) {
-    this.techsToSearch = techsListed;
-    this.techPage = techsListed.map((item) => ({
-      [item]: { page: 1, exists: false },
-    })) as unknown as TechPages[];
-    this.techPages = this.techPage.reduce((obj, item) => ({ ...obj, ...item }));
     this.techs = {} as MyTechsList;
-    forkJoin<[Subscription]>([
-      techsListed.map((item) =>
-        this.techsService
-          .getTechsCategorized('1', item)
-          .subscribe((data) => this.checkExistence(data, item))
-      ),
-    ]);
-    this.techsService.techs$
-      .pipe()
-      .subscribe((data) => (this.techs = { ...this.techs, ...data }));
+    this.techPages = {} as TechPages;
+    this.techsToSearch = techsListed;
   }
 
-  handleNext = (pTech: Techniques) => {
-    const maxPage = Math.ceil(this.techsService.techs$.value[pTech].number / 3);
-    if (this.techPages[pTech].page >= maxPage) return;
-    this.techPages[pTech].page++;
-    this.techsService
-      .getTechsCategorized(String(this.techPages[pTech].page), pTech)
-      .pipe(first())
-      .subscribe((data) => (this.techs = { ...this.techs, ...data }));
-  };
-  handlePrev = (pTech: Techniques) => {
-    if (this.techPages[pTech].page <= 1) return;
-    this.techPages[pTech].page--;
-    this.techsService
-      .getTechsCategorized('1', pTech)
-      .pipe(first())
-      .subscribe((data) => (this.techs = { ...this.techs, ...data }));
-  };
+  ngOnInit(): void {
+    this.initializeTechPages();
+    this.loadTechs();
+    this.subscribeToTechsUpdates();
+  }
 
-  checkExistence = (array: MyTechsList, tech: Techniques): void => {
-    if (array[tech].techs.length === 0) return;
-    this.techPages[tech].exits = true;
-    return;
-  };
+  private initializeTechPages(): void {
+    this.techsToSearch.forEach((tech) => {
+      this.techPages[tech] = { page: 1, exists: false };
+    });
+  }
+
+  private loadTechs(): void {
+    const observables: Observable<MyTechsList>[] = this.techsToSearch.map(
+      (tech) => {
+        console.log(tech);
+        return this.techsService.getTechsCategorized('1', tech).pipe(first());
+      }
+    );
+
+    forkJoin(observables).subscribe();
+  }
+
+  private subscribeToTechsUpdates(): void {
+    this.techsService.techs$.subscribe((data) => {
+      this.techs = data;
+      Object.entries(this.techs).forEach((item) => {
+        this.checkExistence(item[1].techs, item[0] as Techniques);
+      });
+    });
+  }
+
+  private checkExistence(obj: Tech[], tech: Techniques): void {
+    if (obj.length === 0) return;
+    this.techPages[tech].exists = true;
+  }
+
+  handleNext(pTech: Techniques): void {
+    const maxPage = Math.ceil(this.techsService.techs$.value[pTech].number / 3);
+    console.log(maxPage, this.techPages);
+    if (this.techPages[pTech].page >= maxPage) {
+      return;
+    }
+    this.techPages[pTech].page++;
+    this.loadTechsForPage(pTech, this.techPages[pTech].page);
+  }
+
+  handlePrev(pTech: Techniques): void {
+    if (this.techPages[pTech].page <= 1) return;
+
+    this.techPages[pTech].page--;
+    this.loadTechsForPage(pTech, this.techPages[pTech].page);
+  }
+
+  private loadTechsForPage(pTech: Techniques, page: number): void {
+    this.techsService
+      .getTechsCategorized(String(page), pTech)
+      .pipe(first())
+      .subscribe((data) => {
+        this.techs = { ...this.techs, ...data };
+      });
+  }
 }
