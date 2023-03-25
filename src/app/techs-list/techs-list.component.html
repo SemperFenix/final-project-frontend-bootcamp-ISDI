@@ -1,5 +1,5 @@
 <div class="technique" *ngFor="let name of techsToSearch">
-  <div *ngIf="this.techPages[name].exits">
+  <div *ngIf="this.techPages[name].exists">
     <h2>{{ name }}</h2>
 
     <ng-container *ngIf="techs[name] as tech">
