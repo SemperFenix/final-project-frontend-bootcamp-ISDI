@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, first, Observable, of, Subject } from 'rxjs';
 import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { LoggedUser } from 'src/types/login';
 import { ServerUsersResponse } from 'src/types/server.responses';
@@ -101,11 +101,17 @@ export const mockLoginService = {
 
 export const mockTechsService = {
   getTechsCategorized: () => {
-    return new Observable<MyTechsList>();
+    // const techs: Tech[] = [{} as Tech, {} as Tech];
+    // const number = 3;
+    return of({ Ikkyo: { techs: [{} as Tech, {} as Tech], number: 3 } }).pipe(
+      first()
+    );
   },
   token: '',
   techs$: new BehaviorSubject<MyTechsList>({
-    Ikkyo: { techs: [], number: 5 },
+    Ikkyo: { techs: [], number: 6 },
+    Nikkyo: { techs: [{}], number: 6 },
+    Sankyo: { techs: [], number: 6 },
   } as unknown as MyTechsList),
   currentTech$: new BehaviorSubject<Tech>({} as Tech),
 };
