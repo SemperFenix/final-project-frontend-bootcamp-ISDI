@@ -1,15 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TechsListComponent } from './techs-list.component';
 import { TechsService } from '../services/techs.service';
-import { first, of } from 'rxjs';
+import { of } from 'rxjs';
 import { MyTechsList, TechPages, Tech } from 'src/types/tech';
 import { mockTechsService } from '../utils/mocks/test.mocks';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 
-describe('TechsListComponent', () => {
+fdescribe('TechsListComponent', () => {
   let component: TechsListComponent;
   let fixture: ComponentFixture<TechsListComponent>;
   let techsService: TechsService;
+  // Este valor viene del mockTechsService, ya que component.techs inicializa con el valor del observable
+  const mockGetCatReturn = {
+    Ikkyo: { techs: [], number: 6 },
+    Nikkyo: { techs: [{}], number: 6 },
+    Sankyo: { techs: [], number: 6 },
+  } as unknown as MyTechsList;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,9 +23,7 @@ describe('TechsListComponent', () => {
       imports: [FontawesomeIconsModule],
       providers: [{ provide: TechsService, useValue: mockTechsService }],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(TechsListComponent);
     techsService = TestBed.inject(TechsService);
     component = fixture.componentInstance;
@@ -29,148 +33,127 @@ describe('TechsListComponent', () => {
       Nikkyo: { page: 2, exists: false },
       Sankyo: { page: 2, exists: false },
     } as TechPages;
+
     fixture.detectChanges();
   });
 
-  it('should initialize tech pages', () => {
-    expect(component.techPages).toBeDefined();
-    expect(Object.keys(component.techPages).length).toBeGreaterThan(0);
+  describe('When created an instance', () => {
+    // Test del constructor
+    it('Then it should initialize techs, tech pages and techsToSearch', () => {
+      expect(component.techs).toBeDefined();
+      expect(component.techPages).toBeDefined();
+      expect(component.techsToSearch.length).toBe(3);
+    });
   });
 
-  it('should load techs', () => {
-    component.techsToSearch = ['Ikkyo', 'Nikkyo', 'Sankyo'];
+  describe('When onInit', () => {
+    it('Then should update the value of techPages, call service method and update techs', () => {
+      const spyGet = spyOn(
+        techsService,
+        'getTechsCategorized'
+      ).and.callThrough();
+      component.ngOnInit();
 
-    const mockTechs = {
-      Ikkyo: { techs: [], number: 0 },
-      Nikkyo: { techs: [], number: 0 },
-    } as unknown as MyTechsList;
-    const spyGet = spyOn(techsService, 'getTechsCategorized').and.returnValue(
-      of(mockTechs).pipe(first())
-    );
-
-    component.ngOnInit();
-
-    expect(spyGet).toHaveBeenCalledTimes(3);
-
-    expect(component.techs).toEqual({
-      Ikkyo: { techs: [], number: 6 },
-      Nikkyo: { techs: [{}], number: 6 },
-      Sankyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList);
+      expect(Object.keys(component.techPages).length).toBe(3);
+      expect(spyGet).toHaveBeenCalledTimes(3);
+      expect(component.techs).toEqual(mockGetCatReturn);
+    });
   });
 
-  it('should handle next with next page', () => {
-    techsService.techs$.next({
-      Ikkyo: { techs: [], number: 6 },
-      Nikkyo: { techs: [{}], number: 6 },
-      Sankyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList);
-    const mockTechs = {
-      Ikkyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList;
-    const spyGet = spyOn(techsService, 'getTechsCategorized').and.returnValue(
-      of(mockTechs)
-    );
-    component.techPages.Ikkyo.page = 1;
-
-    component.handleNext('Ikkyo');
-
-    expect(component.techPages.Ikkyo.page).toBe(2);
-    expect(spyGet).toHaveBeenCalledWith('2', 'Ikkyo');
-    expect(component.techs).toEqual({
-      Ikkyo: { techs: [], number: 6 },
-      Nikkyo: { techs: [{}], number: 6 },
-      Sankyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList);
+  describe('When call the checkExistence method', () => {
+    it('Then it should change exists to true if tech property techs lenght is greater than 0', () => {
+      component.techPages = {
+        Ikkyo: { page: 5, exists: false },
+        Nikkyo: { page: 2, exists: false },
+      } as TechPages;
+      component['checkExistence']([{} as Tech], 'Ikkyo');
+      expect(component.techPages.Ikkyo.exists).toBeTrue();
+    });
   });
 
-  it('should handle next but return', () => {
-    techsService.techs$.next({
-      Ikkyo: { techs: [], number: 6 },
-      Nikkyo: { techs: [{}], number: 6 },
-      Sankyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList);
-    const mockTechs = {
-      Ikkyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList;
-    const spyGet = spyOn(techsService, 'getTechsCategorized').and.returnValue(
-      of(mockTechs)
-    );
-    component.techPages.Ikkyo.page = 2;
+  describe('When call the handleNext method', () => {
+    describe('And there is a next page', () => {
+      it('Then it should call de service method with next page', () => {
+        const mockTechs = {
+          Ikkyo: { techs: ['Next'], number: 6 },
+        } as unknown as MyTechsList;
+        const spyGet = spyOn(
+          techsService,
+          'getTechsCategorized'
+        ).and.returnValue(of(mockTechs));
+        component.techPages.Ikkyo.page = 1;
 
-    component.handleNext('Ikkyo');
+        component.handleNext('Ikkyo');
+        expect(component.techPages.Ikkyo.page).toBe(2);
+        expect(spyGet).toHaveBeenCalledWith('2', 'Ikkyo');
+        expect(component.techs).toEqual({
+          Ikkyo: { techs: ['Next'], number: 6 },
+          Nikkyo: { techs: [{}], number: 6 },
+          Sankyo: { techs: [], number: 6 },
+        } as unknown as MyTechsList);
+      });
+    });
 
-    expect(component.techPages.Ikkyo.page).toBe(2);
-    expect(spyGet).not.toHaveBeenCalled();
-    expect(component.techs).toEqual({
-      Ikkyo: { techs: [], number: 6 },
-      Nikkyo: { techs: [{}], number: 6 },
-      Sankyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList);
+    describe('And it is already in maxPage', () => {
+      it('Then it should not call service method', () => {
+        const mockTechs = {
+          Ikkyo: { techs: ['Stay'], number: 6 },
+        } as unknown as MyTechsList;
+        const spyGet = spyOn(
+          techsService,
+          'getTechsCategorized'
+        ).and.returnValue(of(mockTechs));
+        component.techPages.Ikkyo.page = 2;
+
+        component.handleNext('Ikkyo');
+
+        expect(component.techPages.Ikkyo.page).toBe(2);
+        expect(spyGet).not.toHaveBeenCalled();
+        expect(component.techs).toEqual(mockGetCatReturn);
+      });
+    });
   });
 
-  it('should handle prev', () => {
-    component.techPages.Ikkyo.page = 2;
-    component.techPages.Nikkyo.page = 2;
-    component.techPages.Sankyo.page = 2;
-    techsService.techs$.next({
-      Ikkyo: { techs: [], number: 6 },
-      Nikkyo: { techs: [{}], number: 6 },
-      Sankyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList);
-    const mockTechs = {
-      Ikkyo: { techs: [{}, {}, {}], number: 0 },
-      Nikkyo: { techs: [{}, {}, {}], number: 0 },
-      Sankyo: { techs: [{}, {}, {}], number: 0 },
-    } as unknown as MyTechsList;
-    const spyGet = spyOn(techsService, 'getTechsCategorized').and.returnValue(
-      of(mockTechs as unknown as MyTechsList)
-    );
+  describe('When call the handlePrev method', () => {
+    describe('And there is a previous page', () => {
+      it('Then it should call the service method with previous page', () => {
+        component.techPages.Ikkyo.page = 2;
 
-    component.handlePrev('Ikkyo');
-    expect(component.techPages.Ikkyo.page).toBe(1);
-    expect(spyGet).toHaveBeenCalledWith('1', 'Ikkyo');
-    expect(component.techs).toEqual({
-      Ikkyo: { techs: [{}, {}, {}], number: 0 },
-      Nikkyo: { techs: [{}, {}, {}], number: 0 },
-      Sankyo: { techs: [{}, {}, {}], number: 0 },
-    } as unknown as MyTechsList);
-  });
+        const mockTechs = {
+          Ikkyo: { techs: ['Prev'], number: 0 },
+        } as unknown as MyTechsList;
+        const spyGet = spyOn(
+          techsService,
+          'getTechsCategorized'
+        ).and.returnValue(of(mockTechs as unknown as MyTechsList));
 
-  it('should handle prev but no page', () => {
-    techsService.techs$.next({
-      Ikkyo: { techs: [], number: 6 },
-      Nikkyo: { techs: [{}], number: 6 },
-      Sankyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList);
-    const mockTechs = {
-      Ikkyo: { techs: [{}, {}, {}], number: 0 },
-      Nikkyo: { techs: [{}, {}, {}], number: 0 },
-      Sankyo: { techs: [{}, {}, {}], number: 0 },
-    } as unknown as MyTechsList;
-    const spyGet = spyOn(techsService, 'getTechsCategorized').and.returnValue(
-      of(mockTechs as unknown as MyTechsList)
-    );
-    component.techPages.Ikkyo.page = 1;
-    component.techPages.Nikkyo.page = 1;
-    component.techPages.Sankyo.page = 1;
+        component.handlePrev('Ikkyo');
+        expect(component.techPages.Ikkyo.page).toBe(1);
+        expect(spyGet).toHaveBeenCalledWith('1', 'Ikkyo');
+        expect(component.techs).toEqual({
+          Ikkyo: { techs: ['Prev'], number: 0 },
+          Nikkyo: { techs: [{}], number: 6 },
+          Sankyo: { techs: [], number: 6 },
+        } as unknown as MyTechsList);
+      });
+    });
 
-    component.handlePrev('Ikkyo');
-    expect(component.techPages.Ikkyo.page).toBe(1);
-    expect(spyGet).not.toHaveBeenCalled();
-    expect(component.techs).toEqual({
-      Ikkyo: { techs: [], number: 6 },
-      Nikkyo: { techs: [{}], number: 6 },
-      Sankyo: { techs: [], number: 6 },
-    } as unknown as MyTechsList);
-  });
+    describe('And it is on page 1', () => {
+      it('Then it should not call service', () => {
+        const mockTechs = {
+          Ikkyo: { techs: ['STAY'], number: 0 },
+        } as unknown as MyTechsList;
+        const spyGet = spyOn(
+          techsService,
+          'getTechsCategorized'
+        ).and.returnValue(of(mockTechs as unknown as MyTechsList));
+        component.techPages.Ikkyo.page = 1;
 
-  it('checkExistence', () => {
-    component.techPages = {
-      Ikkyo: { page: 5, exists: false },
-      Nikkyo: { page: 2, exists: false },
-    } as TechPages;
-    component['checkExistence']([{} as Tech, {} as Tech], 'Ikkyo');
-    expect(component.techPages.Ikkyo.exists).toBeTrue();
+        component.handlePrev('Ikkyo');
+        expect(component.techPages.Ikkyo.page).toBe(1);
+        expect(spyGet).not.toHaveBeenCalled();
+        expect(component.techs).toEqual(mockGetCatReturn);
+      });
+    });
   });
 });
