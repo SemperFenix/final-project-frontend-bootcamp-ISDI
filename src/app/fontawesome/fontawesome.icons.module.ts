@@ -8,6 +8,8 @@ import {
   faBars,
   faChevronLeft,
   faChevronRight,
+  faListCheck,
+  faPenNib,
 } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
@@ -17,6 +19,12 @@ import {
 })
 export class FontawesomeIconsModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faChevronRight, faChevronLeft, faBars);
+    library.addIcons(
+      faChevronRight,
+      faChevronLeft,
+      faBars,
+      faListCheck,
+      faPenNib
+    );
   }
 }
