@@ -19,7 +19,7 @@ import {
 import { AikidoUsersService } from './aikido.users.service';
 import { LoginService } from './login.service';
 
-fdescribe('Given the AikidoUsersService', () => {
+describe('Given the AikidoUsersService', () => {
   let aikidoService: AikidoUsersService;
   let loginService: LoginService;
 
