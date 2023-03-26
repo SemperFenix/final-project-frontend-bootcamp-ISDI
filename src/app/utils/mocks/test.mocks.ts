@@ -1,4 +1,4 @@
-import { BehaviorSubject, first, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { LoggedUser } from 'src/types/login';
 import { ServerUsersResponse } from 'src/types/server.responses';
