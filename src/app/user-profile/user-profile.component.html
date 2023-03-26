@@ -18,12 +18,10 @@
       ></fa-icon>
     </section>
     <fieldset class="edit-form" disabled>
-      <legend>
-        <app-user-form
-          [userData]="userData"
-          (itSubmit)="handleUpdate($event)"
-        ></app-user-form>
-      </legend>
+      <app-user-form
+        [userData]="userData"
+        (itSubmit)="handleUpdate($event)"
+      ></app-user-form>
     </fieldset>
     <div class="button">
       <button (click)="handleDelete()">Borrar Perfil</button>
