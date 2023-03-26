@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { LoggedUser } from 'src/types/login';
 import { ServerUsersResponse } from 'src/types/server.responses';
@@ -84,6 +84,14 @@ export const mockAikidoUsersService = {
     return new Observable<ServerUsersResponse>();
   },
 
+  updateSelfUser: () => {
+    return new Observable<AikidoUser>();
+  },
+
+  deleteSelfUser: () => {
+    return new Observable<unknown>();
+  },
+
   senseis$: new BehaviorSubject<UsersList>(mockSenseisList),
   students$: new BehaviorSubject<UsersList>(mockUsersList),
 };
@@ -102,9 +110,16 @@ export const mockLoginService = {
   },
 
   getCurrentUser: () => {
-    return new Observable<AikidoUser>();
+    return of({
+      name: 'TestName',
+      lastName: 'TestLast',
+    } as unknown as AikidoUser);
   },
-  userLogged$: new Subject<LoggedUser>(),
+  userLogged$: new BehaviorSubject<LoggedUser>({
+    id: 'TestId',
+    role: 'TestRole',
+    email: 'TestMail',
+  }),
   token$: new BehaviorSubject<string>('TestToken'),
   currentUser$: new BehaviorSubject<AikidoUser>(mockAikidoUser),
 };
