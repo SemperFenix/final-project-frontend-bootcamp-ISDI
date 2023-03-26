@@ -29,17 +29,27 @@ export interface ProtoAikidoUser extends Login {
   principalSensei?: AikidoUser;
   mainUke?: AikidoUser;
 }
+
+export type UserForm = {
+  name: string;
+  lastName: string;
+  email: string;
+  age: string;
+  timePracticing: string;
+  password?: string;
+};
+
 export interface AikidoUser extends ProtoAikidoUser {
   techsLearnt: Tech[];
   techsInProgress: Tech[];
   role: 'user' | 'sensei';
   techToReview: string; // Esta propiedad está añadida por si me da tiempo a aumentar funcionalidades
   id: string;
-  avatar?: string;
-  age?: number;
-  timePracticing?: string;
-  principalSensei?: AikidoUser;
-  mainUke?: AikidoUser;
+  avatar: string;
+  age: number;
+  timePracticing: string;
+  principalSensei: AikidoUser;
+  mainUke: AikidoUser;
 }
 
 export type UsersList = {
