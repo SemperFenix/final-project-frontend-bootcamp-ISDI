@@ -42,13 +42,7 @@ export class UserFormComponent implements OnInit {
       email: [this.userData.email, [Validators.required]],
       password: ['', [Validators.required]],
     });
-    // if (!this.userData.password) this.toggleEdit();
   }
-
-  // private toggleEdit() {
-  //   const fieldset = document.querySelector('fieldset') as HTMLFieldSetElement;
-  //   fieldset.disabled = !fieldset.disabled;
-  // }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   saveImage(event: any) {
