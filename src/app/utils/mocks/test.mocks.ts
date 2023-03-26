@@ -103,9 +103,11 @@ export const mockTechsService = {
   getTechsCategorized: () => {
     // const techs: Tech[] = [{} as Tech, {} as Tech];
     // const number = 3;
-    return of({ Ikkyo: { techs: [{} as Tech, {} as Tech], number: 3 } }).pipe(
-      first()
-    );
+    return of({
+      Ikkyo: { techs: [{}, {}, {}], number: 0 },
+      Nikkyo: { techs: [{}, {}, {}], number: 0 },
+      Sankyo: { techs: [{}, {}, {}], number: 0 },
+    });
   },
   token: '',
   techs$: new BehaviorSubject<MyTechsList>({
