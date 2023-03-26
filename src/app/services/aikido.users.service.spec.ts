@@ -4,9 +4,9 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import {
   mockAikidoUser,
+  mockLoginService,
   mockProtoAikidoUser,
   mockSenseisList,
   mockUsersList,
@@ -19,7 +19,7 @@ import {
 import { AikidoUsersService } from './aikido.users.service';
 import { LoginService } from './login.service';
 
-describe('AikidoUsersService', () => {
+fdescribe('Given the AikidoUsersService', () => {
   let aikidoService: AikidoUsersService;
   let loginService: LoginService;
 
@@ -31,7 +31,7 @@ describe('AikidoUsersService', () => {
       providers: [
         {
           provide: LoginService,
-          useValue: { token$: new BehaviorSubject<string>('TestToken') },
+          useValue: mockLoginService,
         },
       ],
     });
@@ -45,7 +45,7 @@ describe('AikidoUsersService', () => {
   });
 
   describe('When the register method is called', () => {
-    it('should return the complete registered user', async () => {
+    it('Then it should return the complete registered user', async () => {
       const mockResp: ServerCompleteUserResponse = {
         results: [mockAikidoUser],
       };
@@ -166,6 +166,42 @@ describe('AikidoUsersService', () => {
           JSON.stringify(header)
         );
       });
+    });
+  });
+
+  describe('When the updateSelfUser method is called', () => {
+    it('Then it should return the updated user', () => {
+      const mockResp: ServerCompleteUserResponse = {
+        results: [mockAikidoUser],
+      };
+      aikidoService.updateSelfUser(mockProtoAikidoUser).subscribe((resp) => {
+        expect(resp).not.toBeNull();
+        expect(JSON.stringify(resp)).toBe(JSON.stringify(mockAikidoUser));
+      });
+      expect(httpTestingController).toBeTruthy();
+      const req = httpTestingController.expectOne(
+        'http://localhost:4500/aikido-users/update/1'
+      );
+      expect(req.request.method).toEqual('PATCH');
+      req.flush(mockResp);
+    });
+  });
+
+  describe('When the deleteSelfUser method is called', () => {
+    it('Then it should return void object', () => {
+      const mockResp = {
+        results: [{}],
+      };
+      aikidoService.deleteSelfUser().subscribe((resp) => {
+        expect(resp).not.toBeNull();
+        expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
+      });
+      expect(httpTestingController).toBeTruthy();
+      const req = httpTestingController.expectOne(
+        'http://localhost:4500/aikido-users/delete/1'
+      );
+      expect(req.request.method).toEqual('DELETE');
+      req.flush(mockResp);
     });
   });
 });

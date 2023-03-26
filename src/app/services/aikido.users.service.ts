@@ -83,8 +83,6 @@ export class AikidoUsersService {
   }
 
   deleteSelfUser(): Observable<unknown> {
-    console.log('Deleted self user!');
-
     return this.http.delete(
       `${this.apiBaseUrl}/delete/${this.loginService.currentUser$.value.id}`,
       {
