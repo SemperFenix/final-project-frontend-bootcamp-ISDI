@@ -41,7 +41,6 @@ export class TechsListComponent implements OnInit {
   private loadTechs(): void {
     const observables: Observable<MyTechsList>[] = this.techsToSearch.map(
       (tech) => {
-        console.log(tech);
         return this.techsService.getTechsCategorized('1', tech).pipe(first());
       }
     );
@@ -65,7 +64,6 @@ export class TechsListComponent implements OnInit {
 
   handleNext(pTech: Techniques): void {
     const maxPage = Math.ceil(this.techsService.techs$.value[pTech].number / 3);
-    console.log(maxPage, this.techPages);
     if (this.techPages[pTech].page >= maxPage) {
       return;
     }
