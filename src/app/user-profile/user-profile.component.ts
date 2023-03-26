@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { AikidoUser } from 'src/types/aikido.user';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { first, Observable } from 'rxjs';
+import { AikidoUser, UserForm } from 'src/types/aikido.user';
+import { AikidoUsersService } from '../services/aikido.users.service';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -8,12 +10,57 @@ import { LoginService } from '../services/login.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
   currentUser$: Observable<AikidoUser>;
+  userData: UserForm;
 
-  constructor(private loginService: LoginService) {
+  constructor(
+    private loginService: LoginService,
+    private aikidoUsersService: AikidoUsersService,
+    private router: Router,
+
+    private zone: NgZone
+  ) {
     this.currentUser$ = this.loginService.getCurrentUser(
       this.loginService.userLogged$.value.id
     );
+    this.userData = {} as UserForm;
+  }
+
+  ngOnInit(): void {
+    console.log('Datos:', this.userData);
+    this.currentUser$.subscribe((data) => {
+      let age = 'N/C';
+      if (data.age) age = data.age.toString();
+      this.userData = {
+        name: data.name,
+        lastName: data.lastName,
+        age: age,
+        email: data.email,
+        timePracticing: data.timePracticing,
+      };
+    });
+  }
+
+  handleEdit() {
+    const form = document.querySelector('.edit-form') as HTMLFieldSetElement;
+    form.disabled = !form.disabled;
+  }
+
+  handleUpdate(user: Partial<AikidoUser>) {
+    delete user.password;
+    console.log('Actualizaaa');
+    this.aikidoUsersService.updateSelfUser(user).pipe(first()).subscribe();
+  }
+
+  handleDelete() {
+    this.aikidoUsersService.deleteSelfUser().pipe(first()).subscribe();
+
+    localStorage.clear();
+    this.loginService.token$.next('');
+    this.loginService.userLogged$.next({ email: '', id: '', role: 'logout' });
+    this.zone.run(() => {
+      this.router.navigateByUrl('/login');
+    });
   }
 }
