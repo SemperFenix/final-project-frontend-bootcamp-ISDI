@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { ServerUsersResponse } from 'src/types/server.responses';
+import {
+  ServerCompleteUserResponse,
+  ServerUsersResponse,
+} from 'src/types/server.responses';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -56,6 +59,39 @@ export class AikidoUsersService {
         this.students$.next(data.results[0]);
         return data.results[0];
       })
+    );
+  }
+
+  updateSelfUser(pUser: Partial<ProtoAikidoUser>): Observable<AikidoUser> {
+    return (
+      this.http.patch(
+        `${this.apiBaseUrl}/update/${this.loginService.currentUser$.value.id}`,
+        { userId: this.loginService.currentUser$.value.id, user: pUser },
+        {
+          headers: {
+            ['Authorization']: `Bearer ${this.loginService.token$.value}`,
+          },
+          responseType: 'json',
+        }
+      ) as Observable<ServerCompleteUserResponse>
+    ).pipe(
+      map((data) => {
+        this.loginService.currentUser$.next(data.results[0]);
+        return data.results[0];
+      })
+    );
+  }
+
+  deleteSelfUser(): Observable<unknown> {
+    return this.http.delete(
+      `${this.apiBaseUrl}/delete/${this.loginService.currentUser$.value.id}`,
+      {
+        body: { userId: this.loginService.currentUser$.value.id },
+        headers: {
+          ['Authorization']: `Bearer ${this.loginService.token$.value}`,
+        },
+        responseType: 'json',
+      }
     );
   }
 }

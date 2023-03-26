@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
+
+form {
+  .form-group {
+    font-family: "Comfortaa", cursive;
+    width: 390px;
+    color: #c71a18;
+    .info-field {
+      margin: 0.5rem;
+    }
+
+    input:disabled {
+      border: none;
+      padding: 1rem 10px;
+      background-color: rgba(198, 156, 156, 0.4);
+      opacity: 0.4;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input:enabled {
+      border: none;
+      padding: 1rem 10px;
+      background-color: rgba(198, 156, 156, 0.4);
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    input[type="file"] {
+      padding: 1rem 0;
+      background: none;
+      color: #c71a18;
+    }
+    input::file-selector-button {
+      font-family: "Comfortaa", cursive;
+      color: #c71a18;
+      background-color: #e2ddcb;
+      padding: 0.5em;
+      border: none;
+      border-radius: 5px;
+      font-size: 0.75rem;
+    }
+    input:enabled::file-selector-button:hover {
+      font-size: 1rem;
+    }
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      button {
+        width: 240px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgb(#e2ddcb, 0.7);
+        border: none;
+        border-radius: 5px;
+      }
+      button:enabled:hover {
+        width: 260px;
+        height: 87px;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

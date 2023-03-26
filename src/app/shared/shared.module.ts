@@ -1,29 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RegisterComponent } from './register.component';
+import { UserFormComponent } from './user-form/user-form.component';
+import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModalsModule } from '../utils/modals/modals.module';
-import { RegisterRoutingModule } from './register-routing.module';
-import { RegisterModalComponent } from '../utils/modals/register-modal/register-modal.component';
-
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [RegisterComponent, RegisterModalComponent],
+  declarations: [UserFormComponent],
   imports: [
-    SharedModule,
     CommonModule,
+    FontawesomeIconsModule,
     ReactiveFormsModule,
-    ModalsModule,
-    RegisterRoutingModule,
-
+    ReactiveFormsModule,
     AngularFireStorageModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideStorage(() => getStorage()),
   ],
+  exports: [UserFormComponent],
 })
-export class RegisterModule {}
+export class SharedModule {}

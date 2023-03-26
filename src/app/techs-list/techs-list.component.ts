@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import {
-  MyTechsList,
+  TechsList,
   Tech,
-  Techniques,
-  TechPages,
+  Technique,
+  TechsPageAndExistence,
   techsListed,
 } from 'src/types/tech';
 import { TechsService } from '../services/techs.service';
@@ -16,13 +16,13 @@ import { TechsService } from '../services/techs.service';
   styleUrls: ['./techs-list.component.scss'],
 })
 export class TechsListComponent implements OnInit {
-  techs: MyTechsList;
-  techPages: TechPages;
-  techsToSearch: Techniques[];
+  techs: TechsList;
+  techPages: TechsPageAndExistence;
+  techsToSearch: Technique[];
 
   constructor(private techsService: TechsService) {
-    this.techs = {} as MyTechsList;
-    this.techPages = {} as TechPages;
+    this.techs = {} as TechsList;
+    this.techPages = {} as TechsPageAndExistence;
     this.techsToSearch = techsListed;
   }
 
@@ -39,7 +39,7 @@ export class TechsListComponent implements OnInit {
   }
 
   private loadTechs(): void {
-    const observables: Observable<MyTechsList>[] = this.techsToSearch.map(
+    const observables: Observable<TechsList>[] = this.techsToSearch.map(
       (tech) => {
         return this.techsService.getTechsCategorized('1', tech).pipe(first());
       }
@@ -52,17 +52,17 @@ export class TechsListComponent implements OnInit {
     this.techsService.techs$.subscribe((data) => {
       this.techs = data;
       Object.entries(this.techs).forEach((item) => {
-        this.checkExistence(item[1].techs, item[0] as Techniques);
+        this.checkExistence(item[1].techs, item[0] as Technique);
       });
     });
   }
 
-  private checkExistence(obj: Tech[], tech: Techniques): void {
+  private checkExistence(obj: Tech[], tech: Technique): void {
     if (obj.length === 0) return;
     this.techPages[tech].exists = true;
   }
 
-  handleNext(pTech: Techniques): void {
+  handleNext(pTech: Technique): void {
     const maxPage = Math.ceil(this.techsService.techs$.value[pTech].number / 3);
     if (this.techPages[pTech].page >= maxPage) {
       return;
@@ -71,14 +71,14 @@ export class TechsListComponent implements OnInit {
     this.loadTechsForPage(pTech, this.techPages[pTech].page);
   }
 
-  handlePrev(pTech: Techniques): void {
+  handlePrev(pTech: Technique): void {
     if (this.techPages[pTech].page <= 1) return;
 
     this.techPages[pTech].page--;
     this.loadTechsForPage(pTech, this.techPages[pTech].page);
   }
 
-  private loadTechsForPage(pTech: Techniques, page: number): void {
+  private loadTechsForPage(pTech: Technique, page: number): void {
     this.techsService
       .getTechsCategorized(String(page), pTech)
       .pipe(first())

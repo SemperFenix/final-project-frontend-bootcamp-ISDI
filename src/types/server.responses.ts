@@ -1,5 +1,5 @@
 import { AikidoUser, UsersList } from './aikido.user';
-import { TechsList } from './tech';
+import { ProtoTechsList } from './tech';
 
 export type ServerLoginResponse = {
   results: { token: string }[];
@@ -14,5 +14,5 @@ export type ServerUsersResponse = {
 };
 
 export type ServerTechsResponse = {
-  results: [TechsList];
+  results: [ProtoTechsList];
 };

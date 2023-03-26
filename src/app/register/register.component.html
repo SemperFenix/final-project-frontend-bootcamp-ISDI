@@ -2,68 +2,8 @@
   <h3>Regístrate</h3>
 
   <app-register-modal *ngIf="registerModal"> </app-register-modal>
-
-  <form [formGroup]="newRegisterForm" (submit)="handleSubmit()">
-    <div class="form-group">
-      <label for=""
-        >Nombre *
-        <input
-          type="text"
-          formControlName="name"
-          placeholder="Nombre"
-          required
-        />
-      </label>
-      <label for=""
-        >Apellidos *
-        <input
-          type="text"
-          formControlName="lastName"
-          placeholder="Apellidos"
-          required
-        />
-      </label>
-      <label for=""
-        >Edad
-        <input type="text" formControlName="age" placeholder="Edad" />
-      </label>
-      <label for=""
-        >Tiempo practicando
-        <input
-          type="text"
-          formControlName="timePracticing"
-          placeholder="Tiempo Practicando"
-        />
-      </label>
-
-      <label for=""
-        >E-mail *
-        <input
-          type="text"
-          formControlName="email"
-          placeholder="E-mail"
-          required
-        />
-      </label>
-      <label for=""
-        >Contraseña *
-        <input
-          type="text"
-          formControlName="password"
-          placeholder="Contraseña"
-          required
-        />
-      </label>
-      <label for=""
-        >Imagen de perfil
-        <input
-          type="file"
-          (change)="saveImage($event)"
-          placeholder="Imagen de perfil"
-          autocomplete="off"
-        />
-      </label>
-    </div>
-    <button type="submit" [disabled]="newRegisterForm.invalid">Añadir</button>
-  </form>
+  <app-user-form
+    [userData]="this.newUser"
+    (itSubmit)="handleSubmit($event)"
+  ></app-user-form>
 </div>

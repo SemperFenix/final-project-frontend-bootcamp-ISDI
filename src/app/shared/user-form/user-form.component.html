@@ -1,0 +1,87 @@
+<form [formGroup]="userDataForm" (submit)="sendToParent()">
+  <div class="form-group">
+    <div class="info-field">
+      <label for=""
+        >Nombre *
+        <input
+          type="text"
+          formControlName="name"
+          placeholder="Nombre"
+          required
+        />
+      </label>
+    </div>
+    <div class="info-field">
+      <label for=""
+        >Apellidos *
+        <input
+          type="text"
+          formControlName="lastName"
+          placeholder="Apellidos"
+          required
+        />
+      </label>
+    </div>
+    <div class="info-field">
+      <label for=""
+        >Edad
+        <input type="text" formControlName="age" placeholder="Edad" />
+      </label>
+    </div>
+    <div class="info-field">
+      <label for=""
+        >Tiempo practicando
+        <input
+          type="text"
+          formControlName="timePracticing"
+          placeholder="Tiempo practicando"
+        />
+      </label>
+    </div>
+    <div class="info-field">
+      <label for=""
+        >E-mail *
+        <input
+          type="text"
+          formControlName="email"
+          placeholder="E-mail"
+          required
+        />
+      </label>
+    </div>
+    <div class="info-field">
+      <label *ngIf="userData.password" for=""
+        >Contraseña *
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Contraseña"
+          required
+        />
+      </label>
+    </div>
+    <div class="info-field">
+      <label for=""
+        >Imagen de perfil
+        <input
+          type="file"
+          (change)="saveImage($event)"
+          placeholder="Imagen de perfil"
+          autocomplete="off"
+        />
+      </label>
+    </div>
+    <div class="button">
+      <button
+        *ngIf="userData.password"
+        type="submit"
+        [disabled]="userDataForm.invalid"
+      >
+        Registrarme
+      </button>
+      <button *ngIf="!userData.password" type="submit">
+        Actualizar Perfil
+      </button>
+    </div>
+  </div>
+</form>

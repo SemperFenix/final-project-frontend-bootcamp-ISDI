@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,11 +11,11 @@ export class ModalHandlerService {
     this.subjectRegister = new BehaviorSubject<boolean>(false);
   }
 
-  registerModal(value: boolean) {
+  registerModal(value: boolean): void {
     this.subjectRegister.next(value);
   }
 
-  getRegisterModal() {
+  getRegisterModal(): Observable<boolean> {
     return this.subjectRegister.asObservable();
   }
 }

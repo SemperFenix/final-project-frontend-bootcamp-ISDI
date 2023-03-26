@@ -1,25 +1,37 @@
-<h2>Login</h2>
+<section class="login">
+  <h2>Login</h2>
+  <div class="line"></div>
 
-<form [formGroup]="newLoginForm" (submit)="handleSubmit()">
-  <div class="form-group">
-    <label for=""
-      >E-mail
-      <input
-        type="text"
-        formControlName="email"
-        placeholder="E-mail"
-        required
-      />
-    </label>
-    <label for=""
-      >Contraseña
-      <input
-        type="text"
-        formControlName="password"
-        placeholder="Contraseña"
-        required
-      />
-    </label>
-  </div>
-  <button type="submit" [disabled]="newLoginForm.invalid">Añadir</button>
-</form>
+  <form [formGroup]="newLoginForm" (submit)="handleSubmit()">
+    <div class="form-group">
+      <div class="info-field">
+        <label for=""
+          >E-mail
+          <input
+            type="text"
+            formControlName="email"
+            placeholder="E-mail"
+            required
+          />
+        </label>
+      </div>
+      <div class="info-field">
+        <label for=""
+          >Contraseña
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="Contraseña"
+            required
+          />
+        </label>
+      </div>
+
+      <div class="button">
+        <button type="submit" [disabled]="newLoginForm.invalid">
+          Iniciar sesión
+        </button>
+      </div>
+    </div>
+  </form>
+</section>

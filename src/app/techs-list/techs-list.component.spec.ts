@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TechsListComponent } from './techs-list.component';
 import { TechsService } from '../services/techs.service';
 import { of } from 'rxjs';
-import { MyTechsList, TechPages, Tech } from 'src/types/tech';
+import { TechsList, TechsPageAndExistence, Tech } from 'src/types/tech';
 import { mockTechsService } from '../utils/mocks/test.mocks';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 
@@ -15,7 +15,7 @@ describe('TechsListComponent', () => {
     Ikkyo: { techs: [], number: 6 },
     Nikkyo: { techs: [{}], number: 6 },
     Sankyo: { techs: [], number: 6 },
-  } as unknown as MyTechsList;
+  } as unknown as TechsList;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -32,7 +32,7 @@ describe('TechsListComponent', () => {
       Ikkyo: { page: 5, exists: false },
       Nikkyo: { page: 2, exists: false },
       Sankyo: { page: 2, exists: false },
-    } as TechPages;
+    } as TechsPageAndExistence;
 
     fixture.detectChanges();
   });
@@ -65,7 +65,7 @@ describe('TechsListComponent', () => {
       component.techPages = {
         Ikkyo: { page: 5, exists: false },
         Nikkyo: { page: 2, exists: false },
-      } as TechPages;
+      } as TechsPageAndExistence;
       component['checkExistence']([{} as Tech], 'Ikkyo');
       expect(component.techPages.Ikkyo.exists).toBeTrue();
     });
@@ -76,7 +76,7 @@ describe('TechsListComponent', () => {
       it('Then it should call de service method with next page', () => {
         const mockTechs = {
           Ikkyo: { techs: ['Next'], number: 6 },
-        } as unknown as MyTechsList;
+        } as unknown as TechsList;
         const spyGet = spyOn(
           techsService,
           'getTechsCategorized'
@@ -90,7 +90,7 @@ describe('TechsListComponent', () => {
           Ikkyo: { techs: ['Next'], number: 6 },
           Nikkyo: { techs: [{}], number: 6 },
           Sankyo: { techs: [], number: 6 },
-        } as unknown as MyTechsList);
+        } as unknown as TechsList);
       });
     });
 
@@ -98,7 +98,7 @@ describe('TechsListComponent', () => {
       it('Then it should not call service method', () => {
         const mockTechs = {
           Ikkyo: { techs: ['Stay'], number: 6 },
-        } as unknown as MyTechsList;
+        } as unknown as TechsList;
         const spyGet = spyOn(
           techsService,
           'getTechsCategorized'
@@ -121,11 +121,11 @@ describe('TechsListComponent', () => {
 
         const mockTechs = {
           Ikkyo: { techs: ['Prev'], number: 0 },
-        } as unknown as MyTechsList;
+        } as unknown as TechsList;
         const spyGet = spyOn(
           techsService,
           'getTechsCategorized'
-        ).and.returnValue(of(mockTechs as unknown as MyTechsList));
+        ).and.returnValue(of(mockTechs as unknown as TechsList));
 
         component.handlePrev('Ikkyo');
         expect(component.techPages.Ikkyo.page).toBe(1);
@@ -134,7 +134,7 @@ describe('TechsListComponent', () => {
           Ikkyo: { techs: ['Prev'], number: 0 },
           Nikkyo: { techs: [{}], number: 6 },
           Sankyo: { techs: [], number: 6 },
-        } as unknown as MyTechsList);
+        } as unknown as TechsList);
       });
     });
 
@@ -142,11 +142,11 @@ describe('TechsListComponent', () => {
       it('Then it should not call service', () => {
         const mockTechs = {
           Ikkyo: { techs: ['STAY'], number: 0 },
-        } as unknown as MyTechsList;
+        } as unknown as TechsList;
         const spyGet = spyOn(
           techsService,
           'getTechsCategorized'
-        ).and.returnValue(of(mockTechs as unknown as MyTechsList));
+        ).and.returnValue(of(mockTechs as unknown as TechsList));
         component.techPages.Ikkyo.page = 1;
 
         component.handlePrev('Ikkyo');
