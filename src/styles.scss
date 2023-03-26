@@ -6,9 +6,11 @@
   box-sizing: border-box;
 }
 
-* {
+*:not(head) {
   margin: 0;
   list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, min-max(1fr));
 }
 
 html,
