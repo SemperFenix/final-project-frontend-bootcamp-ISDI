@@ -6,7 +6,7 @@ import { MyTechsList, TechPages, Tech } from 'src/types/tech';
 import { mockTechsService } from '../utils/mocks/test.mocks';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 
-fdescribe('TechsListComponent', () => {
+describe('TechsListComponent', () => {
   let component: TechsListComponent;
   let fixture: ComponentFixture<TechsListComponent>;
   let techsService: TechsService;
