@@ -30,7 +30,7 @@ export type Attack =
   | 'Kata-dori menuchi'
   | 'Eridori';
 
-export type Techniques =
+export type Technique =
   | 'Ikkyo'
   | 'Nikkyo'
   | 'Sankyo'
@@ -64,7 +64,7 @@ export type Stand =
   | 'Ushiro-waza';
 export interface ProtoTech {
   attack: Attack;
-  tech: Techniques;
+  tech: Technique;
   stand: Stand;
   grade: Grades;
   video?: string;
@@ -77,24 +77,23 @@ export interface Tech extends ProtoTech {
   usersToLearn: AikidoUser[];
 }
 
-export type TechsList = {
+export type ProtoTechsList = {
   techs: Tech[];
   number: number;
 };
 
-export type MyTechsList = {
-  [Property in Techniques]: {
-    techs: Tech[];
-    number: number;
-  };
-};
-export type MyTechsPage = {
-  [Name in Techniques]: Array<{
-    page: number;
-  }>;
+export type TechsList = {
+  [Property in Technique]: ProtoTechsList;
 };
 
-export const techsListed: Techniques[] = [
+export type TechPages = {
+  [Name in Technique]: {
+    page: number;
+    exists: boolean;
+  };
+};
+
+export const techsListed: Technique[] = [
   'Ikkyo',
   'Nikkyo',
   'Sankyo',
@@ -121,15 +120,3 @@ export const techsListed: Techniques[] = [
   'Jiyu-waza',
   'Ushiro kiri-otoshi',
 ];
-
-export type TechPage = {
-  tech: Techniques;
-  page: number;
-};
-
-export type TechPages = {
-  [Name in Techniques]: {
-    page: number;
-    exists: boolean;
-  };
-};

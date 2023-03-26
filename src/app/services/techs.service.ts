@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, map, Observable } from 'rxjs';
-import { MyTechsList, Tech, Techniques } from 'src/types/tech';
+import { TechsList, Tech, Technique } from 'src/types/tech';
 import { ServerTechsResponse } from 'src/types/server.responses';
 import { LoginService } from './login.service';
 
@@ -9,22 +9,19 @@ import { LoginService } from './login.service';
   providedIn: 'root',
 })
 export class TechsService {
-  techs$: BehaviorSubject<MyTechsList>;
+  techs$: BehaviorSubject<TechsList>;
   currentTech$: BehaviorSubject<Tech>;
   apiBaseUrl: string;
 
   constructor(public http: HttpClient, private loginService: LoginService) {
-    this.techs$ = new BehaviorSubject<MyTechsList>({} as MyTechsList);
+    this.techs$ = new BehaviorSubject<TechsList>({} as TechsList);
     this.currentTech$ = new BehaviorSubject<Tech>({} as Tech);
     this.apiBaseUrl = 'http://localhost:4500/techniques/';
   }
 
-  getTechsCategorized(
-    pPage: string,
-    pTech: Techniques
-  ): Observable<MyTechsList> {
+  getTechsCategorized(pPage: string, pTech: Technique): Observable<TechsList> {
     return (
-      this.http.get(this.apiBaseUrl + 'list/:' + pTech.toString(), {
+      this.http.get(this.apiBaseUrl + 'list/:' + pTech, {
         headers: {
           ['Authorization']: `Bearer ${this.loginService.token$.value}`,
         },

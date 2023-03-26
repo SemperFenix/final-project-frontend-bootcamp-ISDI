@@ -2,7 +2,7 @@ import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { LoggedUser } from 'src/types/login';
 import { ServerUsersResponse } from 'src/types/server.responses';
-import { MyTechsList, Tech, TechsList } from 'src/types/tech';
+import { TechsList, Tech, ProtoTechsList } from 'src/types/tech';
 
 const count = 'TestPass';
 
@@ -78,7 +78,7 @@ export const mockAikidoUsersService = {
   students$: new BehaviorSubject<UsersList>(mockUsersList),
 };
 
-export const mockTechsList: TechsList = {
+export const mockTechsList: ProtoTechsList = {
   techs: [mockTech],
   number: 1,
 };
@@ -110,10 +110,10 @@ export const mockTechsService = {
     });
   },
   token: '',
-  techs$: new BehaviorSubject<MyTechsList>({
+  techs$: new BehaviorSubject<TechsList>({
     Ikkyo: { techs: [], number: 6 },
     Nikkyo: { techs: [{}], number: 6 },
     Sankyo: { techs: [], number: 6 },
-  } as unknown as MyTechsList),
+  } as unknown as TechsList),
   currentTech$: new BehaviorSubject<Tech>({} as Tech),
 };
