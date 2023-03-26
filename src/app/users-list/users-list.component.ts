@@ -28,7 +28,8 @@ export class UsersListComponent {
   }
 
   handleSenseisPrev = () => {
-    if (this.senseisPage > 1) this.senseisPage--;
+    if (this.senseisPage <= 1) return;
+    this.senseisPage--;
     this.senseis$ = this.aikidoUsersService.getSenseiUsers(
       String(this.senseisPage)
     );
@@ -37,14 +38,16 @@ export class UsersListComponent {
     const maxPage = Math.ceil(
       this.aikidoUsersService.senseis$.value.number / 3
     );
-    if (this.senseisPage < maxPage) this.senseisPage++;
+    if (this.senseisPage >= maxPage) return;
+    this.senseisPage++;
     this.senseis$ = this.aikidoUsersService.getSenseiUsers(
       String(this.senseisPage)
     );
   };
 
   handleStudentsPrev = () => {
-    if (this.studentsPage > 1) this.studentsPage--;
+    if (this.studentsPage <= 1) return;
+    this.studentsPage--;
     this.students$ = this.aikidoUsersService.getStudentUsers(
       String(this.studentsPage)
     );
@@ -54,7 +57,8 @@ export class UsersListComponent {
     const maxPage = Math.ceil(
       this.aikidoUsersService.students$.value.number / 3
     );
-    if (this.studentsPage < maxPage) this.studentsPage++;
+    if (this.studentsPage >= maxPage) return;
+    this.studentsPage++;
     this.students$ = this.aikidoUsersService.getStudentUsers(
       String(this.studentsPage)
     );

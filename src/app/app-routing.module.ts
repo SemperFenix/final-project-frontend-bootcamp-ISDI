@@ -22,6 +22,11 @@ const routes: Routes = [
       import('./users-list/users-list.module').then((m) => m.UsersListModule),
   },
   {
+    path: 'techs',
+    loadChildren: () =>
+      import('./techs-list/techs-list.module').then((m) => m.TechsListModule),
+  },
+  {
     path: 'my-profile',
     loadChildren: () =>
       import('./user-profile/user-profile.module').then(

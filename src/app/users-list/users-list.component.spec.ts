@@ -51,21 +51,21 @@ describe('Given the UsersListComponent', () => {
     });
 
     describe('And the actual page is 1', () => {
-      it('Then it should call the getSenseiUsers with page 1', () => {
+      it('Then it should not call the getSenseiUsers with page 1', () => {
         const spySenseis = spyOn(service, 'getSenseiUsers').and.returnValue(
           of(mockSenseisList)
         );
         component.senseisPage = 1;
         component.handleSenseisPrev();
 
-        expect(spySenseis).toHaveBeenCalledWith('1');
+        expect(spySenseis).not.toHaveBeenCalledWith('1');
       });
     });
   });
 
   describe('When call the handleSenseisNext', () => {
     describe('And the actual page is equal to max page', () => {
-      it('Then it should call the getSenseiUsers with same page', () => {
+      it('Then it should not call the getSenseiUsers', () => {
         const spySenseis = spyOn(service, 'getSenseiUsers').and.returnValue(
           of(mockSenseisList)
         );
@@ -73,7 +73,7 @@ describe('Given the UsersListComponent', () => {
         service.senseis$.value.number = 9;
         component.handleSenseisNext();
 
-        expect(spySenseis).toHaveBeenCalledWith('3');
+        expect(spySenseis).not.toHaveBeenCalledWith('3');
       });
     });
 
@@ -105,21 +105,21 @@ describe('Given the UsersListComponent', () => {
     });
 
     describe('And the actual page is 1', () => {
-      it('Then it should call the getStudentUsers with page 1', () => {
+      it('Then it should not call the getStudentUsers', () => {
         const spyStudents = spyOn(service, 'getStudentUsers').and.returnValue(
           of(mockUsersList)
         );
         component.studentsPage = 1;
         component.handleStudentsPrev();
 
-        expect(spyStudents).toHaveBeenCalledWith('1');
+        expect(spyStudents).not.toHaveBeenCalledWith('1');
       });
     });
   });
 
   describe('When call the handleStudentsNext', () => {
     describe('And the actual page is equal to max page', () => {
-      it('Then it should call the getStudentUsers with same page', () => {
+      it('Then it should not call the getStudentUsers ', () => {
         const spyStudents = spyOn(service, 'getStudentUsers').and.returnValue(
           of(mockUsersList)
         );
@@ -127,7 +127,7 @@ describe('Given the UsersListComponent', () => {
         service.students$.value.number = 9;
         component.handleStudentsNext();
 
-        expect(spyStudents).toHaveBeenCalledWith('3');
+        expect(spyStudents).not.toHaveBeenCalledWith('3');
       });
     });
 

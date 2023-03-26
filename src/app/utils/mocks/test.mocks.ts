@@ -1,12 +1,22 @@
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { AikidoUser, ProtoAikidoUser, UsersList } from 'src/types/aikido.user';
 import { LoggedUser } from 'src/types/login';
-import {
-  ServerLoginResponse,
-  ServerUsersResponse,
-} from 'src/types/server.responses';
+import { ServerUsersResponse } from 'src/types/server.responses';
+import { MyTechsList, Tech, TechsList } from 'src/types/tech';
 
 const count = 'TestPass';
+
+export const mockTech: Tech = {
+  attack: 'Chudan-tsuki',
+  tech: 'Gokyo',
+  stand: 'Hanmi handachi-waza',
+  id: 'TestId',
+  grade: '1º DAN',
+  usersInProgress: [],
+  usersLearnt: [],
+  usersToLearn: [],
+  video: '',
+};
 
 export const mockProtoAikidoUser: ProtoAikidoUser = {
   name: 'TestName',
@@ -54,9 +64,6 @@ export const mockToken =
   'eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJpZCI6IiIsImVtYWlsIjoiIiwicm9sZSI6IiIsImlhdCI6MTY3OTA0ODgwNH0.U8s8UMTJddjfXH_qbxiJJ5GuJeEhryxFmv8d8DBMsycVTt-k1sdAFEq9yRUXbawo';
 
 export const mockAikidoUsersService = {
-  login: () => {
-    return new Observable<ServerLoginResponse>();
-  },
   register: () => {
     return new Observable<AikidoUser>();
   },
@@ -66,25 +73,47 @@ export const mockAikidoUsersService = {
   getStudentUsers: () => {
     return new Observable<ServerUsersResponse>();
   },
-  senseiUsers: () => {
-    return;
-  },
-  studentUsers: () => {
-    return;
-  },
-  token: mockToken,
-  token$: new BehaviorSubject<string>(''),
+
   senseis$: new BehaviorSubject<UsersList>(mockSenseisList),
   students$: new BehaviorSubject<UsersList>(mockUsersList),
 };
 
+export const mockTechsList: TechsList = {
+  techs: [mockTech],
+  number: 1,
+};
+
 export const mockLoginService = {
-  loggedUser$: () => {
+  login: () => {
+    return new BehaviorSubject<string>('TestToken');
+  },
+  initialToken: () => {
     return;
   },
-  getLoggedUser: () => {
-    return new Observable<LoggedUser>();
+
+  getCurrentUser: () => {
+    return new Observable<AikidoUser>();
   },
   userLogged$: new Subject<LoggedUser>(),
-  userLogged: { email: '', id: '', role: 'logout' },
+  token$: new BehaviorSubject<string>('TestToken'),
+  currentUser$: new BehaviorSubject<AikidoUser>(mockAikidoUser),
+};
+
+export const mockTechsService = {
+  getTechsCategorized: () => {
+    // const techs: Tech[] = [{} as Tech, {} as Tech];
+    // const number = 3;
+    return of({
+      Ikkyo: { techs: [{}, {}, {}], number: 0 },
+      Nikkyo: { techs: [{}, {}, {}], number: 0 },
+      Sankyo: { techs: [{}, {}, {}], number: 0 },
+    });
+  },
+  token: '',
+  techs$: new BehaviorSubject<MyTechsList>({
+    Ikkyo: { techs: [], number: 6 },
+    Nikkyo: { techs: [{}], number: 6 },
+    Sankyo: { techs: [], number: 6 },
+  } as unknown as MyTechsList),
+  currentTech$: new BehaviorSubject<Tech>({} as Tech),
 };

@@ -3,7 +3,6 @@ import { LoginService } from 'src/app/services/login.service';
 import { LoggedUser } from 'src/types/login';
 import { MenuItems } from 'src/types/menu.items';
 import * as jose from 'jose';
-import { AikidoUsersService } from 'src/app/services/aikido.users.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -22,13 +21,12 @@ export class MenuComponent implements OnInit {
   @Output() burger: EventEmitter<boolean>;
   constructor(
     private loginService: LoginService,
-    private aikidoUsersService: AikidoUsersService,
     private router: Router,
     private zone: NgZone
   ) {
     this.burger = new EventEmitter(true);
     this.token = '';
-    this.loggedUser$ = this.loginService.getLoggedUser();
+    this.loggedUser$ = this.loginService.userLogged$.asObservable();
     this.items = [
       {
         path: 'register',
@@ -90,19 +88,18 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('Token');
-
-    if (!this.token) return;
-
-    const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
-
-    this.loginService.loggedUser$(userInfo);
+    const token = localStorage.getItem('Token');
+    if (!token) return;
+    this.loginService.token$.next(token);
+    const userInfo = jose.decodeJwt(token) as unknown as LoggedUser;
+    this.loginService.userLogged$.next(userInfo);
   }
 
   handleLogout(): void {
     localStorage.clear();
+    this.loginService.token$.next('');
 
-    this.loginService.loggedUser$({ email: '', id: '', role: 'logout' });
+    this.loginService.userLogged$.next({ email: '', id: '', role: 'logout' });
     this.burger.next(!this.burger);
 
     this.zone.run(() => {

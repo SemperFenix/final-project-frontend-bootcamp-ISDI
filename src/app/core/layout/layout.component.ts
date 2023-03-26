@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
 
 @Component({
   selector: 'app-layout',
@@ -7,7 +8,8 @@ import { Component, Input } from '@angular/core';
 })
 export class LayoutComponent {
   @Input() burger: boolean;
-  constructor() {
+  constructor(private loginService: LoginService) {
+    this.loginService.initialToken();
     this.burger = true;
   }
   burgerOption() {

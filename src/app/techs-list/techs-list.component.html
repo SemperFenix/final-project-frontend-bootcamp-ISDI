@@ -1,0 +1,23 @@
+<div class="technique" *ngFor="let name of techsToSearch">
+  <div *ngIf="this.techPages[name].exists">
+    <h2>{{ name }}</h2>
+
+    <ng-container *ngIf="techs[name] as tech">
+      <ul>
+        <li *ngFor="let item of tech.techs">
+          <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
+        </li>
+      </ul>
+      <div class="pages">
+        <div class="paginate" (click)="handlePrev(name)">
+          <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon
+          ><span>Anteriores</span>
+        </div>
+        <div class="paginate" (click)="handleNext(name)">
+          <span>Siguientes</span
+          ><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

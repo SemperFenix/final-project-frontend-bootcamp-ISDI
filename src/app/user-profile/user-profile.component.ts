@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AikidoUser } from 'src/types/aikido.user';
-import { AikidoUsersService } from '../services/aikido.users.service';
 import { LoginService } from '../services/login.service';
 
 @Component({
@@ -12,11 +11,8 @@ import { LoginService } from '../services/login.service';
 export class UserProfileComponent {
   currentUser$: Observable<AikidoUser>;
 
-  constructor(
-    private aikidoUsersService: AikidoUsersService,
-    private loginService: LoginService
-  ) {
-    this.currentUser$ = this.aikidoUsersService.getCurrentUser(
+  constructor(private loginService: LoginService) {
+    this.currentUser$ = this.loginService.getCurrentUser(
       this.loginService.userLogged$.value.id
     );
   }

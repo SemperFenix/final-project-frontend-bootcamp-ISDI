@@ -7,7 +7,7 @@ import { mockLoginService, mockToken } from 'src/app/utils/mocks/test.mocks';
 
 import { MenuComponent } from './menu.component';
 
-describe('MenuComponent', () => {
+describe('Given the MenuComponent', () => {
   let component: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
   let service: LoginService;
@@ -43,7 +43,7 @@ describe('MenuComponent', () => {
     describe('And there is a token', () => {
       it('Then it should call getLoggedUser$ service', () => {
         spyOn(localStorage, 'getItem').and.returnValue(mockToken);
-        const spyLogin = spyOn(service, 'loggedUser$').and.callThrough();
+        const spyLogin = spyOn(service.userLogged$, 'next').and.callThrough();
 
         component.ngOnInit();
 
@@ -53,23 +53,20 @@ describe('MenuComponent', () => {
 
     describe('And call getLoggedUsers$ with no token', () => {
       it('Then it should return', () => {
-        component.token = '';
+        service.token$.next('Test');
         spyOn(localStorage, 'getItem').and.returnValue(null);
-        // const spyLogin = spyOn(service, 'loggedUser$').and.returnValue(
-        //   of(false as unknown as LoggedUser)
-        // );
-        const spyLogged = spyOn(service, 'loggedUser$').and.callThrough();
+
+        const spyLogin = spyOn(service.userLogged$, 'next').and.callThrough();
         component.ngOnInit();
 
-        // expect(spyLogin).toHaveBeenCalled();
-        expect(spyLogged).not.toHaveBeenCalled();
+        expect(spyLogin).not.toHaveBeenCalled();
       });
     });
   });
 
   describe('When called the handleLogout method', () => {
     it('Then it should call loggedUser service', () => {
-      const spyLogout = spyOn(service, 'loggedUser$').and.callThrough();
+      const spyLogout = spyOn(service.userLogged$, 'next').and.callThrough();
       component.handleLogout();
 
       expect(spyLogout).toHaveBeenCalled();

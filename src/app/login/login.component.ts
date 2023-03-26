@@ -1,10 +1,9 @@
-import { Component, NgZone, OnDestroy } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs';
-import { LoggedUser, Login } from 'src/types/login';
-import { AikidoUsersService } from '../services/aikido.users.service';
+import { Login } from 'src/types/login';
+
 import { LoginService } from '../services/login.service';
-import * as jose from 'jose';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,21 +11,17 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.sass'],
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent {
   newLoginForm: FormGroup;
-  token: string;
-  token$: Subscription;
+
   login: string;
   constructor(
-    private aikidoUsersService: AikidoUsersService,
     private loginService: LoginService,
     public formBuilder: FormBuilder,
     private router: Router,
     private zone: NgZone
   ) {
     this.login = 'logout';
-    this.token = '';
-    this.token$ = new Subscription();
 
     this.newLoginForm = formBuilder.group({
       email: ['', [Validators.required]],
@@ -40,23 +35,15 @@ export class LoginComponent implements OnDestroy {
       password: this.newLoginForm.value.password,
     };
 
-    this.token$ = this.aikidoUsersService.login(loginUser).subscribe((data) => {
+    this.loginService.login(loginUser).subscribe((data) => {
       if (!data) return;
-      this.aikidoUsersService.token$.next(data);
-      this.token = data;
-      localStorage.setItem('Token', this.token);
-      const userInfo = jose.decodeJwt(this.token) as unknown as LoggedUser;
+      this.loginService.token$.next(data);
 
       this.newLoginForm.reset();
-      this.loginService.loggedUser$(userInfo);
 
       this.zone.run(() => {
         this.router.navigateByUrl('/my-profile');
       });
     });
-  }
-
-  ngOnDestroy(): void {
-    this.token$.unsubscribe();
   }
 }
