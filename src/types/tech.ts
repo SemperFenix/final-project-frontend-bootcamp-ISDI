@@ -86,7 +86,7 @@ export type TechsList = {
   [Property in Technique]: ProtoTechsList;
 };
 
-export type TechPages = {
+export type TechsPageAndExistence = {
   [Name in Technique]: {
     page: number;
     exists: boolean;

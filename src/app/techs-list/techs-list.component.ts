@@ -5,7 +5,7 @@ import {
   TechsList,
   Tech,
   Technique,
-  TechPages,
+  TechsPageAndExistence,
   techsListed,
 } from 'src/types/tech';
 import { TechsService } from '../services/techs.service';
@@ -17,12 +17,12 @@ import { TechsService } from '../services/techs.service';
 })
 export class TechsListComponent implements OnInit {
   techs: TechsList;
-  techPages: TechPages;
+  techPages: TechsPageAndExistence;
   techsToSearch: Technique[];
 
   constructor(private techsService: TechsService) {
     this.techs = {} as TechsList;
-    this.techPages = {} as TechPages;
+    this.techPages = {} as TechsPageAndExistence;
     this.techsToSearch = techsListed;
   }
 
