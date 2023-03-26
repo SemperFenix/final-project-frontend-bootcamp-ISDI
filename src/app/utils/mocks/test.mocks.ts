@@ -33,15 +33,25 @@ export const mockAikidoUser: AikidoUser = {
   role: 'user',
   id: '1',
   techToReview: '',
+  timePracticing: '',
+  age: 32,
+  mainUke: [],
+  principalSensei: [],
+  avatar: '',
 };
 
 export const mockAikidoSensei: AikidoUser = {
   ...mockProtoAikidoUser,
+  avatar: '',
   techsLearnt: [],
   techsInProgress: [],
   role: 'sensei',
   id: '1',
   techToReview: '',
+  timePracticing: '',
+  age: 32,
+  mainUke: [],
+  principalSensei: [],
 };
 
 export const mockUser: LoggedUser = {

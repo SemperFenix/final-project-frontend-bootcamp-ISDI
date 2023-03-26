@@ -26,8 +26,8 @@ export interface ProtoAikidoUser extends Login {
   avatar?: string;
   age?: number;
   timePracticing?: string;
-  principalSensei?: AikidoUser;
-  mainUke?: AikidoUser;
+  principalSensei?: AikidoUser[];
+  mainUke?: AikidoUser[];
 }
 
 export type UserForm = {
@@ -48,8 +48,8 @@ export interface AikidoUser extends ProtoAikidoUser {
   avatar: string;
   age: number;
   timePracticing: string;
-  principalSensei: AikidoUser;
-  mainUke: AikidoUser;
+  principalSensei: AikidoUser[];
+  mainUke: AikidoUser[];
 }
 
 export type UsersList = {
