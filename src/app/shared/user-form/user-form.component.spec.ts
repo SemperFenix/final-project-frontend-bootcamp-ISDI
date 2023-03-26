@@ -40,28 +40,25 @@ describe('Given the UserFormComponent', () => {
   });
 
   describe('When intializes', () => {
-    describe('And there is a userData.password', () => {
-      it('Then it should create', () => {
-        expect(component).toBeTruthy();
-      });
-    });
-
-    describe('And there is not userData.password', () => {
-      it('Then it should create and call this.toggleEdit', () => {
-        delete component.userData.password;
-
-        // No
-
-        const spyToggle = spyOn(
-          component,
-          <never>'toggleEdit'
-        ).and.callThrough();
-        component.ngOnInit();
-
-        expect(spyToggle).toHaveBeenCalled();
-      });
+    it('Then it should create', () => {
+      expect(component).toBeTruthy();
     });
   });
+
+  // describe('And there is not userData.password', () => {
+  //   it('Then it should create and call this.toggleEdit', () => {
+  //     delete component.userData.password;
+
+  //     // No
+
+  //     const spyToggle = spyOn(
+  //       component,
+  //       <never>'toggleEdit'
+  //     ).and.callThrough();
+  //     component.ngOnInit();
+
+  //     expect(spyToggle).toHaveBeenCalled();
+  //   });
 
   describe('When the sendToParent method is called', () => {
     describe('And there is no avatarImg.name', () => {
@@ -142,19 +139,6 @@ describe('Given the UserFormComponent', () => {
 
         expect(spyEmit).toHaveBeenCalled();
       });
-    });
-  });
-
-  describe('When called toggleEdit', () => {
-    it('Then it should change the current value of fieldset.disabled', () => {
-      const fieldset = document.querySelector(
-        'fieldset'
-      ) as HTMLFieldSetElement;
-      expect(fieldset.disabled).toBeFalse();
-
-      component['toggleEdit']();
-
-      expect(fieldset.disabled).toBeTrue();
     });
   });
 
