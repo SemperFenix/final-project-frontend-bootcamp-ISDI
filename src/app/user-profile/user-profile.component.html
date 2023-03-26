@@ -17,11 +17,12 @@
         style="cursor: pointer"
       ></fa-icon>
     </section>
-
-    <app-user-form
-      [userData]="userData"
-      (itSubmit)="handleUpdate($event)"
-    ></app-user-form>
+    <fieldset class="edit-form" disabled>
+      <app-user-form
+        [userData]="userData"
+        (itSubmit)="handleUpdate($event)"
+      ></app-user-form>
+    </fieldset>
     <div class="button">
       <button (click)="handleDelete()">Borrar Perfil</button>
     </div>

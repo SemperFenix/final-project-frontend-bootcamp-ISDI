@@ -18,7 +18,6 @@ export class UserProfileComponent implements OnInit {
     private loginService: LoginService,
     private aikidoUsersService: AikidoUsersService,
     private router: Router,
-
     private zone: NgZone
   ) {
     this.currentUser$ = this.loginService.getCurrentUser(
@@ -28,7 +27,6 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Datos:', this.userData);
     this.currentUser$.subscribe((data) => {
       let age = 'N/C';
       if (data.age) age = data.age.toString();
@@ -43,13 +41,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   handleEdit() {
-    const form = document.querySelector('.edit-form') as HTMLFieldSetElement;
+    const form = document.querySelector('fieldset') as HTMLFieldSetElement;
     form.disabled = !form.disabled;
   }
 
   handleUpdate(user: Partial<AikidoUser>) {
     delete user.password;
-    console.log('Actualizaaa');
     this.aikidoUsersService.updateSelfUser(user).pipe(first()).subscribe();
   }
 
