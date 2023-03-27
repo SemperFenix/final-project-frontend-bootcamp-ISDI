@@ -1,23 +1,29 @@
+<div class="title">
+  <h2>Técnicas</h2>
+  <div class="line"></div>
+</div>
+
 <ng-container *ngFor="let name of techsToSearch">
   <div class="technique" *ngIf="techPages[name].exists">
-    <h2>{{ name }}</h2>
+    <h2 class="tech-name">{{ name }}</h2>
+    <div class="tech-line"></div>
+    <div class="info">
+      <ng-container *ngIf="techs[name] as tech">
+        <ng-container *ngFor="let item of tech.techs">
+          <app-tech-card [tech]="item"></app-tech-card>
+        </ng-container>
 
-    <ng-container *ngIf="techs[name] as tech">
-      <ul>
-        <li *ngFor="let item of tech.techs">
-          <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
-        </li>
-      </ul>
-      <div class="pages">
-        <div class="paginate" (click)="handlePrev(name)">
-          <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon
-          ><span>Anteriores</span>
+        <div class="pages">
+          <div class="paginate" (click)="handlePrev(name)">
+            <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon
+            ><span>Anteriores</span>
+          </div>
+          <div class="paginate" (click)="handleNext(name)">
+            <span>Siguientes</span
+            ><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+          </div>
         </div>
-        <div class="paginate" (click)="handleNext(name)">
-          <span>Siguientes</span
-          ><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
-        </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
 </ng-container>

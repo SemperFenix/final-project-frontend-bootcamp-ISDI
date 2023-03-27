@@ -7,9 +7,10 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { environment } from 'src/environments/environment';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { TechCardComponent } from './tech-card/tech-card.component';
 
 @NgModule({
-  declarations: [UserFormComponent],
+  declarations: [UserFormComponent, TechCardComponent],
   imports: [
     CommonModule,
     FontawesomeIconsModule,
@@ -19,6 +20,6 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideStorage(() => getStorage()),
   ],
-  exports: [UserFormComponent],
+  exports: [UserFormComponent, TechCardComponent],
 })
 export class SharedModule {}
