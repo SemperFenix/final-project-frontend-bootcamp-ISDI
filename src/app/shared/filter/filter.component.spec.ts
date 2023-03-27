@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { FilterComponent } from './filter.component';
@@ -32,6 +32,23 @@ describe('FilterComponent', () => {
       fixture.detectChanges();
 
       expect(component.filterOptions.value.attack).toBe('Katate-dori');
+    });
+  });
+
+  describe('When sendToParent method is called', () => {
+    it('Then it should emit event', () => {
+      component.filterOptions.setValue({
+        attack: 'Shomen-uchi',
+        tech: 'Ikkyo',
+        stand: null,
+        grade: null,
+      });
+      const spyReset = spyOn(component.filterOptions, 'reset');
+      const spyEmit = spyOn(component.itSubmit, 'emit');
+      component.sendToParent();
+
+      expect(spyReset).toHaveBeenCalled();
+      expect(spyEmit).toHaveBeenCalled();
     });
   });
 });
