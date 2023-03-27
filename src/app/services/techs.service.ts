@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { TechsList, Tech, Technique } from 'src/types/tech';
-import { ServerTechsResponse } from 'src/types/server.responses';
+import {
+  ServerTechsFilteredResponse,
+  ServerTechsResponse,
+} from 'src/types/server.responses';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -53,7 +56,7 @@ export class TechsService {
         },
         params: new HttpParams({ fromString: pFilterParams }),
         responseType: 'json',
-      }) as Observable<ServerTechsResponse>
+      }) as Observable<ServerTechsFilteredResponse>
     ).pipe(
       map((data) => {
         this.filteredTechs$.next(data.results[0] as unknown as Tech[]);

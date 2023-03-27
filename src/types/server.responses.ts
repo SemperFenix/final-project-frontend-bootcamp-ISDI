@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { AikidoUser, UsersList } from './aikido.user';
-import { ProtoTechsList } from './tech';
+import { ProtoTechsList, Tech } from './tech';
 
 export type ServerLoginResponse = {
   results: { token: string }[];
@@ -16,6 +16,10 @@ export type ServerUsersResponse = {
 
 export type ServerTechsResponse = {
   results: [ProtoTechsList];
+};
+
+export type ServerTechsFilteredResponse = {
+  results: Tech[];
 };
 
 export interface HTTPCustomError extends HttpErrorResponse {
