@@ -46,8 +46,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   handleUpdate(user: Partial<AikidoUser>) {
+    if (!user.avatar) user.avatar = this.loginService.currentUser$.value.avatar;
     delete user.password;
     this.aikidoUsersService.updateSelfUser(user).pipe(first()).subscribe();
+    this.handleEdit();
   }
 
   handleDelete() {
