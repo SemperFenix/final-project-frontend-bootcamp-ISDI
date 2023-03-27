@@ -134,6 +134,10 @@ export const mockTechsService = {
       Sankyo: { techs: [{}, {}, {}], number: 0 },
     });
   },
+
+  getTechsFiltered: () => {
+    return of([]);
+  },
   token: '',
   techs$: new BehaviorSubject<TechsList>({
     Ikkyo: { techs: [], number: 6 },
