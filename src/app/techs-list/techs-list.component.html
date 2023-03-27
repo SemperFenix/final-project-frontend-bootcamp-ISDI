@@ -2,6 +2,7 @@
   <h2>Técnicas</h2>
   <div class="line"></div>
 </div>
+<app-filter (itSubmit)="this.handleFilter($event)"></app-filter>
 
 <ng-container *ngFor="let name of techsToSearch">
   <div class="technique" *ngIf="techPages[name].exists">
