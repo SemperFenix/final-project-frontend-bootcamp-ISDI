@@ -100,7 +100,7 @@ export class TechsListComponent implements OnInit {
   }
 
   handleFilter(filterParams: Partial<TechsFilter>) {
-    this.showAllTechs();
+    if (!this.isFiltered) this.isFiltered = true;
     this.toggleFilterVisibility();
     console.log(filterParams);
     const searchParams = new URLSearchParams(filterParams).toString();
