@@ -8,12 +8,17 @@ describe('TechCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TechCardComponent ]
-    })
-    .compileComponents();
+      declarations: [TechCardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TechCardComponent);
     component = fixture.componentInstance;
+    component.tech = {
+      attack: 'Shomen-uchi',
+      tech: 'Gokyo',
+      stand: 'Tachi-waza',
+      grade: '1º DAN',
+    };
     fixture.detectChanges();
   });
 
