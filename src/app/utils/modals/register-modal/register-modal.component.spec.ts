@@ -30,8 +30,8 @@ describe('RegisterModalComponent', () => {
   describe('When call the close modal method', () => {
     it('call the registerModal service', () => {
       const spy = spyOn(
-        component.modalService,
-        'registerModal'
+        component.modalService.registerModal,
+        'next'
       ).and.callThrough();
       component.closeModal();
       expect(spy).toHaveBeenCalledWith(false);

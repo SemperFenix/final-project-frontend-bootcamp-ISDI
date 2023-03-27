@@ -16,7 +16,7 @@ export class RegisterModalComponent implements OnInit {
   closeModal() {
     const modal = document.querySelector('dialog');
     modal?.close();
-    this.modalService.registerModal(false);
+    this.modalService.registerModal.next(false);
     this.router.navigateByUrl('/login');
   }
 

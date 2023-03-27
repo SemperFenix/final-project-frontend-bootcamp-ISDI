@@ -58,7 +58,10 @@ describe('Given the RegisterComponent', () => {
           of(mockAikidoUser)
         );
 
-        const spyModal = spyOn(modalService, 'registerModal').and.callThrough();
+        const spyModal = spyOn(
+          modalService.registerModal,
+          'next'
+        ).and.callThrough();
 
         component.handleSubmit(mockAikidoUser);
 

@@ -38,6 +38,6 @@ export class RegisterComponent {
 
   async handleSubmit(user: ProtoAikidoUser): Promise<void> {
     this.aikidoUsersService.register(user).pipe(first()).subscribe();
-    this.handleModalService.registerModal(true);
+    this.handleModalService.registerModal.next(true);
   }
 }
