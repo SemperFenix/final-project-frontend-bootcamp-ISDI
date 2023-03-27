@@ -19,7 +19,7 @@ export type ServerTechsResponse = {
 };
 
 export type ServerTechsFilteredResponse = {
-  results: Tech[];
+  results: Tech[][];
 };
 
 export interface HTTPCustomError extends HttpErrorResponse {
