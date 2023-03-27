@@ -1,23 +1,52 @@
-<ng-container *ngFor="let name of techsToSearch">
-  <div class="technique" *ngIf="techPages[name].exists">
-    <h2>{{ name }}</h2>
+<div class="title">
+  <h2>Técnicas</h2>
+  <div class="line"></div>
+</div>
 
-    <ng-container *ngIf="techs[name] as tech">
-      <ul>
-        <li *ngFor="let item of tech.techs">
-          <p>{{ item.attack }} {{ item.tech }} {{ item.grade }}</p>
-        </li>
-      </ul>
-      <div class="pages">
-        <div class="paginate" (click)="handlePrev(name)">
-          <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon
-          ><span>Anteriores</span>
-        </div>
-        <div class="paginate" (click)="handleNext(name)">
-          <span>Siguientes</span
-          ><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
-        </div>
+<div class="filter-title" (click)="toggleFilterVisibility()">
+  <h3>Filtrar</h3>
+  <fa-icon *ngIf="!isFilterVisible" [icon]="['fas', 'chevron-right']"></fa-icon>
+  <fa-icon *ngIf="isFilterVisible" [icon]="['fas', 'chevron-down']"></fa-icon>
+</div>
+
+<app-filter
+  *ngIf="isFilterVisible"
+  (itSubmit)="this.handleFilter($event)"
+></app-filter>
+
+<div class="button" *ngIf="isFiltered">
+  <button class="return-button" (click)="showAllTechs()">Volver</button>
+</div>
+
+<div *ngIf="isFiltered; else allTechs">
+  <ng-container *ngFor="let item of filteredTechs">
+    <app-tech-card [tech]="item"></app-tech-card>
+  </ng-container>
+</div>
+
+<ng-template #allTechs>
+  <ng-container *ngFor="let name of techsToSearch">
+    <div class="technique" *ngIf="techPages[name].exists">
+      <h2 class="tech-name">{{ name }}</h2>
+      <div class="tech-line"></div>
+      <div class="info">
+        <ng-container *ngIf="techs[name] as tech">
+          <ng-container *ngFor="let item of tech.techs">
+            <app-tech-card [tech]="item"></app-tech-card>
+          </ng-container>
+
+          <div class="pages">
+            <div class="paginate" (click)="handlePrev(name)">
+              <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon
+              ><span>Anteriores</span>
+            </div>
+            <div class="paginate" (click)="handleNext(name)">
+              <span>Siguientes</span
+              ><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+            </div>
+          </div>
+        </ng-container>
       </div>
-    </ng-container>
-  </div>
-</ng-container>
+    </div>
+  </ng-container>
+</ng-template>

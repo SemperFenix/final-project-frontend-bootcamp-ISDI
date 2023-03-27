@@ -1,7 +1,7 @@
 <section class="profile">
   <h2>Mi perfil</h2>
   <div class="line"></div>
-  <div class="user-info" *ngIf="this.currentUser$ | async as user">
+  <div class="user-info" *ngIf="currentUser$ | async as user">
     <section class="user-options">
       <fa-icon [icon]="['fas', 'list-check']" style="cursor: pointer"></fa-icon>
       <div class="image">

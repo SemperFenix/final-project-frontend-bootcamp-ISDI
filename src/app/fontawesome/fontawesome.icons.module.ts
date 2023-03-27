@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/angular-fontawesome';
 import {
   faBars,
+  faChevronDown,
   faChevronLeft,
   faChevronRight,
   faListCheck,
@@ -22,6 +23,7 @@ export class FontawesomeIconsModule {
     library.addIcons(
       faChevronRight,
       faChevronLeft,
+      faChevronDown,
       faBars,
       faListCheck,
       faPenNib

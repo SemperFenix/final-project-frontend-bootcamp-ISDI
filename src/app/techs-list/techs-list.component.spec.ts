@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { TechsList, TechsPageAndExistence, Tech } from 'src/types/tech';
 import { mockTechsService } from '../utils/mocks/test.mocks';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
+import { SharedModule } from '../shared/shared.module';
 
 describe('TechsListComponent', () => {
   let component: TechsListComponent;
@@ -20,7 +21,7 @@ describe('TechsListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TechsListComponent],
-      imports: [FontawesomeIconsModule],
+      imports: [FontawesomeIconsModule, SharedModule],
       providers: [{ provide: TechsService, useValue: mockTechsService }],
     }).compileComponents();
 
@@ -154,6 +155,35 @@ describe('TechsListComponent', () => {
         expect(spyGet).not.toHaveBeenCalled();
         expect(component.techs).toEqual(mockGetCatReturn);
       });
+    });
+  });
+
+  describe('When handleFilter method is called', () => {
+    describe('And this.isFiltered is false', () => {
+      it('Then it should change isFiltered value, call toggleFilterVisibility and service.getTechsFiltered', () => {
+        component.isFiltered = false;
+        const spyToggle = spyOn(
+          component,
+          'toggleFilterVisibility'
+        ).and.callThrough();
+        const spyTechs = spyOn(
+          techsService,
+          'getTechsFiltered'
+        ).and.callThrough();
+
+        component.handleFilter({ attack: 'Eridori' });
+        expect(component.isFiltered).toBeTrue();
+        expect(spyToggle).toHaveBeenCalled();
+        expect(spyTechs).toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('When showAllTechs method is called', () => {
+    it('Then it should toggle the value of this.isFiltered', () => {
+      component.isFiltered = false;
+      component.showAllTechs();
+      expect(component.isFiltered).toBeTrue();
     });
   });
 });

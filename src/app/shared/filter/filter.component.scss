@@ -1,0 +1,55 @@
+select {
+  background-color: rgb(#c69c9c, 0.7);
+  border: none;
+  width: 110px;
+  height: 40px;
+  margin: 1rem;
+}
+
+select::selection {
+  background-color: aqua;
+}
+
+select::-webkit-scrollbar {
+  display: none;
+}
+
+select option {
+  background: none;
+  background-color: rgba(224, 120, 120, 0.5);
+  border-radius: 0;
+}
+
+.selectors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  font-size: 1.5rem;
+  font-family: "Comfortaa", sans-serif;
+
+  button {
+    width: 130px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(#000000, 0.7);
+    background: rgb(#e2ddcb, 0.7);
+    border: none;
+    border-radius: 5px;
+  }
+  button:enabled:hover {
+    width: 150px;
+    height: 87px;
+    color: rgb(#000000, 1);
+
+    font-size: 1.75rem;
+  }
+}

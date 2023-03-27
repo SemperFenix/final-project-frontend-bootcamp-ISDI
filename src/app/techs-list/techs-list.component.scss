@@ -1,7 +1,47 @@
+h2 {
+  margin-top: 1rem;
+  color: #c71a18;
+  font-family: "Caudex", serif;
+  font-weight: 700;
+}
+
+.line {
+  width: 249px;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #c71a18;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 400;
+}
+
+.tech-name {
+  margin-top: 1rem;
+  display: flex;
+  color: #c71a18;
+  font-family: "Caudex", serif;
+  font-weight: 400;
+  justify-content: flex-start;
+}
+
+.tech-line {
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #c71a18;
+}
 .pages {
   margin: 1rem;
-  max-width: 250px;
+  max-width: 390px;
+  color: #c71a18;
+  font-family: "Caudex", cursive;
+  font-size: 1.5rem;
   display: flex;
+  align-content: center;
   justify-content: space-between;
 }
 ul {
@@ -24,4 +64,53 @@ li {
 }
 .paginate:hover {
   cursor: pointer;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+
+  align-items: stretch;
+}
+
+.filter-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  h3 {
+    margin: 1rem;
+  }
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+  font-size: 1.5rem;
+  font-family: "Comfortaa", sans-serif;
+
+  button {
+    width: 130px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(#000000, 0.7);
+    background: rgb(#e2ddcb, 0.7);
+    border: none;
+    border-radius: 5px;
+  }
+  button:enabled:hover {
+    width: 150px;
+    height: 87px;
+    color: rgb(#000000, 1);
+
+    font-size: 1.75rem;
+  }
+}
+
+h3 {
+  font-family: "Darker Grotesque", sans-serif;
+  font-size: 1.5rem;
 }

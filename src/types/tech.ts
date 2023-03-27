@@ -30,6 +30,34 @@ export type Attack =
   | 'Kata-dori menuchi'
   | 'Eridori';
 
+export const attacksListed: Attack[] = [
+  'Katate-dori',
+  'Ai hanmi katate-dori',
+  'Ryote-dori',
+  'Morote-dori',
+  'Mune-dori',
+  'Ryomune-dori',
+  'Kata-dori',
+  'Ryo kata-dori',
+  'Kao-tsuki',
+  'Jodan-tsuki',
+  'Chudan-tsuki',
+  'Mawasi-tsuki',
+  'Men-Uchi',
+  'Shomen-uchi',
+  'Yokomen-uchi',
+  'Ushiro tekubi-dori',
+  'Ushiro kubishime',
+  'Ushiro ryokata-dori',
+  'Mae-geri',
+  'Yoko-geri',
+  'Mawashi-geri',
+  'Katate ryote-dori',
+  'Muna-dori',
+  'Kata-dori menuchi',
+  'Eridori',
+];
+
 export type Technique =
   | 'Ikkyo'
   | 'Nikkyo'
@@ -62,6 +90,13 @@ export type Stand =
   | 'Suwari-waza'
   | 'Hanmi handachi-waza'
   | 'Ushiro-waza';
+
+export const standsListed: Stand[] = [
+  'Tachi-waza',
+  'Suwari-waza',
+  'Hanmi handachi-waza',
+  'Ushiro-waza',
+];
 export interface ProtoTech {
   attack: Attack;
   tech: Technique;
@@ -120,3 +155,10 @@ export const techsListed: Technique[] = [
   'Jiyu-waza',
   'Ushiro kiri-otoshi',
 ];
+
+export type TechsFilter = {
+  attack: Attack;
+  tech: Technique;
+  stand: Stand;
+  grade: Grades;
+};
