@@ -113,10 +113,8 @@ export class TechsListComponent implements OnInit {
   handleFilter(filterParams: Partial<TechsFilter>) {
     if (!this.isFiltered) this.isFiltered = true;
     this.toggleFilterVisibility();
-    console.log(filterParams);
     const searchParams = new URLSearchParams(filterParams).toString();
     searchParams.replaceAll('+', '-');
-    console.log(searchParams);
     this.techsService
       .getTechsFiltered(searchParams)
       .pipe(
