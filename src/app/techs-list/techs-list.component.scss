@@ -75,7 +75,7 @@ li {
 
 .filter-title {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   h3 {
     margin: 1rem;
@@ -108,4 +108,9 @@ li {
 
     font-size: 1.75rem;
   }
+}
+
+h3 {
+  font-family: "Darker Grotesque", sans-serif;
+  font-size: 1.5rem;
 }
