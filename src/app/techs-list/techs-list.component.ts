@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 import {
@@ -7,6 +8,7 @@ import {
   Technique,
   TechsPageAndExistence,
   techsListed,
+  TechsFilter,
 } from 'src/types/tech';
 import { TechsService } from '../services/techs.service';
 
@@ -19,8 +21,18 @@ export class TechsListComponent implements OnInit {
   techs: TechsList;
   techPages: TechsPageAndExistence;
   techsToSearch: Technique[];
+  isFiltered: boolean;
+  isFilterVisible: boolean;
+  filteredTechs: Tech[];
 
-  constructor(private techsService: TechsService) {
+  constructor(
+    private techsService: TechsService,
+    private router: Router,
+    private zone: NgZone
+  ) {
+    this.isFilterVisible = false;
+    this.isFiltered = false;
+    this.filteredTechs = [];
     this.techs = {} as TechsList;
     this.techPages = {} as TechsPageAndExistence;
     this.techsToSearch = techsListed;
@@ -85,5 +97,25 @@ export class TechsListComponent implements OnInit {
       .subscribe((data) => {
         this.techs = { ...this.techs, ...data };
       });
+  }
+
+  handleFilter(filterParams: Partial<TechsFilter>) {
+    this.showAllTechs();
+    this.toggleFilterVisibility();
+    console.log(filterParams);
+    const searchParams = new URLSearchParams(filterParams).toString();
+    searchParams.replaceAll('+', '-');
+    console.log(searchParams);
+    this.techsService.getTechsFiltered(searchParams).subscribe((data) => {
+      this.filteredTechs = data;
+    });
+  }
+
+  showAllTechs() {
+    this.isFiltered = !this.isFiltered;
+  }
+
+  toggleFilterVisibility() {
+    this.isFilterVisible = !this.isFilterVisible;
   }
 }
