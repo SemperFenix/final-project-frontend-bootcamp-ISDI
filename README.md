@@ -62,3 +62,5 @@ The Aikido Project was built using the following technologies:
 ## 📄 License
 
 This project is licensed under the terms of the MIT license.
+
+>This readme has been created with ChatGPT
