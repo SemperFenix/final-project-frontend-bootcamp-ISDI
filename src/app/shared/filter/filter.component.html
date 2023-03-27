@@ -1,0 +1,49 @@
+<form [formGroup]="filterOptions" (submit)="sendToParent()">
+  <select
+    formControlName="attack"
+    name="attack"
+    id="attack"
+    (change)="changeField($event, 'attack')"
+  >
+    <option value="">Ataque</option>
+    <option *ngFor="let item of attacks" value="{{ item }}">{{ item }}</option>
+  </select>
+
+  <select
+    formControlName="tech"
+    name="tech"
+    id="tech"
+    (change)="changeField($event, 'tech')"
+  >
+    <option value="">Técnica</option>
+    <ng-container *ngFor="let item of techs">
+      <option value="{{ item }}">{{ item }}</option>
+    </ng-container>
+  </select>
+
+  <select
+    formControlName="stand"
+    name="stand"
+    id="stand"
+    (change)="changeField($event, 'stand')"
+  >
+    <option value="">Postura</option>
+    <ng-container *ngFor="let item of stands">
+      <option value="{{ item }}">{{ item }}</option>
+    </ng-container>
+  </select>
+
+  <select
+    formControlName="grade"
+    name="grade"
+    id="grade"
+    (change)="changeField($event, 'grade')"
+  >
+    <option value="">Grado</option>
+    <ng-container *ngFor="let item of grades">
+      <option value="{{ item }}">{{ item }}</option>
+    </ng-container>
+  </select>
+
+  <button>Filtrar</button>
+</form>
