@@ -4,6 +4,7 @@ import { TechsListComponent } from './techs-list.component';
 import { TechsListRoutingModule } from './techs-list-routing.module';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 import { SharedModule } from '../shared/shared.module';
+import { ModalsModule } from '../utils/modals/modals.module';
 
 @NgModule({
   declarations: [TechsListComponent],
@@ -12,6 +13,7 @@ import { SharedModule } from '../shared/shared.module';
     TechsListRoutingModule,
     FontawesomeIconsModule,
     SharedModule,
+    ModalsModule,
   ],
 })
 export class TechsListModule {}

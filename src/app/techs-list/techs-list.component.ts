@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { forkJoin, Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { forkJoin, Observable, throwError } from 'rxjs';
+import { catchError, first } from 'rxjs/operators';
 import {
   TechsList,
   Tech,
@@ -10,6 +10,7 @@ import {
   techsListed,
   TechsFilter,
 } from 'src/types/tech';
+import { ModalHandlerService } from '../services/modal-handler.service';
 import { TechsService } from '../services/techs.service';
 
 @Component({
@@ -24,12 +25,16 @@ export class TechsListComponent implements OnInit {
   isFiltered: boolean;
   isFilterVisible: boolean;
   filteredTechs: Tech[];
+  errorMessage!: string;
+  errorModal: boolean;
 
   constructor(
     private techsService: TechsService,
+    private modalService: ModalHandlerService,
     private router: Router,
     private zone: NgZone
   ) {
+    this.errorModal = false;
     this.isFilterVisible = false;
     this.isFiltered = false;
     this.filteredTechs = [];
@@ -53,7 +58,13 @@ export class TechsListComponent implements OnInit {
   private loadTechs(): void {
     const observables: Observable<TechsList>[] = this.techsToSearch.map(
       (tech) => {
-        return this.techsService.getTechsCategorized('1', tech).pipe(first());
+        return this.techsService.getTechsCategorized('1', tech).pipe(
+          catchError((error) => {
+            this.modalService.errorModal.next(true);
+            return throwError(() => new Error('Failed to load techs', error));
+          }),
+          first()
+        );
       }
     );
 
@@ -106,9 +117,24 @@ export class TechsListComponent implements OnInit {
     const searchParams = new URLSearchParams(filterParams).toString();
     searchParams.replaceAll('+', '-');
     console.log(searchParams);
-    this.techsService.getTechsFiltered(searchParams).subscribe((data) => {
-      this.filteredTechs = data;
-    });
+    this.techsService
+      .getTechsFiltered(searchParams)
+      .pipe(
+        catchError((error) => {
+          this.modalService.errorModal.next(true);
+          return throwError(() => new Error('Failed to load techs', error));
+        })
+      )
+      .subscribe(
+        (data) => {
+          return (this.filteredTechs = data);
+        },
+        (error) => {
+          this.errorModal = true;
+          this.modalService.errorModal.next(true);
+          console.log(error);
+        }
+      );
   }
 
   showAllTechs() {
