@@ -3,6 +3,9 @@
 <div>
   <ul *ngIf="senseis$ | async as senseis">
     <li *ngFor="let item of senseis.users">
+      <div class="image">
+        <img src="{{ item.avatar }}" alt="user avatar" width="50px" />
+      </div>
       <p>{{ item.name }} {{ item.lastName }} - {{ item.grade }}</p>
     </li>
   </ul>
@@ -23,6 +26,9 @@
 <div>
   <ul *ngIf="students$ | async as students">
     <li *ngFor="let item of students.users">
+      <div class="image">
+        <img src="{{ item.avatar }}" alt="user avatar" width="60" />
+      </div>
       <p>{{ item.name }} {{ item.lastName }} - {{ item.grade }}</p>
     </li>
   </ul>
