@@ -4,6 +4,22 @@
 import { Login } from './login';
 import { Tech } from './tech';
 
+export const gradesListed: Grades[] = [
+  '6º kyu',
+  '5º kyu',
+  '4º kyu',
+  '3º kyu',
+  '2º kyu',
+  '1º kyu',
+  '1º DAN',
+  '2º DAN',
+  '3º DAN',
+  '4º DAN',
+  '5º DAN',
+  '6º DAN',
+  '7º DAN',
+];
+
 export type Grades =
   | '6º kyu'
   | '5º kyu'
