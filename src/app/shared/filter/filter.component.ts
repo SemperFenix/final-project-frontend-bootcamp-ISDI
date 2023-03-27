@@ -37,11 +37,9 @@ export class FilterComponent {
     this.filterOptions
       .get(string)
       ?.setValue((ev.target as HTMLInputElement).value, { onlySelf: true });
-    console.log(this.filterOptions.value);
   }
 
   sendToParent() {
-    console.log(this.filterOptions.value);
     const preFilter = Object.entries(this.filterOptions.value).filter(
       (item) => item[1] !== '' && item[1] !== null
     );

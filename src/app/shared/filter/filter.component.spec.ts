@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 
 import { FilterComponent } from './filter.component';
 
@@ -20,5 +21,17 @@ describe('FilterComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('When changeField method is called', () => {
+    it('Then it should set value of field assigned', () => {
+      const select = fixture.debugElement.query(By.css('#attack'))
+        .nativeElement as HTMLSelectElement;
+      select.selectedIndex = 1;
+      select.dispatchEvent(new Event('change'));
+      fixture.detectChanges();
+
+      expect(component.filterOptions.value.attack).toBe('Katate-dori');
+    });
   });
 });
