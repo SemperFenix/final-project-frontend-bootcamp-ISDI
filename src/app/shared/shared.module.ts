@@ -9,9 +9,11 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { TechCardComponent } from './tech-card/tech-card.component';
 import { FilterComponent } from './filter/filter.component';
+import { LearnButtonComponent } from './learn-button/learn-button.component';
+import { SnoozeButtonComponent } from './snooze-button/snooze-button.component';
 
 @NgModule({
-  declarations: [UserFormComponent, TechCardComponent, FilterComponent],
+  declarations: [UserFormComponent, TechCardComponent, FilterComponent, LearnButtonComponent, SnoozeButtonComponent],
   imports: [
     CommonModule,
     FontawesomeIconsModule,
