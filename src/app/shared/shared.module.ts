@@ -13,7 +13,13 @@ import { LearnButtonComponent } from './learn-button/learn-button.component';
 import { SnoozeButtonComponent } from './snooze-button/snooze-button.component';
 
 @NgModule({
-  declarations: [UserFormComponent, TechCardComponent, FilterComponent, LearnButtonComponent, SnoozeButtonComponent],
+  declarations: [
+    UserFormComponent,
+    TechCardComponent,
+    FilterComponent,
+    LearnButtonComponent,
+    SnoozeButtonComponent,
+  ],
   imports: [
     CommonModule,
     FontawesomeIconsModule,
@@ -23,6 +29,12 @@ import { SnoozeButtonComponent } from './snooze-button/snooze-button.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideStorage(() => getStorage()),
   ],
-  exports: [UserFormComponent, TechCardComponent, FilterComponent],
+  exports: [
+    UserFormComponent,
+    TechCardComponent,
+    FilterComponent,
+    LearnButtonComponent,
+    SnoozeButtonComponent,
+  ],
 })
 export class SharedModule {}
