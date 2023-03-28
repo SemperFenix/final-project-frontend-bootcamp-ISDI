@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TechsListComponent } from './techs-list.component';
-import { TechsService } from '../services/techs.service';
+import { TechsService } from '../services/techs/techs.service';
 import { of, throwError } from 'rxjs';
 import { TechsList, TechsPageAndExistence, Tech } from 'src/types/tech';
 import { mockTechsService } from '../utils/mocks/test.mocks';

@@ -10,7 +10,7 @@ import {
   ServerTechsFilteredResponse,
   ServerTechsResponse,
 } from 'src/types/server.responses';
-import { LoginService } from './login.service';
+import { LoginService } from '../login.service';
 
 @Injectable({
   providedIn: 'root',

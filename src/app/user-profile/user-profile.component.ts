@@ -2,7 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { first, Observable } from 'rxjs';
 import { AikidoUser, UserForm } from 'src/types/aikido.user';
-import { AikidoUsersService } from '../services/aikido.users.service';
+import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
 import { LoginService } from '../services/login.service';
 
 @Component({

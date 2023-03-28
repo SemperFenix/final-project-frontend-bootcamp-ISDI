@@ -11,7 +11,7 @@ import {
   TechsFilter,
 } from 'src/types/tech';
 import { ModalHandlerService } from '../services/modal-handler.service';
-import { TechsService } from '../services/techs.service';
+import { TechsService } from '../services/techs/techs.service';
 
 @Component({
   selector: 'app-techs-list',
