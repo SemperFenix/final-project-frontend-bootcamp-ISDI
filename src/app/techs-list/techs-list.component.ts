@@ -58,13 +58,7 @@ export class TechsListComponent implements OnInit {
   private loadTechs(): void {
     const observables: Observable<TechsList>[] = this.techsToSearch.map(
       (tech) => {
-        return this.techsService.getTechsCategorized('1', tech).pipe(
-          catchError((error) => {
-            this.modalService.errorModal.next(true);
-            return throwError(() => new Error('Failed to load techs', error));
-          }),
-          first()
-        );
+        return this.techsService.getTechsCategorized('1', tech).pipe(first());
       }
     );
 
@@ -117,22 +111,25 @@ export class TechsListComponent implements OnInit {
     searchParams.replaceAll('+', '-');
     this.techsService
       .getTechsFiltered(searchParams)
-      .pipe(
-        catchError((error) => {
-          this.modalService.errorModal.next(true);
-          return throwError(() => new Error('Failed to load techs', error));
-        })
-      )
-      .subscribe(
-        (data) => {
+      .pipe()
+      .subscribe({
+        next: (data) => {
           return (this.filteredTechs = data);
         },
-        (error) => {
-          this.errorModal = true;
-          this.modalService.errorModal.next(true);
-          console.log(error);
-        }
-      );
+
+        // Comentado para implementar a futuro
+        // error: (error) => {
+        //   this.errorModal = true;
+        //   this.modalService.errorModal.next(true);
+        //   console.log(error);
+        // }
+      });
+
+    // Comentado para implementar a futuro
+    // catchError((error) => {
+    //   this.modalService.errorModal.next(true);
+    //   return throwError(() => new Error('Failed to load techs', error));
+    // })
   }
 
   showAllTechs() {

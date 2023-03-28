@@ -1,16 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TechsListComponent } from './techs-list.component';
 import { TechsService } from '../services/techs.service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { TechsList, TechsPageAndExistence, Tech } from 'src/types/tech';
 import { mockTechsService } from '../utils/mocks/test.mocks';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 import { SharedModule } from '../shared/shared.module';
+import { ModalHandlerService } from '../services/modal-handler.service';
 
 describe('TechsListComponent', () => {
   let component: TechsListComponent;
   let fixture: ComponentFixture<TechsListComponent>;
   let techsService: TechsService;
+  let modalService: ModalHandlerService;
   // Este valor viene del mockTechsService, ya que component.techs inicializa con el valor del observable
   const mockGetCatReturn = {
     Ikkyo: { techs: [], number: 6 },
@@ -22,11 +24,15 @@ describe('TechsListComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [TechsListComponent],
       imports: [FontawesomeIconsModule, SharedModule],
-      providers: [{ provide: TechsService, useValue: mockTechsService }],
+      providers: [
+        { provide: TechsService, useValue: mockTechsService },
+        ModalHandlerService,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TechsListComponent);
     techsService = TestBed.inject(TechsService);
+    modalService = TestBed.inject(ModalHandlerService);
     component = fixture.componentInstance;
     component.techsToSearch = ['Ikkyo', 'Nikkyo', 'Sankyo'];
     component.techPages = {
@@ -59,6 +65,29 @@ describe('TechsListComponent', () => {
       expect(spyGet).toHaveBeenCalledTimes(3);
       expect(component.techs).toEqual(mockGetCatReturn);
     });
+
+    // Prueba de test para código de error => NO FUNCIONA
+    //   describe('And the service returns an error', () => {
+    //     it('Then it should call modalService', () => {
+    //       const spyModal = spyOn(
+    //         modalService.errorModal,
+    //         'next'
+    //       ).and.callThrough();
+
+    //       const spyGet = spyOn(
+    //         techsService,
+    //         'getTechsCategorized'
+    //       ).and.returnValues(throwError(() => new Error('Error')));
+
+    //       component.ngOnInit();
+    //       expect(spyModal).toHaveBeenCalled();
+    //       expect(spyGet).toThrowError();
+
+    //       // expect(spyModal).toHaveBeenCalled();
+    //       expect(Object.keys(component.techPages).length).toBe(3);
+    //       // expect(spyGet).toHaveBeenCalled();
+    //     });
+    //   });
   });
 
   describe('When call the checkExistence method', () => {
