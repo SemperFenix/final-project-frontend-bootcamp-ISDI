@@ -17,7 +17,7 @@ import {
 } from 'src/types/server.responses';
 
 import { AikidoUsersService } from './aikido.users.service';
-import { LoginService } from './login.service';
+import { LoginService } from '../login.service';
 
 describe('Given the AikidoUsersService', () => {
   let aikidoService: AikidoUsersService;
