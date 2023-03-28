@@ -22,7 +22,13 @@
 
 <div *ngIf="isFiltered; else allTechs">
   <ng-container *ngFor="let item of filteredTechs">
-    <app-tech-card [tech]="item"></app-tech-card>
+    <app-tech-card [tech]="item">
+      <app-learn-button
+        [techId]="item.id"
+        [user]="currentUser"
+      ></app-learn-button>
+      <app-snooze-button [techId]="item.id"></app-snooze-button>
+    </app-tech-card>
   </ng-container>
 </div>
 
@@ -34,7 +40,13 @@
       <div class="info">
         <ng-container *ngIf="techs[name] as tech">
           <ng-container *ngFor="let item of tech.techs">
-            <app-tech-card [tech]="item"></app-tech-card>
+            <app-tech-card [tech]="item">
+              <app-learn-button
+                [techId]="item.id"
+                [user]="currentUser"
+              ></app-learn-button>
+              <app-snooze-button [techId]="item.id"></app-snooze-button>
+            </app-tech-card>
           </ng-container>
 
           <div class="pages">

@@ -1,12 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TechsListComponent } from './techs-list.component';
 import { TechsService } from '../services/techs/techs.service';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { TechsList, TechsPageAndExistence, Tech } from 'src/types/tech';
 import { mockTechsService } from '../utils/mocks/test.mocks';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 import { SharedModule } from '../shared/shared.module';
 import { ModalHandlerService } from '../services/modal-handler.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TechsListComponent', () => {
   let component: TechsListComponent;
@@ -23,7 +24,7 @@ describe('TechsListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TechsListComponent],
-      imports: [FontawesomeIconsModule, SharedModule],
+      imports: [FontawesomeIconsModule, SharedModule, HttpClientTestingModule],
       providers: [
         { provide: TechsService, useValue: mockTechsService },
         ModalHandlerService,
