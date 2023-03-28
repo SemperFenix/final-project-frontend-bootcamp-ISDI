@@ -61,17 +61,17 @@ describe('LoginService', () => {
       it('Then it should call this.token$.next with retrieved value', () => {
         const spyNext = spyOn(service.token$, 'next').and.callThrough();
         const spyLocal = spyOn(localStorage, 'getItem').and.returnValue(
-          'TestToken'
+          mockToken
         );
 
         service.initialToken();
         expect(spyLocal).toHaveBeenCalled();
-        expect(spyNext).toHaveBeenCalledWith('TestToken');
+        expect(spyNext).toHaveBeenCalledWith(mockToken);
       });
     });
 
     describe('And there is no token in LocalStorage', () => {
-      it('Then it should call this.token$.next with empty string', () => {
+      it('Then it should change this.token$.next with empty string and return', () => {
         const spyNext = spyOn(service.token$, 'next').and.callThrough();
         const spyLocal = spyOn(localStorage, 'getItem').and.returnValue('');
 
