@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ProtoTech } from 'src/types/tech';
+import { Tech } from 'src/types/tech';
 
 @Component({
   selector: 'app-tech-card',
@@ -7,5 +7,5 @@ import { ProtoTech } from 'src/types/tech';
   styleUrls: ['./tech-card.component.scss'],
 })
 export class TechCardComponent {
-  @Input() tech!: ProtoTech;
+  @Input() tech!: Tech;
 }
