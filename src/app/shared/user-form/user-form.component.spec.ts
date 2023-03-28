@@ -45,21 +45,6 @@ describe('Given the UserFormComponent', () => {
     });
   });
 
-  // describe('And there is not userData.password', () => {
-  //   it('Then it should create and call this.toggleEdit', () => {
-  //     delete component.userData.password;
-
-  //     // No
-
-  //     const spyToggle = spyOn(
-  //       component,
-  //       <never>'toggleEdit'
-  //     ).and.callThrough();
-  //     component.ngOnInit();
-
-  //     expect(spyToggle).toHaveBeenCalled();
-  //   });
-
   describe('When the sendToParent method is called', () => {
     describe('And there is no avatarImg.name', () => {
       it('Then it should not call component.uploadImage and should emit itSubmit', () => {

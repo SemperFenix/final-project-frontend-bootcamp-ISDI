@@ -126,8 +126,6 @@ export const mockLoginService = {
 
 export const mockTechsService = {
   getTechsCategorized: () => {
-    // const techs: Tech[] = [{} as Tech, {} as Tech];
-    // const number = 3;
     return of({
       Ikkyo: { techs: [{}, {}, {}], number: 0 },
       Nikkyo: { techs: [{}, {}, {}], number: 0 },
