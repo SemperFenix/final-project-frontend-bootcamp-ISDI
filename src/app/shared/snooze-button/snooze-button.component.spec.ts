@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SnoozeButtonComponent } from './snooze-button.component';
@@ -8,9 +9,9 @@ describe('SnoozeButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SnoozeButtonComponent ]
-    })
-    .compileComponents();
+      declarations: [SnoozeButtonComponent],
+      imports: [HttpClientTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SnoozeButtonComponent);
     component = fixture.componentInstance;
