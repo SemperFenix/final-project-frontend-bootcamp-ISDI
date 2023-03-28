@@ -1,0 +1,33 @@
+<h2>{{ actualTech.attack }} {{ actualTech.tech }}</h2>
+<div class="line"></div>
+<app-tech-card [tech]="actualTech"></app-tech-card>
+<div class="video" *ngIf="actualTech.video">
+  <iframe
+    width="560"
+    height="315"
+    [src]="actualTech.video | safe"
+    allowfullscreen
+  ></iframe>
+</div>
+
+<div class="users-learnt">
+  <h3>La han aprendido</h3>
+  <ng-container *ngFor="let user of actualTech.usersLearnt">
+    <div class="user">
+      <img src="user.avatar" alt="Imagen de perfil" /> {{ user.name }}
+      {{ user.lastName }} - {{ user.grade }}
+    </div>
+  </ng-container>
+</div>
+
+<div class="users-learning">
+  <h3>La están aprendiendo</h3>
+  <ng-container *ngFor="let user of actualTech.usersInProgress">
+    <div class="user">
+      <div class="image">
+        <img src="{{ user.avatar }}" alt="Imagen de perfil" />
+      </div>
+      {{ user.name }} {{ user.lastName }} - {{ user.grade }}
+    </div>
+  </ng-container>
+</div>
