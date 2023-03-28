@@ -5,17 +5,27 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ModalHandlerService {
-  public subjectRegister: BehaviorSubject<boolean>;
+  public registerModal: BehaviorSubject<boolean>;
+  public errorModal: BehaviorSubject<boolean>;
 
   constructor() {
-    this.subjectRegister = new BehaviorSubject<boolean>(false);
+    this.registerModal = new BehaviorSubject<boolean>(false);
+    this.errorModal = new BehaviorSubject<boolean>(false);
   }
 
-  registerModal(value: boolean): void {
-    this.subjectRegister.next(value);
+  setRegisterModal(value: boolean): void {
+    this.registerModal.next(value);
   }
 
   getRegisterModal(): Observable<boolean> {
-    return this.subjectRegister.asObservable();
+    return this.registerModal.asObservable();
+  }
+
+  setErrorModal(value: boolean) {
+    this.errorModal.next(value);
+  }
+
+  getErrorModal(): Observable<boolean> {
+    return this.errorModal.asObservable();
   }
 }

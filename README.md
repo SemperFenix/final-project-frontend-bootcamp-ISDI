@@ -1,11 +1,66 @@
-# Final project - frontend
+# Aikido Project
 
-## Aikido Journey
+🥋 A platform for Aikido practitioners to learn and share techniques
+  ![license](https://img.shields.io/github/license/isdi-coders-2023/Ivan-Duran-Final-Project-back-202301-mad)
 
-Aikido Journey is a proposal for a progress management web API. It is the final project for the ISDI Coders Bootcamp.
+## 🚀 Getting Started
 
-## Technologies
+1. Clone the repository to your local machine:
 
-The frontend has been developed using Angular framework.
+```bash
+git clone https://github.com/isdi-coders-2023/Ivan-Duran-Final-Project-back-202301-mad.git
+```
 
-It connects to the backend created [here](https://github.com/isdi-coders-2023/Ivan-Duran-Final-Project-back-202301-mad).
+2. Navigate to the `client` directory and run the following command to install the required dependencies:
+
+```bash
+npm install
+```
+
+3. Navigate to the `server` directory and run the following command to install the required dependencies:
+
+```bash
+npm install
+```
+
+4. Start the development server by running the following command in the `server` directory:
+
+```bash
+npm start
+```
+
+5. In a new terminal window, start the client by running the following command in the `client` directory:
+
+```bash
+npm start
+```
+
+If you encounter any issues during the setup process, please refer to the project's wiki for troubleshooting tips.
+
+## 🌟 Features
+
+The Aikido Project has the following features:
+
+- User registration and authentication
+- Creation of user profiles
+- Adding and editing of Aikido techniques
+- Viewing of Aikido techniques
+- Searching for techniques by attack, tech, stand or grade
+
+## 🛠️ Technologies Used
+
+The Aikido Project was built using the following technologies:
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- React.js
+- Material UI
+- Google Maps API
+
+## 📄 License
+
+This project is licensed under the terms of the MIT license.
+
+>This readme has been created with ChatGPT

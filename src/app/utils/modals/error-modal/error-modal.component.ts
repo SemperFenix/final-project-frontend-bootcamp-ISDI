@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalHandlerService } from 'src/app/services/modal-handler.service';
 
 @Component({
-  selector: 'app-register-modal',
-  templateUrl: './register-modal.component.html',
-  styleUrls: ['./register-modal.component.scss'],
+  selector: 'app-error-modal',
+  templateUrl: './error-modal.component.html',
+  styleUrls: ['./error-modal.component.scss'],
 })
-export class RegisterModalComponent implements OnInit {
+export class ErrorModalComponent implements OnInit {
+  @Input() errorMessage!: string;
+
   constructor(
     public modalService: ModalHandlerService,
     private router: Router
@@ -16,8 +18,8 @@ export class RegisterModalComponent implements OnInit {
   closeModal() {
     const modal = document.querySelector('dialog');
     modal?.close();
-    this.modalService.registerModal.next(false);
-    this.router.navigateByUrl('/login');
+    this.modalService.errorModal.next(false);
+    this.router.navigateByUrl('/techs');
   }
 
   ngOnInit(): void {

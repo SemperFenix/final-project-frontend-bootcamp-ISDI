@@ -1,15 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
-import { RegisterModalComponent } from './register-modal.component';
+import { ErrorModalComponent } from './error-modal.component';
 
-describe('RegisterModalComponent', () => {
-  let component: RegisterModalComponent;
-  let fixture: ComponentFixture<RegisterModalComponent>;
+describe('ErrorModalComponent', () => {
+  let component: ErrorModalComponent;
+  let fixture: ComponentFixture<ErrorModalComponent>;
   const mockRouter = jasmine.createSpyObj('Router', ['navigateByUrl']);
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RegisterModalComponent],
+      declarations: [ErrorModalComponent],
       providers: [
         {
           provide: Router,
@@ -18,7 +19,7 @@ describe('RegisterModalComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(RegisterModalComponent);
+    fixture = TestBed.createComponent(ErrorModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -30,7 +31,7 @@ describe('RegisterModalComponent', () => {
   describe('When call the close modal method', () => {
     it('call the registerModal service', () => {
       const spy = spyOn(
-        component.modalService.registerModal,
+        component.modalService.errorModal,
         'next'
       ).and.callThrough();
       component.closeModal();

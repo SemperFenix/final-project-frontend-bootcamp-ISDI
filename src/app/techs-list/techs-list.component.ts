@@ -10,6 +10,7 @@ import {
   techsListed,
   TechsFilter,
 } from 'src/types/tech';
+import { ModalHandlerService } from '../services/modal-handler.service';
 import { TechsService } from '../services/techs.service';
 
 @Component({
@@ -24,12 +25,16 @@ export class TechsListComponent implements OnInit {
   isFiltered: boolean;
   isFilterVisible: boolean;
   filteredTechs: Tech[];
+  errorMessage!: string;
+  errorModal: boolean;
 
   constructor(
     private techsService: TechsService,
+    private modalService: ModalHandlerService,
     private router: Router,
     private zone: NgZone
   ) {
+    this.errorModal = false;
     this.isFilterVisible = false;
     this.isFiltered = false;
     this.filteredTechs = [];
@@ -102,13 +107,29 @@ export class TechsListComponent implements OnInit {
   handleFilter(filterParams: Partial<TechsFilter>) {
     if (!this.isFiltered) this.isFiltered = true;
     this.toggleFilterVisibility();
-    console.log(filterParams);
     const searchParams = new URLSearchParams(filterParams).toString();
     searchParams.replaceAll('+', '-');
-    console.log(searchParams);
-    this.techsService.getTechsFiltered(searchParams).subscribe((data) => {
-      this.filteredTechs = data;
-    });
+    this.techsService
+      .getTechsFiltered(searchParams)
+      .pipe()
+      .subscribe({
+        next: (data) => {
+          return (this.filteredTechs = data);
+        },
+
+        // Comentado para implementar a futuro
+        // error: (error) => {
+        //   this.errorModal = true;
+        //   this.modalService.errorModal.next(true);
+        //   console.log(error);
+        // }
+      });
+
+    // Comentado para implementar a futuro
+    // catchError((error) => {
+    //   this.modalService.errorModal.next(true);
+    //   return throwError(() => new Error('Failed to load techs', error));
+    // })
   }
 
   showAllTechs() {

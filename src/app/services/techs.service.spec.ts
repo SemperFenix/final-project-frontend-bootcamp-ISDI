@@ -1,4 +1,4 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -86,6 +86,45 @@ describe('Given the TechsService', () => {
 
       expect(req.request.method).toEqual('GET');
       expect(JSON.stringify(req.request.headers)).toBe(JSON.stringify(header));
+    });
+  });
+
+  describe('When handleError method is called', () => {
+    describe('And error is instance of Error', () => {
+      it('Then it should call  throw error', () => {
+        const spyConsole = spyOn(console, 'error').and.callThrough();
+
+        const error = new HttpErrorResponse({
+          error: { message: 'Ha saltado un error', status: 404 },
+
+          status: 404,
+        });
+
+        service['handleError'](error).subscribe({
+          next: () => {
+            console.log('ok');
+          },
+          error: () => {
+            expect(error.message).toBe(
+              'Http failure response for (unknown url): 404 undefined'
+            );
+            expect(spyConsole).toHaveBeenCalled();
+          },
+        });
+      });
+    });
+
+    describe('And error is not instance of Error', () => {
+      it('Then it should call console.error and throw error', () => {
+        const spyConsole = spyOn(console, 'error').and.callThrough();
+
+        const error = new HttpErrorResponse({
+          error: new ErrorEvent('Error'),
+        });
+
+        service['handleError'](error);
+        expect(spyConsole).toHaveBeenCalled();
+      });
     });
   });
 });

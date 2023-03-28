@@ -3,6 +3,8 @@
   <div class="line"></div>
 </div>
 
+<app-error-modal *ngIf="errorModal"> </app-error-modal>
+
 <div class="filter-title" (click)="toggleFilterVisibility()">
   <h3>Filtrar</h3>
   <fa-icon *ngIf="!isFilterVisible" [icon]="['fas', 'chevron-right']"></fa-icon>

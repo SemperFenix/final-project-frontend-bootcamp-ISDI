@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+} from '@angular/common/http';
+import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { TechsList, Tech, Technique } from 'src/types/tech';
 import {
   ServerTechsFilteredResponse,
@@ -25,6 +29,19 @@ export class TechsService {
     this.apiBaseUrl = 'http://localhost:4500/techniques/';
   }
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred:', error.error.message);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+      );
+    }
+    return throwError(() => {
+      new Error('Ha saltado un error');
+    });
+  }
+
   getTechsCategorized(pPage: string, pTech: Technique): Observable<TechsList> {
     return (
       this.http.get(this.apiBaseUrl + 'list/:' + pTech, {
@@ -35,6 +52,8 @@ export class TechsService {
         responseType: 'json',
       }) as Observable<ServerTechsResponse>
     ).pipe(
+      catchError(this.handleError),
+
       map((data) => {
         this.techs$.next({
           ...this.techs$.value,
@@ -58,6 +77,8 @@ export class TechsService {
         responseType: 'json',
       }) as Observable<ServerTechsFilteredResponse>
     ).pipe(
+      catchError(this.handleError),
+
       map((data) => {
         this.filteredTechs$.next(data.results[0] as unknown as Tech[]);
         return this.filteredTechs$.value;
