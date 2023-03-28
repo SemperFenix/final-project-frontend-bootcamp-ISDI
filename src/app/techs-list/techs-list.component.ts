@@ -1,7 +1,7 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { forkJoin, Observable, throwError } from 'rxjs';
-import { catchError, first } from 'rxjs/operators';
+import { forkJoin, Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import {
   TechsList,
   Tech,
