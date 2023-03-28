@@ -5,7 +5,7 @@ import { ModalHandlerService } from 'src/app/services/modal-handler.service';
 @Component({
   selector: 'app-register-modal',
   templateUrl: './register-modal.component.html',
-  styleUrls: ['./register-modal.component.sass'],
+  styleUrls: ['./register-modal.component.scss'],
 })
 export class RegisterModalComponent implements OnInit {
   constructor(
