@@ -19,7 +19,7 @@ export class AikidoUsersService {
   constructor(public http: HttpClient, private loginService: LoginService) {
     this.senseis$ = new BehaviorSubject<UsersList>({ users: [], number: 0 });
     this.students$ = new BehaviorSubject<UsersList>({ users: [], number: 0 });
-    this.apiBaseUrl = 'https://aikido-journey.onrender.com/aikido-users';
+    this.apiBaseUrl = 'http://localhost:4500/aikido-users';
   }
 
   register(user: ProtoAikidoUser): Observable<AikidoUser> {

@@ -60,7 +60,7 @@ describe('Given the TechsService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'https://aikido-journey.onrender.com/techniques/list/:Gokyo?page=1'
+        'http://localhost:4500/techniques/list/:Gokyo?page=1'
       );
       req.flush(mockResp);
 
@@ -80,7 +80,7 @@ describe('Given the TechsService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'https://aikido-journey.onrender.com/techniques/list/filter?tech=Gokyo'
+        'http://localhost:4500/techniques/list/filter?tech=Gokyo'
       );
       req.flush(mockResp);
 

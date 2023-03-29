@@ -26,7 +26,7 @@ export class TechsService {
     this.filteredTechs$ = new BehaviorSubject<Tech[]>([]);
 
     this.currentTech$ = new BehaviorSubject<Tech>({} as Tech);
-    this.apiBaseUrl = 'https://aikido-journey.onrender.com/techniques/';
+    this.apiBaseUrl = 'http://localhost:4500/techniques/';
   }
 
   private handleError(error: HttpErrorResponse) {

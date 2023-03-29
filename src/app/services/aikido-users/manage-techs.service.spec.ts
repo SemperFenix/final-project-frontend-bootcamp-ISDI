@@ -49,7 +49,7 @@ describe('ManageTechsService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'https://aikido-journey.onrender.com/aikido-users/add-tech/TestId'
+        'http://localhost:4500/aikido-users/add-tech/TestId'
       );
       expect(req.request.method).toEqual('PATCH');
       req.flush(mockResp);
@@ -70,7 +70,7 @@ describe('ManageTechsService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'https://aikido-journey.onrender.com/aikido-users/remove-tech/TestId'
+        'http://localhost:4500/aikido-users/remove-tech/TestId'
       );
       expect(req.request.method).toEqual('PATCH');
       req.flush(mockResp);

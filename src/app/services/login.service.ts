@@ -19,7 +19,7 @@ export class LoginService {
   userLogged$: BehaviorSubject<LoggedUser>;
 
   constructor(public http: HttpClient) {
-    this.apiBaseUrl = 'https://aikido-journey.onrender.com/aikido-users';
+    this.apiBaseUrl = 'http://localhost:4500/aikido-users';
     this.token$ = new BehaviorSubject<string>('');
     this.currentUser$ = new BehaviorSubject<AikidoUser>({} as AikidoUser);
     this.userLogged$ = new BehaviorSubject<LoggedUser>({
