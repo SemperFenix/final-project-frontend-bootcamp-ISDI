@@ -1,0 +1,12 @@
+<div class="main-frame">
+  <ul class="properties">
+    <li><span> Nombre: </span> {{ user.name }} {{ user.lastName }}</li>
+    <li><span> Edad: </span> {{ user.age }}</li>
+    <li><span> Tiempo practicando: </span> {{ user.timePracticing }}</li>
+    <li><span> Grado: </span> {{ user.grade }}</li>
+    <li><span> Maestro: </span> {{ user.principalSensei }}</li>
+  </ul>
+  <div class="buttons">
+    <ng-content></ng-content>
+  </div>
+</div>
