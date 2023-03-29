@@ -5,6 +5,7 @@ import { MenuItems } from 'src/types/menu.items';
 import * as jose from 'jose';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AikidoUser } from 'src/types/aikido.user';
 
 @Component({
   selector: 'app-menu',
@@ -100,6 +101,7 @@ export class MenuComponent implements OnInit {
     this.loginService.token$.next('');
 
     this.loginService.userLogged$.next({ email: '', id: '', role: 'logout' });
+    this.loginService.currentUser$.next({} as AikidoUser);
     this.burger.next(!this.burger);
 
     this.zone.run(() => {

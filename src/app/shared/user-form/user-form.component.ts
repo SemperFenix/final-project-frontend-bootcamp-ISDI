@@ -3,11 +3,11 @@ import {
   EventEmitter,
   inject,
   Input,
-  OnInit,
+  OnChanges,
   Output,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProtoAikidoUser, UserForm } from 'src/types/aikido.user';
+import { AikidoUser, ProtoAikidoUser, UserForm } from 'src/types/aikido.user';
 import {
   Storage,
   ref,
@@ -21,8 +21,8 @@ import {
   templateUrl: './user-form.component.html',
   styleUrls: ['./user-form.component.scss'],
 })
-export class UserFormComponent implements OnInit {
-  @Input() userData!: UserForm;
+export class UserFormComponent implements OnChanges {
+  @Input() userData!: AikidoUser | UserForm;
   @Output() itSubmit = new EventEmitter<ProtoAikidoUser>();
   userDataForm!: FormGroup;
   private storage: Storage;
@@ -33,7 +33,7 @@ export class UserFormComponent implements OnInit {
     this.storage = inject(Storage);
   }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.userDataForm = this.formBuilder.group({
       name: [this.userData.name, [Validators.required]],
       lastName: [this.userData.lastName, [Validators.required]],

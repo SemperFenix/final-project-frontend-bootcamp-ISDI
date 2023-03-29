@@ -20,10 +20,11 @@
         style="cursor: pointer"
       ></fa-icon>
     </section>
+
     <fieldset class="edit-form" disabled>
       <legend hidden></legend>
       <app-user-form
-        [userData]="userData"
+        [userData]="user"
         (itSubmit)="handleUpdate($event)"
       ></app-user-form>
     </fieldset>

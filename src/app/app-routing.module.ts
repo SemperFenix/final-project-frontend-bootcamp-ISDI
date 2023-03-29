@@ -34,6 +34,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'profile',
+    loadChildren: () =>
+      import('./other-user-profile/other-user-profile.module').then(
+        (m) => m.OtherUserProfileModule
+      ),
+  },
+  {
     path: 'tech/details',
     loadChildren: () =>
       import('./tech-details/tech-details.module').then(

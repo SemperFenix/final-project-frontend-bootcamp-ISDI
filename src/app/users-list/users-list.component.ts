@@ -76,7 +76,7 @@ export class UsersListComponent {
     this.userToDetailService.userToDetail$.next(pUser);
 
     this.zone.run(() => {
-      this.router.navigateByUrl('other-profile');
+      this.router.navigateByUrl('profile');
     });
   }
 }
