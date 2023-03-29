@@ -35,8 +35,6 @@ export class LearnButtonComponent {
   // }
 
   handleAddTech(pTechId: Tech['id']) {
-    this.loginService.getCurrentUser(this.user.id);
-    console.log(pTechId);
     this.manageTechs.addTechToLearn(pTechId).pipe(first()).subscribe();
   }
 }

@@ -13,7 +13,6 @@ export class SnoozeButtonComponent {
   constructor(private manageTechs: ManageTechsService) {}
 
   handleRemoveTech(pTechId: Tech['id']) {
-    console.log(pTechId, this.techId);
     this.manageTechs.removeTechToLearn(pTechId).pipe(first()).subscribe();
   }
 }
