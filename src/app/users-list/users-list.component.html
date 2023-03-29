@@ -4,7 +4,7 @@
 </div>
 <div class="members">
   <ul *ngIf="senseis$ | async as senseis">
-    <li *ngFor="let item of senseis.users">
+    <li *ngFor="let item of senseis.users" (click)="saveUserToDetail(item)">
       <div class="image">
         <img src="{{ item.avatar }}" alt="user avatar" width="50px" />
       </div>
@@ -29,7 +29,7 @@
 
 <div class="members">
   <ul *ngIf="students$ | async as students">
-    <li *ngFor="let item of students.users">
+    <li *ngFor="let item of students.users" (click)="saveUserToDetail(item)">
       <div class="image">
         <img src="{{ item.avatar }}" alt="user avatar" width="60" />
       </div>

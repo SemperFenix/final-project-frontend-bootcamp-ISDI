@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UsersList } from 'src/types/aikido.user';
+import { AikidoUser, UsersList } from 'src/types/aikido.user';
 import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
+import { UserDetailService } from '../services/aikido-users/user-detail.service';
 
 @Component({
   selector: 'app-users-list',
@@ -14,7 +16,12 @@ export class UsersListComponent {
   senseisPage: number;
   studentsPage: number;
 
-  constructor(private aikidoUsersService: AikidoUsersService) {
+  constructor(
+    private aikidoUsersService: AikidoUsersService,
+    private userToDetailService: UserDetailService,
+    private router: Router,
+    private zone: NgZone
+  ) {
     this.senseisPage = 1;
     this.studentsPage = 1;
 
@@ -63,4 +70,13 @@ export class UsersListComponent {
       String(this.studentsPage)
     );
   };
+
+  saveUserToDetail(pUser: AikidoUser) {
+    console.log(pUser);
+    this.userToDetailService.userToDetail$.next(pUser);
+
+    this.zone.run(() => {
+      this.router.navigateByUrl('other-profile');
+    });
+  }
 }
