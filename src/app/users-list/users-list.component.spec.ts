@@ -1,8 +1,10 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+import { AikidoUser } from 'src/types/aikido.user';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
+import { UserDetailService } from '../services/aikido-users/user-detail.service';
 import {
   mockAikidoUsersService,
   mockSenseisList,
@@ -15,6 +17,7 @@ describe('Given the UsersListComponent', () => {
   let component: UsersListComponent;
   let fixture: ComponentFixture<UsersListComponent>;
   let service: AikidoUsersService;
+  let detailService: UserDetailService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [UsersListComponent],
@@ -24,12 +27,14 @@ describe('Given the UsersListComponent', () => {
           provide: AikidoUsersService,
           useValue: mockAikidoUsersService,
         },
+        UserDetailService,
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UsersListComponent);
     component = fixture.componentInstance;
     service = TestBed.inject(AikidoUsersService);
+    detailService = TestBed.inject(UserDetailService);
     fixture.detectChanges();
   });
 
@@ -142,6 +147,17 @@ describe('Given the UsersListComponent', () => {
 
         expect(spyStudents).toHaveBeenCalledWith('2');
       });
+    });
+  });
+
+  describe('When saveUserToDetail method is called', () => {
+    it('Then it should call userToDetail$.next', () => {
+      const spyDetail = spyOn(
+        detailService.userToDetail$,
+        'next'
+      ).and.callThrough();
+      component.saveUserToDetail({} as AikidoUser);
+      expect(spyDetail).toHaveBeenCalled();
     });
   });
 });

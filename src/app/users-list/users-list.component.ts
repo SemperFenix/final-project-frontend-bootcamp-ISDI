@@ -72,7 +72,6 @@ export class UsersListComponent {
   };
 
   saveUserToDetail(pUser: AikidoUser) {
-    console.log(pUser);
     this.userToDetailService.userToDetail$.next(pUser);
 
     this.zone.run(() => {

@@ -31,6 +31,14 @@ export class UserFormComponent implements OnChanges {
   constructor(public formBuilder: FormBuilder) {
     this.avatarImg = new File([], '');
     this.storage = inject(Storage);
+    this.userDataForm = this.formBuilder.group({
+      name: '',
+      lastName: '',
+      age: '',
+      timePracticing: '',
+      email: '',
+      password: '',
+    });
   }
 
   ngOnChanges(): void {

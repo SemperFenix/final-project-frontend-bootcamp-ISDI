@@ -76,4 +76,25 @@ describe('ManageTechsService', () => {
       req.flush(mockResp);
     });
   });
+
+  describe('When progressTech method is called', () => {
+    it('Then it should return the updated user', () => {
+      loginService.userLogged$.next({
+        id: 'TestId',
+      } as unknown as AikidoUser);
+      const mockResp: ServerCompleteUserResponse = {
+        results: [mockAikidoUser],
+      };
+      service.progressTech('UserId', 'TechId').subscribe((resp) => {
+        expect(resp).not.toBeNull();
+        expect(JSON.stringify(resp)).toBe(JSON.stringify(mockAikidoUser));
+      });
+      expect(httpTestingController).toBeTruthy();
+      const req = httpTestingController.expectOne(
+        'http://localhost:4500/aikido-users/update/admin/TestId'
+      );
+      expect(req.request.method).toEqual('PATCH');
+      req.flush(mockResp);
+    });
+  });
 });

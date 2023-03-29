@@ -110,10 +110,7 @@ export const mockLoginService = {
   },
 
   getCurrentUser: () => {
-    return of({
-      name: 'TestName',
-      lastName: 'TestLast',
-    } as unknown as AikidoUser);
+    return of(mockAikidoUser);
   },
   userLogged$: new BehaviorSubject<LoggedUser>({
     id: 'TestId',
