@@ -1,0 +1,44 @@
+<div class="title">
+  <h2>{{ (this["userToDetailService"].userToDetail$ | async)?.name }}</h2>
+  <div class="line"></div>
+</div>
+<div class="user-info">
+  <div class="image">
+    <img
+      [src]="(this['userToDetailService'].userToDetail$ | async)?.avatar"
+      alt="User avatar"
+    />
+  </div>
+
+  <app-user-card
+    [user]="(this['userToDetailService'].userToDetail$ | async)!"
+  ></app-user-card>
+</div>
+
+<div class="techniques">
+  <h3>Técnicas en estudio</h3>
+  <div class="line"></div>
+  <ng-container
+    *ngFor="
+      let item of (this['userToDetailService'].userToDetail$ | async)
+        ?.techsInProgress
+    "
+  >
+    <app-tech-card [tech]="item">
+      <ng-container *ngIf="role === 'sensei'">
+        <app-progress-button [techId]="item.id"></app-progress-button>
+      </ng-container>
+    </app-tech-card>
+  </ng-container>
+
+  <h3>Técnicas aprendidas</h3>
+  <div class="line"></div>
+  <ng-container
+    *ngFor="
+      let item of (this['userToDetailService'].userToDetail$ | async)
+        ?.techsLearnt
+    "
+  >
+    <app-tech-card [tech]="item"> </app-tech-card>
+  </ng-container>
+</div>
