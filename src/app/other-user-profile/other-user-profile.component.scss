@@ -1,0 +1,42 @@
+.image {
+  display: inline-block;
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+  z-index: -1;
+
+  img {
+    width: auto;
+    height: 100%;
+  }
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  margin-top: 1rem;
+  display: flex;
+  color: #c71a18;
+  font-family: "Caudex", serif;
+  font-weight: 400;
+  justify-content: center;
+}
+
+.line {
+  width: 249px;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #c71a18;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

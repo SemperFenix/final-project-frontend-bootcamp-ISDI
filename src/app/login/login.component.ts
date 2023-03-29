@@ -5,6 +5,7 @@ import { Login } from 'src/types/login';
 import { LoginService } from '../services/login.service';
 
 import { Router } from '@angular/router';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,10 @@ export class LoginComponent {
     this.loginService.login(loginUser).subscribe((data) => {
       if (!data) return;
       this.loginService.token$.next(data);
-
+      this.loginService
+        .getCurrentUser(this.loginService.userLogged$.value.id)
+        .pipe(first())
+        .subscribe();
       this.newLoginForm.reset();
 
       this.zone.run(() => {

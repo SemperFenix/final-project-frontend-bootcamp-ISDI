@@ -11,6 +11,8 @@ import { TechCardComponent } from './tech-card/tech-card.component';
 import { FilterComponent } from './filter/filter.component';
 import { LearnButtonComponent } from './learn-button/learn-button.component';
 import { SnoozeButtonComponent } from './snooze-button/snooze-button.component';
+import { UserCardComponent } from './user-card/user-card.component';
+import { ProgressButtonComponent } from './progress-button/progress-button.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { SnoozeButtonComponent } from './snooze-button/snooze-button.component';
     FilterComponent,
     LearnButtonComponent,
     SnoozeButtonComponent,
+    UserCardComponent,
+    ProgressButtonComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +39,8 @@ import { SnoozeButtonComponent } from './snooze-button/snooze-button.component';
     FilterComponent,
     LearnButtonComponent,
     SnoozeButtonComponent,
+    UserCardComponent,
+    ProgressButtonComponent,
   ],
 })
 export class SharedModule {}

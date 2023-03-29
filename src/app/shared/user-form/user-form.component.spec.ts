@@ -9,6 +9,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
 import { UserFormComponent } from './user-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserForm } from 'src/types/aikido.user';
 
 describe('Given the UserFormComponent', () => {
   let component: UserFormComponent;
@@ -35,7 +36,7 @@ describe('Given the UserFormComponent', () => {
       timePracticing: 'TestTime',
       email: 'TestMail',
       password: 'TestPass',
-    };
+    } as UserForm;
     fixture.detectChanges();
   });
 

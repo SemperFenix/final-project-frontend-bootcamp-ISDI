@@ -10,14 +10,15 @@ import {
   mockProtoAikidoUser,
   mockSenseisList,
   mockUsersList,
-} from 'src/app/utils/mocks/test.mocks';
+} from '../../../app/utils/mocks/test.mocks';
 import {
   ServerCompleteUserResponse,
   ServerUsersResponse,
-} from 'src/types/server.responses';
+} from '../../../types/server.responses';
 
 import { AikidoUsersService } from './aikido.users.service';
 import { LoginService } from '../login.service';
+import { AikidoUser } from 'src/types/aikido.user';
 
 describe('Given the AikidoUsersService', () => {
   let aikidoService: AikidoUsersService;
@@ -174,13 +175,23 @@ describe('Given the AikidoUsersService', () => {
       const mockResp: ServerCompleteUserResponse = {
         results: [mockAikidoUser],
       };
+      loginService.currentUser$.next({
+        id: 'TestId',
+      } as unknown as AikidoUser);
+
+      const spyLogin = spyOn(
+        loginService.currentUser$,
+        'next'
+      ).and.callThrough();
       aikidoService.updateSelfUser(mockProtoAikidoUser).subscribe((resp) => {
         expect(resp).not.toBeNull();
+        expect(spyLogin).toHaveBeenCalled();
+
         expect(JSON.stringify(resp)).toBe(JSON.stringify(mockAikidoUser));
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'http://localhost:4500/aikido-users/update/1'
+        'http://localhost:4500/aikido-users/update/TestId'
       );
       expect(req.request.method).toEqual('PATCH');
       req.flush(mockResp);
@@ -189,16 +200,20 @@ describe('Given the AikidoUsersService', () => {
 
   describe('When the deleteSelfUser method is called', () => {
     it('Then it should return void object', () => {
+      loginService.token$.next('TestToken');
       const mockResp = {
         results: [{}],
       };
+      loginService.currentUser$.next({
+        id: 'TestId',
+      } as unknown as AikidoUser);
       aikidoService.deleteSelfUser().subscribe((resp) => {
         expect(resp).not.toBeNull();
         expect(JSON.stringify(resp)).toBe(JSON.stringify(mockResp));
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'http://localhost:4500/aikido-users/delete/1'
+        'http://localhost:4500/aikido-users/delete/TestId'
       );
       expect(req.request.method).toEqual('DELETE');
       req.flush(mockResp);

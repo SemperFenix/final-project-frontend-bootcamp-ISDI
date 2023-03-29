@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, first, map, Observable } from 'rxjs';
 import { LoggedUser, Login } from 'src/types/login';
 import {
   ServerCompleteUserResponse,
@@ -57,6 +57,7 @@ export class LoginService {
     this.token$.next(token);
     const userInfo = jose.decodeJwt(token) as unknown as LoggedUser;
     this.userLogged$.next(userInfo);
+    this.getCurrentUser(this.userLogged$.value.id).pipe(first()).subscribe();
   }
 
   getCurrentUser(pUserId: string): Observable<AikidoUser> {

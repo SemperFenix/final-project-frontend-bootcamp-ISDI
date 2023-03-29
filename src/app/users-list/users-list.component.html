@@ -1,8 +1,10 @@
-<h2>Maestros</h2>
-
-<div>
+<div class="title">
+  <h2>Maestros</h2>
+  <div class="line"></div>
+</div>
+<div class="members">
   <ul *ngIf="senseis$ | async as senseis">
-    <li *ngFor="let item of senseis.users">
+    <li *ngFor="let item of senseis.users" (click)="saveUserToDetail(item)">
       <div class="image">
         <img src="{{ item.avatar }}" alt="user avatar" width="50px" />
       </div>
@@ -10,22 +12,24 @@
     </li>
   </ul>
   <div class="pages">
-    <fa-icon
-      [icon]="['fas', 'chevron-left']"
-      (click)="handleSenseisPrev()"
-    ></fa-icon>
-    <fa-icon
-      [icon]="['fas', 'chevron-right']"
-      (click)="handleSenseisNext()"
-    ></fa-icon>
+    <div class="paginate" (click)="handleSenseisPrev()">
+      <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon
+      ><span>Anteriores</span>
+    </div>
+    <div class="paginate" (click)="handleSenseisNext()">
+      <span>Siguientes</span
+      ><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+    </div>
   </div>
 </div>
+<div class="title">
+  <h2>Alumnos</h2>
+  <div class="line"></div>
+</div>
 
-<h2>Alumnos</h2>
-
-<div>
+<div class="members">
   <ul *ngIf="students$ | async as students">
-    <li *ngFor="let item of students.users">
+    <li *ngFor="let item of students.users" (click)="saveUserToDetail(item)">
       <div class="image">
         <img src="{{ item.avatar }}" alt="user avatar" width="60" />
       </div>
@@ -33,13 +37,13 @@
     </li>
   </ul>
   <div class="pages">
-    <fa-icon
-      [icon]="['fas', 'chevron-left']"
-      (click)="handleStudentsPrev()"
-    ></fa-icon>
-    <fa-icon
-      [icon]="['fas', 'chevron-right']"
-      (click)="handleStudentsNext()"
-    ></fa-icon>
+    <div class="paginate" (click)="handleStudentsPrev()">
+      <fa-icon [icon]="['fas', 'chevron-left']"></fa-icon
+      ><span>Anteriores</span>
+    </div>
+    <div class="paginate" (click)="handleStudentsNext()">
+      <span>Siguientes</span
+      ><fa-icon [icon]="['fas', 'chevron-right']"></fa-icon>
+    </div>
   </div>
 </div>

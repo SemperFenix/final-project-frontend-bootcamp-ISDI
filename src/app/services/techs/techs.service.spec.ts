@@ -7,7 +7,7 @@ import { TestBed } from '@angular/core/testing';
 import {
   ServerTechsFilteredResponse,
   ServerTechsResponse,
-} from 'src/types/server.responses';
+} from '../../../types/server.responses';
 import {
   mockLoginService,
   mockTech,

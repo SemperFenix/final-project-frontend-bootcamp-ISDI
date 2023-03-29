@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://aikido-journey.netlify.app/sitemap.xml

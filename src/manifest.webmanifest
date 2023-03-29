@@ -1,0 +1,17 @@
+{
+  "name": "AikidoJourney",
+  "short_name": "AiJo",
+  "theme_color": "##fffaf3",
+  "background_color": "##fffaf3",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "icons": [
+    {
+      "src": "assets/img/ai.jo.logo.webp",
+      "sizes": "1000x1000",
+      "type": "image/webp",
+      "purpose": "maskable any"
+    }
+  ]
+}
