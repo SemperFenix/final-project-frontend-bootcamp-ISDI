@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { AikidoUser } from 'src/types/aikido.user';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 import { LoginComponent } from '../login/login.component';
-import { AikidoUsersService } from '../services/aikido.users.service';
+import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
 import { LoginService } from '../services/login.service';
 import { SharedModule } from '../shared/shared.module';
 import {

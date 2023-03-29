@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UsersList } from 'src/types/aikido.user';
-import { AikidoUsersService } from '../services/aikido.users.service';
+import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
 
 @Component({
   selector: 'app-users-list',

@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { FontawesomeIconsModule } from 'src/app/fontawesome/fontawesome.icons.module';
+import { LoginService } from 'src/app/services/login.service';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { MenuComponent } from '../menu/menu.component';
@@ -26,6 +27,7 @@ describe('LayoutComponent', () => {
         RouterTestingModule,
         FontawesomeIconsModule,
       ],
+      providers: [LoginService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LayoutComponent);

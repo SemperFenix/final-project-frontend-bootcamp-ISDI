@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { forkJoin, Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
+import { AikidoUser } from 'src/types/aikido.user';
 import {
   TechsList,
   Tech,
@@ -10,8 +11,8 @@ import {
   techsListed,
   TechsFilter,
 } from 'src/types/tech';
-import { ModalHandlerService } from '../services/modal-handler.service';
-import { TechsService } from '../services/techs.service';
+import { LoginService } from '../services/login.service';
+import { TechsService } from '../services/techs/techs.service';
 
 @Component({
   selector: 'app-techs-list',
@@ -27,13 +28,15 @@ export class TechsListComponent implements OnInit {
   filteredTechs: Tech[];
   errorMessage!: string;
   errorModal: boolean;
+  currentUser: AikidoUser;
 
   constructor(
+    private loginService: LoginService,
     private techsService: TechsService,
-    private modalService: ModalHandlerService,
     private router: Router,
     private zone: NgZone
   ) {
+    this.currentUser = {} as AikidoUser;
     this.errorModal = false;
     this.isFilterVisible = false;
     this.isFiltered = false;
@@ -44,9 +47,17 @@ export class TechsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getCurrentUser();
     this.initializeTechPages();
     this.loadTechs();
     this.subscribeToTechsUpdates();
+  }
+
+  private getCurrentUser() {
+    const id = this.loginService.userLogged$.value.id;
+    this.loginService.getCurrentUser(id).subscribe((data) => {
+      this.currentUser = data;
+    });
   }
 
   private initializeTechPages(): void {

@@ -2,7 +2,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
-import { AikidoUsersService } from '../services/aikido.users.service';
+import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
 import {
   mockAikidoUsersService,
   mockSenseisList,

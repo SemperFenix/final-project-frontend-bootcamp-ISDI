@@ -1,18 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TechsListComponent } from './techs-list.component';
-import { TechsService } from '../services/techs.service';
-import { of, throwError } from 'rxjs';
+import { TechsService } from '../services/techs/techs.service';
+import { of } from 'rxjs';
 import { TechsList, TechsPageAndExistence, Tech } from 'src/types/tech';
-import { mockTechsService } from '../utils/mocks/test.mocks';
+import { mockLoginService, mockTechsService } from '../utils/mocks/test.mocks';
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 import { SharedModule } from '../shared/shared.module';
-import { ModalHandlerService } from '../services/modal-handler.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoginService } from '../services/login.service';
 
 describe('TechsListComponent', () => {
   let component: TechsListComponent;
   let fixture: ComponentFixture<TechsListComponent>;
   let techsService: TechsService;
-  let modalService: ModalHandlerService;
+  let loginService: LoginService;
   // Este valor viene del mockTechsService, ya que component.techs inicializa con el valor del observable
   const mockGetCatReturn = {
     Ikkyo: { techs: [], number: 6 },
@@ -23,16 +24,16 @@ describe('TechsListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TechsListComponent],
-      imports: [FontawesomeIconsModule, SharedModule],
+      imports: [FontawesomeIconsModule, SharedModule, HttpClientTestingModule],
       providers: [
         { provide: TechsService, useValue: mockTechsService },
-        ModalHandlerService,
+        { provide: LoginService, useValue: mockLoginService },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TechsListComponent);
     techsService = TestBed.inject(TechsService);
-    modalService = TestBed.inject(ModalHandlerService);
+    loginService = TestBed.inject(LoginService);
     component = fixture.componentInstance;
     component.techsToSearch = ['Ikkyo', 'Nikkyo', 'Sankyo'];
     component.techPages = {
@@ -59,6 +60,10 @@ describe('TechsListComponent', () => {
         techsService,
         'getTechsCategorized'
       ).and.callThrough();
+      loginService.getCurrentUser('TestId').subscribe((data) => {
+        expect(component.currentUser).toEqual(data);
+      });
+
       component.ngOnInit();
 
       expect(Object.keys(component.techPages).length).toBe(3);

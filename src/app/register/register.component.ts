@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { first, Subscription } from 'rxjs';
 import { ProtoAikidoUser, UserForm } from 'src/types/aikido.user';
 
-import { AikidoUsersService } from '../services/aikido.users.service';
+import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
 import { ModalHandlerService } from '../services/modal-handler.service';
 
 @Component({

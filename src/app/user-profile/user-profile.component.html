@@ -28,4 +28,22 @@
       <button (click)="handleDelete()">Borrar Perfil</button>
     </div>
   </div>
+
+  <div class="user-techs">
+    <h3>Técnicas en progreso</h3>
+    <div class="line"></div>
+
+    <ng-container *ngFor="let tech of (currentUser$ | async)?.techsInProgress">
+      <app-tech-card [tech]="tech">
+        <app-snooze-button [techId]="tech.id"></app-snooze-button>
+      </app-tech-card>
+    </ng-container>
+
+    <h3>Técnicas aprendidas</h3>
+    <div class="line"></div>
+
+    <ng-container *ngFor="let tech of (currentUser$ | async)?.techsLearnt">
+      <app-tech-card [tech]="tech"> </app-tech-card>
+    </ng-container>
+  </div>
 </section>

@@ -9,9 +9,10 @@ import { LoginService } from 'src/app/services/login.service';
 export class LayoutComponent {
   @Input() burger: boolean;
   constructor(private loginService: LoginService) {
-    this.loginService.initialToken();
     this.burger = true;
+    this.loginService.initialToken();
   }
+
   burgerOption() {
     this.burger = !this.burger;
   }

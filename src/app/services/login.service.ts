@@ -48,8 +48,15 @@ export class LoginService {
 
   initialToken(): void {
     let token = localStorage.getItem('Token');
-    if (!token) token = '';
+    if (!token) {
+      token = '';
+      this.token$.next(token);
+
+      return;
+    }
     this.token$.next(token);
+    const userInfo = jose.decodeJwt(token) as unknown as LoggedUser;
+    this.userLogged$.next(userInfo);
   }
 
   getCurrentUser(pUserId: string): Observable<AikidoUser> {

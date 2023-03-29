@@ -33,6 +33,13 @@ const routes: Routes = [
         (m) => m.UserProfileModule
       ),
   },
+  {
+    path: 'tech/details',
+    loadChildren: () =>
+      import('./tech-details/tech-details.module').then(
+        (m) => m.TechDetailsModule
+      ),
+  },
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: '**', redirectTo: 'home' },
 ];

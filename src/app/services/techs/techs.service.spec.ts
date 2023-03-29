@@ -12,8 +12,8 @@ import {
   mockLoginService,
   mockTech,
   mockTechsList,
-} from '../utils/mocks/test.mocks';
-import { LoginService } from './login.service';
+} from '../../utils/mocks/test.mocks';
+import { LoginService } from '../login.service';
 
 import { TechsService } from './techs.service';
 
