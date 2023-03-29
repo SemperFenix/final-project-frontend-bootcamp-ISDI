@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { first } from 'rxjs';
-import { AikidoUser } from 'src/types/aikido.user';
 import { UserDetailService } from '../services/aikido-users/user-detail.service';
 import { LoginService } from '../services/login.service';
 
