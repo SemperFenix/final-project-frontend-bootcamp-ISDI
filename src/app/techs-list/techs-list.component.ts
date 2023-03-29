@@ -12,7 +12,6 @@ import {
   TechsFilter,
 } from 'src/types/tech';
 import { LoginService } from '../services/login.service';
-import { ModalHandlerService } from '../services/modal-handler.service';
 import { TechsService } from '../services/techs/techs.service';
 
 @Component({
@@ -34,7 +33,6 @@ export class TechsListComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private techsService: TechsService,
-    private modalService: ModalHandlerService,
     private router: Router,
     private zone: NgZone
   ) {
@@ -59,7 +57,6 @@ export class TechsListComponent implements OnInit {
     const id = this.loginService.userLogged$.value.id;
     this.loginService.getCurrentUser(id).subscribe((data) => {
       this.currentUser = data;
-      console.log(this.currentUser);
     });
   }
 
