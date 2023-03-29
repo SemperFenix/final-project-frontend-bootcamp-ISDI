@@ -1,7 +1,10 @@
 <section class="profile">
   <h2>Mi perfil</h2>
   <div class="line"></div>
-  <div class="user-info" *ngIf="currentUser$ | async as user">
+  <div
+    class="user-info"
+    *ngIf="this['loginService'].currentUser$ | async as user"
+  >
     <section class="user-options">
       <fa-icon [icon]="['fas', 'list-check']" style="cursor: pointer"></fa-icon>
       <div class="image">
@@ -33,7 +36,11 @@
     <h3>Técnicas en progreso</h3>
     <div class="line"></div>
 
-    <ng-container *ngFor="let tech of (currentUser$ | async)?.techsInProgress">
+    <ng-container
+      *ngFor="
+        let tech of (this['loginService'].currentUser$ | async)?.techsInProgress
+      "
+    >
       <app-tech-card [tech]="tech">
         <app-snooze-button [techId]="tech.id"></app-snooze-button>
       </app-tech-card>
@@ -42,7 +49,11 @@
     <h3>Técnicas aprendidas</h3>
     <div class="line"></div>
 
-    <ng-container *ngFor="let tech of (currentUser$ | async)?.techsLearnt">
+    <ng-container
+      *ngFor="
+        let tech of (this['loginService'].currentUser$ | async)?.techsLearnt
+      "
+    >
       <app-tech-card [tech]="tech"> </app-tech-card>
     </ng-container>
   </div>

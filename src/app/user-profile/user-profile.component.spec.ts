@@ -1,8 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
-import { AikidoUser } from 'src/types/aikido.user';
+
 import { FontawesomeIconsModule } from '../fontawesome/fontawesome.icons.module';
 import { LoginComponent } from '../login/login.component';
 import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
@@ -52,13 +51,13 @@ describe('Given the UserProfileComponent', () => {
 
   describe('When onInit', () => {
     it('Then it should update userData value', () => {
-      component.currentUser$ = of({
-        name: 'TestName',
-        lastName: 'TestLast',
-        age: 32,
-        email: 'TestMail',
-        timePracticing: '',
-      } as unknown as AikidoUser);
+      // component.currentUser$ = of({
+      //   name: 'TestName',
+      //   lastName: 'TestLast',
+      //   age: 32,
+      //   email: 'TestMail',
+      //   timePracticing: '',
+      // } as unknown as AikidoUser);
 
       component.ngOnInit();
 

@@ -1,6 +1,6 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { first, Observable, Subject } from 'rxjs';
+import { first } from 'rxjs';
 import { AikidoUser, UserForm } from 'src/types/aikido.user';
 import { AikidoUsersService } from '../services/aikido-users/aikido.users.service';
 import { LoginService } from '../services/login.service';
@@ -11,7 +11,6 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
-  currentUser$: Subject<AikidoUser>;
   userData: UserForm;
 
   constructor(
@@ -20,14 +19,10 @@ export class UserProfileComponent implements OnInit {
     private router: Router,
     private zone: NgZone
   ) {
-    this.currentUser$ = this.loginService.currentUser$;
     this.userData = {} as UserForm;
   }
 
   ngOnInit(): void {
-    this.loginService.initialToken();
-
-    console.log(this.loginService.currentUser$.value);
     this.loginService.currentUser$.subscribe((data) => {
       let age = 'N/C';
       if (data.age) age = data.age.toString();
