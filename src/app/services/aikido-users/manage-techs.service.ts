@@ -12,7 +12,7 @@ export class ManageTechsService {
   apiBaseUrl: string;
 
   constructor(public http: HttpClient, private loginService: LoginService) {
-    this.apiBaseUrl = 'http://localhost:4500/aikido-users';
+    this.apiBaseUrl = 'https://aikido-journey.onrender.com/aikido-users';
   }
 
   addTechToLearn(pTechId: string): Observable<AikidoUser> {

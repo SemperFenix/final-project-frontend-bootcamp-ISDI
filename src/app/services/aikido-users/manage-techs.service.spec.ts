@@ -6,9 +6,9 @@ import { TestBed } from '@angular/core/testing';
 import {
   mockAikidoUser,
   mockLoginService,
-} from 'src/app/utils/mocks/test.mocks';
-import { AikidoUser } from 'src/types/aikido.user';
-import { ServerCompleteUserResponse } from 'src/types/server.responses';
+} from '../../../app/utils/mocks/test.mocks';
+import { AikidoUser } from '../../../types/aikido.user';
+import { ServerCompleteUserResponse } from '../../../types/server.responses';
 import { LoginService } from '../login.service';
 
 import { ManageTechsService } from './manage-techs.service';
@@ -49,7 +49,7 @@ describe('ManageTechsService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'http://localhost:4500/aikido-users/add-tech/TestId'
+        'https://aikido-journey.onrender.com/aikido-users/add-tech/TestId'
       );
       expect(req.request.method).toEqual('PATCH');
       req.flush(mockResp);
@@ -70,7 +70,7 @@ describe('ManageTechsService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'http://localhost:4500/aikido-users/remove-tech/TestId'
+        'https://aikido-journey.onrender.com/aikido-users/remove-tech/TestId'
       );
       expect(req.request.method).toEqual('PATCH');
       req.flush(mockResp);

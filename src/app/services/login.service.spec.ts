@@ -49,7 +49,7 @@ describe('LoginService', () => {
         expect(spyNext).toHaveBeenCalled();
       });
       const req = httpTestingController.expectOne(
-        'http://localhost:4500/aikido-users/login'
+        'https://aikido-journey.onrender.com/aikido-users/login'
       );
       expect(req.request.method).toEqual('POST');
       req.flush(mockResp);
@@ -98,7 +98,7 @@ describe('LoginService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/12345'
+          'https://aikido-journey.onrender.com/aikido-users/users/12345'
         );
         req.flush(mockResp);
 
@@ -124,7 +124,7 @@ describe('LoginService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/12345'
+          'https://aikido-journey.onrender.com/aikido-users/users/12345'
         );
         req.flush(mockResp);
 
