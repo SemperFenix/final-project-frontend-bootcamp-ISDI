@@ -22,11 +22,9 @@ export class LearnButtonComponent {
   // Comentado para futura implementación
   // ngOnInit(): void {
   //   const button = document.querySelector('button') as HTMLButtonElement;
-
   //   const userLearnt = this.techsLearnt.map((item) => {
   //     item.id === this.techId;
   //   });
-
   //   const userInProgress = this.techsInProgress.map((item) => {
   //     item.id === this.techId;
   //   });

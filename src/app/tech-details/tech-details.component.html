@@ -3,6 +3,7 @@
 <app-tech-card [tech]="actualTech"></app-tech-card>
 <div class="video" *ngIf="actualTech.video">
   <iframe
+    [title]="actualTech.attack"
     width="560"
     height="315"
     [src]="actualTech.video | safe"
