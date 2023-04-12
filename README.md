@@ -1,41 +1,14 @@
 # Aikido Project
 
-🥋 A platform for Aikido practitioners to learn and share techniques
-  ![license](https://img.shields.io/github/license/isdi-coders-2023/Ivan-Duran-Final-Project-back-202301-mad)
+🥋 A platform for Aikido practitioners to learn and share technique
 
 ## 🚀 Getting Started
 
-1. Clone the repository to your local machine:
-
-```bash
-git clone https://github.com/isdi-coders-2023/Ivan-Duran-Final-Project-back-202301-mad.git
-```
-
-2. Navigate to the `client` directory and run the following command to install the required dependencies:
-
-```bash
-npm install
-```
-
-3. Navigate to the `server` directory and run the following command to install the required dependencies:
-
-```bash
-npm install
-```
-
-4. Start the development server by running the following command in the `server` directory:
-
-```bash
-npm start
-```
-
-5. In a new terminal window, start the client by running the following command in the `client` directory:
-
-```bash
-npm start
-```
-
-If you encounter any issues during the setup process, please refer to the project's wiki for troubleshooting tips.
+1. [Open the server on Render](https://aikido-journey.onrender.com/) (Render is a free service and it put the non active projects in "sleeping mode") and wait for it to get active.
+2. [Open the page in Netlify](https://aikido-journey.netlify.app/)
+3. Register an user.
+4. Log in with the username and password.
+5. Browse the site!
 
 ## 🌟 Features
 
@@ -59,8 +32,12 @@ The Aikido Project was built using the following technologies:
 - Material UI
 - Google Maps API
 
+## 🧪 Code Quality
+
+You can check the code quality (test coverage, duplications, bugs...) [in Sonar](https://sonarcloud.io/summary/new_code?id=SemperFenix_final-project-frontend-bootcamp-ISDI). If you want to check the evolution of the whole project, you can check the sonar for the original repository [in this other Sonar link](https://sonarcloud.io/project/overview?id=isdi-coders-2023_Ivan-Duran-Final-Project-front-202301-mad).
+
 ## 📄 License
 
 This project is licensed under the terms of the MIT license.
 
->This readme has been created with ChatGPT
+>This readme has been created with ChatGPT and updated for clarity
