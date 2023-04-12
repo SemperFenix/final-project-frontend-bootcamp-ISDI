@@ -1,8 +1,8 @@
 {
   "name": "AikidoJourney",
   "short_name": "AiJo",
-  "theme_color": "##fffaf3",
-  "background_color": "##fffaf3",
+  "theme_color": "#fffaf3",
+  "background_color": "#fffaf3",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

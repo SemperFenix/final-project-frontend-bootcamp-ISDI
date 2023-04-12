@@ -56,7 +56,7 @@ describe('Given the AikidoUsersService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'http://localhost:4500/aikido-users/register'
+        'https://aikido-journey.onrender.com/aikido-users/register'
       );
       expect(req.request.method).toEqual('POST');
       req.flush(mockResp);
@@ -78,7 +78,7 @@ describe('Given the AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/list/:sensei?page=1'
+          'https://aikido-journey.onrender.com/aikido-users/users/list/:sensei?page=1'
         );
         req.flush(mockResp);
 
@@ -104,7 +104,7 @@ describe('Given the AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/list/:sensei?page=1'
+          'https://aikido-journey.onrender.com/aikido-users/users/list/:sensei?page=1'
         );
         req.flush(mockResp);
 
@@ -132,7 +132,7 @@ describe('Given the AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/list/:user?page=1'
+          'https://aikido-journey.onrender.com/aikido-users/users/list/:user?page=1'
         );
         req.flush(mockResp);
 
@@ -158,7 +158,7 @@ describe('Given the AikidoUsersService', () => {
         });
         expect(httpTestingController).toBeTruthy();
         const req = httpTestingController.expectOne(
-          'http://localhost:4500/aikido-users/users/list/:user?page=1'
+          'https://aikido-journey.onrender.com/aikido-users/users/list/:user?page=1'
         );
         req.flush(mockResp);
 
@@ -191,7 +191,7 @@ describe('Given the AikidoUsersService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'http://localhost:4500/aikido-users/update/TestId'
+        'https://aikido-journey.onrender.com/aikido-users/update/TestId'
       );
       expect(req.request.method).toEqual('PATCH');
       req.flush(mockResp);
@@ -213,7 +213,7 @@ describe('Given the AikidoUsersService', () => {
       });
       expect(httpTestingController).toBeTruthy();
       const req = httpTestingController.expectOne(
-        'http://localhost:4500/aikido-users/delete/TestId'
+        'https://aikido-journey.onrender.com/aikido-users/delete/TestId'
       );
       expect(req.request.method).toEqual('DELETE');
       req.flush(mockResp);
