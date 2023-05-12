@@ -24,13 +24,11 @@ The Aikido Project has the following features:
 
 The Aikido Project was built using the following technologies:
 
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- React.js
-- Material UI
-- Google Maps API
+- Angular 15
+- Typescript
+- Sass
+- Firebase
+- Jasmine/Karma
 
 ## 🧪 Code Quality
 
