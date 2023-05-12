@@ -25,6 +25,7 @@ The Aikido Project has the following features:
 The Aikido Project was built using the following technologies:
 
 - Angular 15
+- RxJS
 - Typescript
 - Sass
 - Firebase
